@@ -1,0 +1,18 @@
+# public/admin/config.yml
+backend:
+  name: git-gateway
+  branch: main # Branch to update (use `main` if your default branch is `main`)
+
+media_folder: "public/images/uploads" # Folder where user uploads go
+public_folder: "/images/uploads"
+
+collections:
+  - name: "homepage"
+    label: "Homepage"
+    files:
+      - file: "src/pages/index.md"
+        label: "Homepage Message"
+        name: "message"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Body", name: "body", widget: "markdown" }
