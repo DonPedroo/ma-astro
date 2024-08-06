@@ -15,12 +15,12 @@ sections:
       modern world.
   - type: quotes
     quotes:
+      - quote: a photographic shout-out to hip-hop
+        author: financial times
       - quote: mass appeal & sony music new product releases
         author: Adweek
       - quote: Don’t Just Talk about it. be about it
         author: Adweek
-      - quote: a photographic shout-out to hip-hop
-        author: financial times
 ---
 
 # Home Page Content
