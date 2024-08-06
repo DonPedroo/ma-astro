@@ -1,5 +1,38 @@
 ---
 import MainLayout from '../layouts/Layout.astro';
+
+interface Frontmatter {
+  title: string;
+}
+
+interface MarkdownFile {
+  frontmatter: Frontmatter;
+  default: any; // Adjust this type based on your content structure
+}
+
+const allPages = import.meta.glob<MarkdownFile>('../pages/**/*.md', { eager: true });
+// console.log('All pages:', allPages);
+
+const post = allPages['./home.md']; // Use './index.md' based on the log output
+
+if (!post) {
+  console.error('Post not found');
+} else {
+  console.log('Post found:', post);
+}
+
+const data = post?.frontmatter || { title: 'Home Page' };
+const Content = post?.default || 'Content not found.';
+---
+
+<MainLayout title="Home">
+  <h1>{data.title}</h1>
+  <Content />
+</MainLayout>
+
+
+<!-- ---
+import MainLayout from '../layouts/Layout.astro';
 ---
 
 <MainLayout title="Home">
@@ -9,4 +42,4 @@ import MainLayout from '../layouts/Layout.astro';
 
   <p>This is the content of the home page.</p>
 
-</MainLayout>
+</MainLayout> -->
