@@ -1,5 +1,5 @@
 ---
-title: Welcome to My Updated Astro Site!
+title: test cms
 ---
 
 This is the content of the index page.
