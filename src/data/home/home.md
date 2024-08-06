@@ -2,16 +2,23 @@
 title: Home Page
 sections:
   - type: introduction
-    field1: "Welcome to My Site"
-    field2: "This is a brief introduction."
+    field1: THE ELEVATED VOICE OF HIP HOP
+    field2: since 1996
   - type: largeParagraph
-    content: "This is a large paragraph of text for section 2. It contains detailed information about the topic."
+    content: |-
+      we inspire current and future
+
+      generations by continuing to lead and
+
+      tell the stories that matter for the
+
+      modern world.
   - type: quotes
     quotes:
-      - quote: "This is an inspiring quote."
-        author: "Author One"
-      - quote: "Another insightful quote."
-        author: "Author Two"
+      - quote: mass appeal & sony music new product releases
+        author: Adweek
+      - quote: Don’t Just Talk about it. be about it
+        author: Adweek
 ---
 
 # Home Page Content
