@@ -21,6 +21,7 @@ sections:
   - type: introduction
     field1: THE ELEVATED VOICE OF HIP HOP
     field2: since 1996
+  - type: projects
   
 ---
 
