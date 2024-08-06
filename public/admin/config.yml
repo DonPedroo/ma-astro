@@ -10,7 +10,7 @@ collections:
   - name: "homepage"
     label: "Homepage"
     files:
-      - file: "src/pages/index.md"
+      - file: "src/pages/home.md"
         label: "Homepage Message"
         name: "message"
         fields:
