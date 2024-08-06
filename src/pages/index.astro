@@ -3,17 +3,31 @@ import MainLayout from '../layouts/Layout.astro';
 
 interface Frontmatter {
   title: string;
+  sections: Section[];
+}
+
+interface Section {
+  type: string;
+  field1?: string;
+  field2?: string;
+  content?: string;
+  quotes?: Quote[];
+}
+
+interface Quote {
+  quote: string;
+  author: string;
 }
 
 interface MarkdownFile {
   frontmatter: Frontmatter;
-  default: any; // Adjust this type based on your content structure
+  default: any;
 }
 
-const allPages = import.meta.glob<MarkdownFile>('../pages/**/*.md', { eager: true });
-// console.log('All pages:', allPages);
+const allPages = import.meta.glob<MarkdownFile>('../data/**/*.md', { eager: true });
+console.log('All pages:', allPages);
 
-const post = allPages['./home.md']; // Use './index.md' based on the log output
+const post = allPages['../data/home/home.md'];
 
 if (!post) {
   console.error('Post not found');
@@ -21,25 +35,38 @@ if (!post) {
   console.log('Post found:', post);
 }
 
-const data = post?.frontmatter || { title: 'Home Page' };
+const data = post?.frontmatter || { title: 'Home Page', sections: [] };
 const Content = post?.default || 'Content not found.';
 ---
 
-<MainLayout title="Home">
+<MainLayout title={data.title}>
   <h1>{data.title}</h1>
-  <Content />
+
+  {data.sections.map((section) => {
+    if (section.type === 'introduction') {
+      return (
+        <div>
+          <h2>{section.field1}</h2>
+          <p>{section.field2}</p>
+        </div>
+      );
+    } else if (section.type === 'largeParagraph') {
+      return (
+        <div>
+          <p>{section.content}</p>
+        </div>
+      );
+    } else if (section.type === 'quotes' && section.quotes) {
+      return (
+        <div>
+          {section.quotes.map((quote) => (
+            <blockquote>
+              <p>"{quote.quote}"</p>
+              <footer>— {quote.author}</footer>
+            </blockquote>
+          ))}
+        </div>
+      );
+    }
+  })}
 </MainLayout>
-
-
-<!-- ---
-import MainLayout from '../layouts/Layout.astro';
----
-
-<MainLayout title="Home">
-  <h1>Welcome to the Updated !!! Home Page ZZZ</h1>
-  <p>This is the content of the home page.</p>
-  <p>This is the content of the home page.</p>
-
-  <p>This is the content of the home page.</p>
-
-</MainLayout> -->
