@@ -1,8 +1,8 @@
 backend:
   name: git-gateway
-  branch: main # Branch to update (use `main` if your default branch is `main`)
+  branch: main
 
-media_folder: "public/images/uploads" # Folder where user uploads go
+media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
@@ -39,3 +39,25 @@ collections:
                     fields:
                       - { label: "Quote", name: "quote", widget: "string" }
                       - { label: "Author", name: "author", widget: "string" }
+              - label: "Projects"
+                name: "projects"
+                widget: "object"
+                fields:
+                  - label: "Projects List"
+                    name: "projects"
+                    widget: "list"
+                    fields:
+                      - { label: "Project Title", name: "title", widget: "string" }
+                      - { label: "Project Description", name: "description", widget: "string" }
+                      - { label: "Project URL", name: "url", widget: "string" }
+
+  - name: "projects"
+    label: "Projects"
+    folder: "src/data/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Body", name: "body", widget: "markdown" }

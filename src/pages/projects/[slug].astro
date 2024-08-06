@@ -1,0 +1,20 @@
+---
+import type { MarkdownInstance } from 'astro';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+
+// Load all markdown files from the projects directory
+const allProjects = import.meta.glob('../../data/projects/*.md', { eager: true });
+
+// Extract the slug from the URL
+const { slug } = Astro.params;
+const projectPath = `../../data/projects/${slug}.md`;
+const project = allProjects[projectPath] as MarkdownInstance<{ title: string; date: string; description: string; }> | undefined;
+
+if (!project) {
+  throw new Error(`Project not found: ${slug}`);
+}
+
+const { frontmatter, default: Content } = project;
+---
+
+<ProjectLayout frontmatter={frontmatter} Content={Content} />

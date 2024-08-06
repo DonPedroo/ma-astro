@@ -1,0 +1,26 @@
+---
+import type { MarkdownInstance } from 'astro';
+import MainLayout from './Layout.astro';
+
+interface Frontmatter {
+  title: string;
+  date: string;
+  description: string;
+}
+
+interface ProjectPageProps {
+  frontmatter: Frontmatter;
+  Content: MarkdownInstance<Frontmatter>['default'];
+}
+
+const { frontmatter, Content } = Astro.props as ProjectPageProps;
+---
+
+<MainLayout title={frontmatter.title}>
+  <article>
+    <h1>{frontmatter.title}</h1>
+    <p><em>{new Date(frontmatter.date).toLocaleDateString()}</em></p>
+    <p>{frontmatter.description}</p>
+    <Content />
+  </article>
+</MainLayout>
