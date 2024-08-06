@@ -3,8 +3,10 @@ import MainLayout from '../layouts/Layout.astro';
 
 interface Frontmatter {
   title: string;
+  description?: string;
   sections: Section[];
 }
+
 
 interface Section {
   type: string;
@@ -12,7 +14,6 @@ interface Section {
   field2?: string;
   content?: string;
   quotes?: Quote[];
-  projects?: Project[];
 }
 
 interface Quote {
@@ -31,6 +32,7 @@ interface MarkdownFile {
   default: any;
 }
 
+// Load the homepage content
 const allPages = import.meta.glob<MarkdownFile>('../data/**/*.md', { eager: true });
 console.log('All pages:', allPages);
 
@@ -41,6 +43,14 @@ if (!post) {
 } else {
   console.log('Post found:', post);
 }
+
+// Load all project files
+const allProjects = import.meta.glob<MarkdownFile>('../data/projects/*.md', { eager: true });
+const projects: Project[] = Object.values(allProjects).map((project) => ({
+  title: project.frontmatter.title,
+  description: project.frontmatter.description,
+  url: `/projects/${project.frontmatter.title.replace(/\s+/g, '-').toLowerCase()}`,
+}));
 
 const data = post?.frontmatter || { title: 'Home Page', sections: [] };
 const Content = post?.default || 'Content not found.';
@@ -74,20 +84,18 @@ const Content = post?.default || 'Content not found.';
           ))}
         </div>
       );
-    } else if (section.type === 'projects' && section.projects) {
-      return (
-        <div>
-          <h2>Projects</h2>
-          <ul>
-            {section.projects.map((project) => (
-              <li>
-                <a href={project.url}>{project.title}</a>
-                <p>{project.description}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
     }
   })}
+
+  <div>
+    <h2>Projects</h2>
+    <ul>
+      {projects.map((project) => (
+        <li>
+          <a href={project.url}>{project.title}</a>
+          <p>{project.description}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
 </MainLayout>

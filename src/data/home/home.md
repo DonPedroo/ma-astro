@@ -21,13 +21,7 @@ sections:
   - type: introduction
     field1: THE ELEVATED VOICE OF HIP HOP
     field2: since 1996
-  - type: projects
-    projects:
-      - title: Hip Hop 50 live
-        description: On the 50th Anniversary of Hip Hop, we took it back to where it all
-          began. HIP HOP 50 LIVE at Yankee Stadium was a once-in-a-lifetime
-          concert, featuring some of the most iconic names in music.
-        url: hip-hop
+  
 ---
 
 # Home Page Content
