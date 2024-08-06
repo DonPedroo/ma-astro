@@ -3,10 +3,9 @@ import MainLayout from '../layouts/Layout.astro';
 
 interface Frontmatter {
   title: string;
-  description?: string;
   sections: Section[];
+  description?: string; // Add description here
 }
-
 
 interface Section {
   type: string;
@@ -14,6 +13,7 @@ interface Section {
   field2?: string;
   content?: string;
   quotes?: Quote[];
+  projects?: string[];
 }
 
 interface Quote {
@@ -32,8 +32,8 @@ interface MarkdownFile {
   default: any;
 }
 
-// Load the homepage content
 const allPages = import.meta.glob<MarkdownFile>('../data/**/*.md', { eager: true });
+const allProjects = import.meta.glob<MarkdownFile>('../data/projects/*.md', { eager: true });
 console.log('All pages:', allPages);
 
 const post = allPages['../data/home/home.md'];
@@ -44,16 +44,18 @@ if (!post) {
   console.log('Post found:', post);
 }
 
-// Load all project files
-const allProjects = import.meta.glob<MarkdownFile>('../data/projects/*.md', { eager: true });
-const projects: Project[] = Object.values(allProjects).map((project) => ({
-  title: project.frontmatter.title,
-  description: project.frontmatter.description,
-  url: `/projects/${project.frontmatter.title.replace(/\s+/g, '-').toLowerCase()}`,
-}));
-
 const data = post?.frontmatter || { title: 'Home Page', sections: [] };
 const Content = post?.default || 'Content not found.';
+
+// Map project titles to their respective project data
+const projectsMap = Object.values(allProjects).reduce((map, project) => {
+  map[project.frontmatter.title] = {
+    title: project.frontmatter.title,
+    description: project.frontmatter.description || '', // Default to an empty string if description is not present
+    url: `/projects/${project.frontmatter.title.toLowerCase().replace(/\s+/g, '-')}`,
+  };
+  return map;
+}, {} as Record<string, Project>);
 ---
 
 <MainLayout title={data.title}>
@@ -84,18 +86,23 @@ const Content = post?.default || 'Content not found.';
           ))}
         </div>
       );
+    } else if (section.type === 'projects' && section.projects) {
+      return (
+        <div>
+          <h2>Projects</h2>
+          <ul>
+            {section.projects.map((projectTitle) => {
+              const project = projectsMap[projectTitle];
+              return (
+                <li>
+                  <a href={project.url}>{project.title}</a>
+                  <p>{project.description}</p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      );
     }
   })}
-
-  <div>
-    <h2>Projects</h2>
-    <ul>
-      {projects.map((project) => (
-        <li>
-          <a href={project.url}>{project.title}</a>
-          <p>{project.description}</p>
-        </li>
-      ))}
-    </ul>
-  </div>
 </MainLayout>

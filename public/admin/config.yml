@@ -45,11 +45,13 @@ collections:
                 fields:
                   - label: "Projects List"
                     name: "projects"
-                    widget: "list"
-                    fields:
-                      - { label: "Project Title", name: "title", widget: "string" }
-                      - { label: "Project Description", name: "description", widget: "string" }
-                      - { label: "Project URL", name: "url", widget: "string" }
+                    widget: "relation"
+                    collection: "projects"
+                    multiple: true
+                    search_fields: ["title"]
+                    value_field: "title"
+                    display_fields: ["title"]
+             
 
   - name: "projects"
     label: "Projects"
