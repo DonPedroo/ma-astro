@@ -5,6 +5,7 @@ sections:
     projects:
       - test
       - hip hop 50
+      - one more test
   - type: largeParagraph
     content: |-
       we inspire current and future
