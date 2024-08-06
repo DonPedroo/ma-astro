@@ -2,23 +2,22 @@
 import type { MarkdownInstance } from 'astro';
 import ProjectLayout from '../../layouts/ProjectLayout.astro';
 
-// Extract the slug from the URL
-const { slug } = Astro.params;
-
-const projectPath = `../../data/projects/${slug}.md`;
-
 // Function to generate paths for all projects
 export async function getStaticPaths() {
   // Load all markdown files from the projects directory
   const allProjects = import.meta.glob('../../data/projects/*.md', { eager: true });
-  
+
   const paths = Object.keys(allProjects).map((path) => {
     const slug = path.split('/').pop()?.replace('.md', '');
     return { params: { slug } };
   });
-  return { paths };
+
+  return paths;
 }
 
+// Extract the slug from the URL
+const { slug } = Astro.params;
+const projectPath = `../../data/projects/${slug}.md`;
 const allProjects = import.meta.glob('../../data/projects/*.md', { eager: true });
 const project = allProjects[projectPath] as MarkdownInstance<{ title: string; date: string; description: string; }> | undefined;
 
