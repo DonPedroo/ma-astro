@@ -15,6 +15,15 @@ if (!project) {
 }
 
 const { frontmatter, default: Content } = project;
+
+// Function to generate paths for all projects
+export async function getStaticPaths() {
+  const paths = Object.keys(allProjects).map((path) => {
+    const slug = path.split('/').pop()?.replace('.md', '');
+    return { params: { slug } };
+  });
+  return { paths };
+}
 ---
 
 <ProjectLayout frontmatter={frontmatter} Content={Content} />
