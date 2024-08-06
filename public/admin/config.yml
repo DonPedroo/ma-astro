@@ -9,7 +9,7 @@ collections:
   - name: "homepage"
     label: "Homepage"
     files:
-      - file: "data/home/home.md"
+      - file: "src/data/home/home.md"
         label: "Homepage Content"
         name: "home_content"
         fields:
