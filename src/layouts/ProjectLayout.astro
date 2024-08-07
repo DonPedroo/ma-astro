@@ -18,6 +18,7 @@ const { frontmatter, Content } = Astro.props as ProjectPageProps;
 
 <MainLayout title={frontmatter.title}>
   <article>
+    <a href="/">Close </a>
     <h1>{frontmatter.title}</h1>
     <p><em>{new Date(frontmatter.date).toLocaleDateString()}</em></p>
     <p>{frontmatter.description}</p>

@@ -4,7 +4,9 @@ import MainLayout from '../layouts/Layout.astro';
 interface Frontmatter {
   title: string;
   sections: Section[];
-  description?: string; // Add description here
+  description?: string;
+  media?: string; // Add media here
+
 }
 
 interface Section {
@@ -25,6 +27,7 @@ interface Project {
   title: string;
   description: string;
   url: string;
+  media?: string; // Add media property to Project interface
 }
 
 interface MarkdownFile {
@@ -34,7 +37,6 @@ interface MarkdownFile {
 
 const allPages = import.meta.glob<MarkdownFile>('../data/**/*.md', { eager: true });
 const allProjects = import.meta.glob<MarkdownFile>('../data/projects/*.md', { eager: true });
-console.log('All pages:', allPages);
 
 const post = allPages['../data/home/home.md'];
 
@@ -47,12 +49,12 @@ if (!post) {
 const data = post?.frontmatter || { title: 'Home Page', sections: [] };
 const Content = post?.default || 'Content not found.';
 
-// Map project titles to their respective project data
 const projectsMap = Object.values(allProjects).reduce((map, project) => {
   map[project.frontmatter.title] = {
     title: project.frontmatter.title,
-    description: project.frontmatter.description || '', // Default to an empty string if description is not present
+    description: project.frontmatter.description || '',
     url: `/projects/${project.frontmatter.title.toLowerCase().replace(/\s+/g, '-')}`,
+    media: project.frontmatter.media || '', // Add media to projectsMap
   };
   return map;
 }, {} as Record<string, Project>);
@@ -97,6 +99,14 @@ const projectsMap = Object.values(allProjects).reduce((map, project) => {
                 <li>
                   <a href={project.url}>{project.title}</a>
                   <p>{project.description}</p>
+                  {project.media && project.media.endsWith('.mp4') ? (
+                    <video controls>
+                      <source src={project.media} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : project.media ? (
+                    <img src={project.media} alt={project.title} />
+                  ) : null}
                 </li>
               );
             })}
