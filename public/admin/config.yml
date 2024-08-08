@@ -21,6 +21,7 @@ collections:
               - label: "Introduction"
                 name: "introduction"
                 widget: "object"
+                max: 1
                 fields:
                   - { label: "Field 1", name: "field1", widget: "string" }
                   - { label: "Field 2", name: "field2", widget: "string" }
@@ -32,6 +33,7 @@ collections:
               - label: "Quotes"
                 name: "quotes"
                 widget: "object"
+                max: 1
                 fields:
                   - label: "Quotes List"
                     name: "quotes"
@@ -42,6 +44,7 @@ collections:
               - label: "Projects"
                 name: "projects"
                 widget: "object"
+                max: 1
                 fields:
                   - label: "Projects List"
                     name: "projects"
@@ -51,7 +54,6 @@ collections:
                     search_fields: ["title"]
                     value_field: "title"
                     display_fields: ["title"]
-             
 
   - name: "projects"
     label: "Projects"
@@ -63,5 +65,4 @@ collections:
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Media", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-
+      - { label: "Hero Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }

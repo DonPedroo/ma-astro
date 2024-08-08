@@ -6,6 +6,7 @@ interface Frontmatter {
   title: string;
   date: string;
   description: string;
+  media?: string;
 }
 
 interface ProjectPageProps {
@@ -14,14 +15,31 @@ interface ProjectPageProps {
 }
 
 const { frontmatter, Content } = Astro.props as ProjectPageProps;
+
+function getCleanProjectName(title: string): string {
+  return title.toLowerCase().replace(/\s+/g, '-');
+}
+
+const cleanProjectName = getCleanProjectName(frontmatter.title);
+
 ---
 
 <MainLayout title={frontmatter.title}>
   <article>
     <a href="/">Close </a>
     <h1>{frontmatter.title}</h1>
-    <p><em>{new Date(frontmatter.date).toLocaleDateString()}</em></p>
     <p>{frontmatter.description}</p>
+    <div id={cleanProjectName}>
+    {frontmatter.media && frontmatter.media.endsWith('.mp4') ? (
+    <video autoplay muted playsinline loop transition:persist transition:name={cleanProjectName}>
+      <source src={frontmatter.media} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  ) : frontmatter.media ? (
+    <img src={frontmatter.media} alt={frontmatter.title} />
+  ) : null}
+  </div>
+
     <Content />
   </article>
 </MainLayout>
