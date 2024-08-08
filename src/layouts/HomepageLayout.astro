@@ -1,0 +1,25 @@
+---
+const { title, isHomePage } = Astro.props;
+
+import { ViewTransitions } from 'astro:transitions';
+import '../styles/global.css';
+---
+
+<html>
+  <head>
+    <title>{title}</title>
+    <ViewTransitions />
+  </head>
+  <body class="bg-black text-white" id={isHomePage ? 'home' : 'detailed'}>
+    <header>
+    </header>
+    <div id="smooth-wrapper">
+      <div id="smooth-content">
+    <main>
+      <slot></slot>
+    </main>
+    </div>
+    </div>
+    <script src="../scripts/app.js"></script>
+  </body>
+</html>

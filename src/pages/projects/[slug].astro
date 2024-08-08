@@ -26,6 +26,8 @@ if (!project) {
 }
 
 const { frontmatter, default: Content } = project;
+
+const isHomePage = false; 
 ---
 
-<ProjectLayout frontmatter={frontmatter} Content={Content} />
+<ProjectLayout frontmatter={frontmatter} Content={Content} isHomePage={isHomePage} />

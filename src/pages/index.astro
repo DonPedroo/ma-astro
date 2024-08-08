@@ -1,5 +1,5 @@
 ---
-import MainLayout from '../layouts/Layout.astro';
+import MainLayout from '../layouts/HomepageLayout.astro';
 
 interface Frontmatter {
   title: string;
@@ -62,11 +62,14 @@ const projectsMap = Object.values(allProjects).reduce((map, project) => {
 function getCleanProjectName(url: string): string {
   return url.replace('/projects/', '');
 }
+const isHomePage = true;
+
+
 
 ---
 
-<MainLayout title={data.title}>
-  <h1>{data.title}</h1>
+<MainLayout title={data.title} isHomePage={isHomePage}>
+  <h1 class="text-3xl font-bold underline text-red-500">{data.title}</h1>
 
   {data.sections.map((section) => {
     if (section.type === 'introduction') {
@@ -107,12 +110,12 @@ function getCleanProjectName(url: string): string {
                   <p>{project.description}</p>
                   <div id={cleanProjectName}>
                     {project.media && project.media.endsWith('.mp4') ? (
-                      <video autoplay muted playsinline loop transition:persist transition:name={cleanProjectName}>
+                      <video autoplay muted playsinline loop transition:persist transition:name={cleanProjectName} >
                         <source src={project.media} type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     ) : project.media ? (
-                      <img src={project.media} alt={project.title} />
+                      <img src={project.media} alt={project.title} transition:persist transition:name={cleanProjectName} />
                     ) : null}
                   </div>
                 </li>

@@ -1,6 +1,6 @@
 ---
 import type { MarkdownInstance } from 'astro';
-import MainLayout from './Layout.astro';
+import MainLayout from './HomepageLayout.astro';
 
 interface Frontmatter {
   title: string;
@@ -22,6 +22,7 @@ function getCleanProjectName(title: string): string {
 
 const cleanProjectName = getCleanProjectName(frontmatter.title);
 
+
 ---
 
 <MainLayout title={frontmatter.title}>
@@ -31,12 +32,12 @@ const cleanProjectName = getCleanProjectName(frontmatter.title);
     <p>{frontmatter.description}</p>
     <div id={cleanProjectName}>
     {frontmatter.media && frontmatter.media.endsWith('.mp4') ? (
-    <video autoplay muted playsinline loop transition:persist transition:name={cleanProjectName}>
+    <video autoplay muted playsinline loop transition:persist transition:name={cleanProjectName} >
       <source src={frontmatter.media} type="video/mp4" />
       Your browser does not support the video tag.
     </video>
   ) : frontmatter.media ? (
-    <img src={frontmatter.media} alt={frontmatter.title} />
+    <img src={frontmatter.media} alt={frontmatter.title} transition:persist transition:name={cleanProjectName} />
   ) : null}
   </div>
 
