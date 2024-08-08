@@ -14,47 +14,46 @@ collections:
         name: "home_content"
         fields:
           - { label: "Title", name: "title", widget: "string" }
-
-          # Introduction Section
-          - label: "Introduction"
-            name: "introduction"
-            widget: "object"
-            fields:
-              - { label: "Field 1", name: "field1", widget: "string" }
-              - { label: "Field 2", name: "field2", widget: "string" }
-
-          # Large Paragraph Section
-          - label: "Large Paragraphs"
-            name: "largeParagraphs"
+          - label: "Sections"
+            name: "sections"
             widget: "list"
-            fields:
-              - { label: "Content", name: "content", widget: "markdown" }
-
-          # Quotes Section
-          - label: "Quotes"
-            name: "quotes"
-            widget: "object"
-            fields:
-              - label: "Quotes List"
-                name: "quotes"
-                widget: "list"
+            types:
+              - label: "Introduction"
+                name: "introduction"
+                widget: "object"
+                max: 1
                 fields:
-                  - { label: "Quote", name: "quote", widget: "string" }
-                  - { label: "Author", name: "author", widget: "string" }
-
-          # Projects Section
-          - label: "Projects"
-            name: "projects"
-            widget: "object"
-            fields:
-              - label: "Projects List"
+                  - { label: "Field 1", name: "field1", widget: "string" }
+                  - { label: "Field 2", name: "field2", widget: "string" }
+              - label: "Large Paragraph"
+                name: "largeParagraph"
+                widget: "object"
+                fields:
+                  - { label: "Content", name: "content", widget: "markdown" }
+              - label: "Quotes"
+                name: "quotes"
+                widget: "object"
+                max: 1
+                fields:
+                  - label: "Quotes List"
+                    name: "quotes"
+                    widget: "list"
+                    fields:
+                      - { label: "Quote", name: "quote", widget: "string" }
+                      - { label: "Author", name: "author", widget: "string" }
+              - label: "Projects"
                 name: "projects"
-                widget: "relation"
-                collection: "projects"
-                multiple: true
-                search_fields: ["title"]
-                value_field: "title"
-                display_fields: ["title"]
+                widget: "object"
+                max: 1
+                fields:
+                  - label: "Projects List"
+                    name: "projects"
+                    widget: "relation"
+                    collection: "projects"
+                    multiple: true
+                    search_fields: ["title"]
+                    value_field: "title"
+                    display_fields: ["title"]
 
   - name: "projects"
     label: "Projects"
