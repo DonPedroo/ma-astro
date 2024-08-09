@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 //   }
 new NavigationHandler();
 
-// new GsapAnimations(sceneInstance ? sceneInstance.getScene() : null);
+// new GsapAnimations();
 });
 
 

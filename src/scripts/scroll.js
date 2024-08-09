@@ -1,37 +1,46 @@
-// src/scripts/scroll.js
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import { ScrollSmoother } from "gsap/ScrollSmoother";
-import { ScrollSmoother } from "../plugins/gsap/ScrollSmoother"; 
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 export class Scroll {
   constructor() {
     this.smoother = null;
+    this.ctx = null;  // Initialize the context variable
   }
 
-  // Function to initialize ScrollSmoother
+  // Function to initialize ScrollSmoother using gsap.context
   initScrollSmoother() {
-    if (!this.smoother) {
-      setTimeout(() => {
-        this.smoother = ScrollSmoother.create({
-          smooth: 1.5,
-          effects: true,  // You can add more options as needed
-        });
-        this.smoother.refresh();
-        console.log(">>> ScrollSmoother initialized", this.smoother);
-      }, 1000); // 1-second delay
-    }
+    // if (!this.smoother) {
+    //   this.ctx = gsap.context(() => {
+    //     this.smoother = ScrollSmoother.create({
+    //       smooth: 1.5,
+    //       effects: true,
+    //     });
+       
+    //   });
+              document.body.style.height = '3000px';
+
+    // }
   }
 
-  // Function to kill ScrollSmoother
+  // Function to kill ScrollSmoother and clean up the context
   killScrollSmoother() {
-    if (this.smoother) {
-        console.log(">>> ScrollSmoother killed",this.smoother);
+    // if (this.smoother) {
 
-      this.smoother.kill();
-      this.smoother = null;
-    }
+
+
+    //   if (this.ctx) {
+    //     this.ctx.revert();  // Revert all animations in the context
+    //     this.ctx = null;  // Clean up the context
+    //   }
+      
+    //   this.smoother.kill();
+    //   this.smoother = null;
+
+      // Optional: Set body height for testing
+      document.body.style.height = '1000px';
+    // }
   }
 }

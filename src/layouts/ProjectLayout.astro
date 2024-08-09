@@ -26,21 +26,25 @@ const cleanProjectName = getCleanProjectName(frontmatter.title);
 ---
 
 <MainLayout title={frontmatter.title}>
-  <article>
+ 
+  <section>
+    <div class="absolute top-0 left-0 z-10">
     <a href="/">Close </a>
     <h1>{frontmatter.title}</h1>
     <p>{frontmatter.description}</p>
-    <div id={cleanProjectName}>
+  </div>
+    <div id={cleanProjectName} class="absolute top-0 left-0 z-0">
     {frontmatter.media && frontmatter.media.endsWith('.mp4') ? (
-    <video autoplay muted playsinline loop transition:persist transition:name={cleanProjectName} >
+    <video autoplay muted playsinline loop transition:persist transition:animate="none" transition:name={cleanProjectName} >
       <source src={frontmatter.media} type="video/mp4" />
       Your browser does not support the video tag.
     </video>
   ) : frontmatter.media ? (
-    <img src={frontmatter.media} alt={frontmatter.title} transition:persist transition:name={cleanProjectName} />
+    <img src={frontmatter.media} alt={frontmatter.title} transition:persist transition:animate="none" transition:name={cleanProjectName} />
   ) : null}
   </div>
 
     <Content />
-  </article>
+  </section>
+
 </MainLayout>

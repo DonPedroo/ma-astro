@@ -1,5 +1,6 @@
 ---
 import MainLayout from '../layouts/HomepageLayout.astro';
+import ProjectItem from '../components/ProjectItem.astro'; // Import the component
 
 interface Frontmatter {
   title: string;
@@ -69,62 +70,51 @@ const isHomePage = true;
 ---
 
 <MainLayout title={data.title} isHomePage={isHomePage}>
-  <h1 class="text-3xl font-bold underline text-red-500">{data.title}</h1>
 
   {data.sections.map((section) => {
     if (section.type === 'introduction') {
       return (
-        <div>
+        <section class="h-screen bg-red-300/25">
           <h2>{section.field1}</h2>
           <p>{section.field2}</p>
-        </div>
+        </section>
       );
     } else if (section.type === 'largeParagraph') {
       return (
-        <div>
+        <section class="h-screen bg-blue-600/25">
           <p>{section.content}</p>
-        </div>
+        </section>
       );
     } else if (section.type === 'quotes' && section.quotes) {
       return (
-        <div>
+        <section class="h-screen bg-green-300/25">
           {section.quotes.map((quote) => (
             <blockquote>
               <p>"{quote.quote}"</p>
               <footer>— {quote.author}</footer>
             </blockquote>
           ))}
-        </div>
+        </section>
       );
     } else if (section.type === 'projects' && section.projects) {
       return (
-        <div>
-          <h2>Projects</h2>
-          <ul>
+          <>
             {section.projects.map((projectTitle) => {
               const project = projectsMap[projectTitle];
               const cleanProjectName = getCleanProjectName(project.url); // Get clean project name
+
               return (
-                <li>
-                  <a href={project.url}>{project.title}</a>
-                  <p>{project.description}</p>
-                  <div id={cleanProjectName}>
-                    {project.media && project.media.endsWith('.mp4') ? (
-                      <video autoplay muted playsinline loop transition:persist transition:name={cleanProjectName} >
-                        <source src={project.media} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    ) : project.media ? (
-                      <img src={project.media} alt={project.title} transition:persist transition:name={cleanProjectName} />
-                    ) : null}
-                  </div>
-                </li>
+                <ProjectItem
+                  title={project.title}
+                  description={project.description}
+                  url={project.url}
+                  media={project.media}
+                  cleanProjectName={cleanProjectName}
+                />
               );
             })}
-
-          </ul>
-        </div>
-      );
+</>
+          );
     }
   })}
 </MainLayout>

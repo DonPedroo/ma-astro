@@ -1,0 +1,29 @@
+---
+// ProjectItem.astro
+
+interface Props {
+  title: string;
+  description: string;
+  url: string;
+  media?: string;
+  cleanProjectName: string;
+}
+
+const { title, description, url, media, cleanProjectName } = Astro.props;
+---
+
+<section class="h-screen bg-purple-400/25 relative">
+   
+  <a href={url}>{title}</a>
+  <p>{description}</p>
+  <div id={cleanProjectName}>
+    {media && media.endsWith('.mp4') ? (
+      <video autoplay muted playsinline loop transition:persist transition:animate="none" transition:name={cleanProjectName}>
+        <source src={media} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    ) : media ? (
+      <img src={media} alt={title} transition:persist transition:animate="none" transition:name={cleanProjectName} />
+    ) : null}
+  </div>
+</section>

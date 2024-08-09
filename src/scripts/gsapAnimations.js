@@ -5,43 +5,45 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export class GsapAnimations {
-  constructor(scene) {
-    this.scene = scene;
-    // this.initScrollTriggers();
+  constructor() {
+    this.gsapContext = null; // Initialize the gsapContext
+    this.initScrollTriggers();
   }
-
-
 
   initScrollTriggers() {
-    // Example scroll trigger animation
-    gsap.to(".element", {
-      scrollTrigger: {
-        trigger: ".element",
-        start: "top center",
-        end: "bottom center",
-        scrub: true,
-        onEnter: () => this.animateScene(),
-      },
-      x: 100,
-      duration: 2,
-    });
-  }
+    // Create a GSAP context
+    this.gsapContext = gsap.context(() => {
+      document.querySelectorAll("section").forEach((section) => {
+        // Define ScrollTrigger properties for each section
+        const triggerProps = {
+          trigger: section,
+          start: "top top",
+          end: "bottom top",
+          // markers: true, // You can remove this in production
+          // scrub: true, // Smoothly scrubs the animation as you scroll
+          onEnter: () => {
+            // Custom animation logic on enter
+            console.log(`Entering section: ${section.id}`);
+          },
+          onLeave: () => {
+            // Custom animation logic on leave
+            console.log(`Leaving section: ${section.id}`);
+          },
+        };
 
-  animateScene() {
-    if (this.scene) {
-      // Example animation interacting with the Three.js scene
-      gsap.to(this.scene.rotation, {
-        y: "+=0.5",
-        duration: 1,
-        ease: "power1.inOut"
+        // Create the ScrollTrigger for this section
+        ScrollTrigger.create(triggerProps);
       });
-    }
+    }); // No scene/context element binding, as it's not required
   }
 
-  updateScene() {
-    if (this.scene) {
-      // Logic to update the Three.js scene based on ScrollSmoother updates
-      console.log("ScrollSmoother updated - update Three.js scene if needed");
+  // Function to kill all ScrollTriggers and clear the GSAP context
+  killScrollTriggers() {
+    if (this.gsapContext) {
+      this.gsapContext.revert(); // Kills all animations and ScrollTriggers within the context
+      this.gsapContext = null; // Clear the context reference
+      ScrollTrigger.getAll().forEach((st) => st.kill()); // Extra cleanup if needed
+      console.log("All ScrollTriggers killed and GSAP context cleared.");
     }
   }
 }
