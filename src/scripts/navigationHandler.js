@@ -1,4 +1,4 @@
-import { Scroll } from './scroll';
+// import { Scroll } from './scroll';
 import { GsapAnimations } from "./gsapAnimations";
 import barba from '@barba/core';
 import gsap from 'gsap';
