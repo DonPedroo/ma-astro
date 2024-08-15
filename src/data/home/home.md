@@ -29,6 +29,17 @@ sections:
         author: Vibe
       - quote: more embrace ‘sisterhood’ as young women in hip-hop
         author: Rolling Stone
+    additionalParagraph:
+      content: |-
+        We relish the opportunity to
+
+        collaborate with partners that want
+
+        to join us in our mission to elevate
+
+        divesity within mainstream media and
+
+        entertainment.
   - type: introduction
     field1: THE ELEVATED VOICE OF HIP HOP
     field2: since 1996
