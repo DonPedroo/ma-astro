@@ -2,8 +2,8 @@
 title: Home Page
 sections:
   - type: introduction
-    field1: THE ELEVATED VOICE OF HIP HOP
-    field2: since 1996
+    introField1: THE ELEVATED VOICE OF HIP HOP
+    introField2: since 1996
     media: /images/uploads/header.mp4
   - type: largeParagraph
     content: |-
@@ -44,9 +44,9 @@ sections:
       - hip hop 50 live
   - type: footer
     media: /images/uploads/footer.mp4
-    field1: since 1996 to forever
-    field2: info@massappeal.com
-    field3: world renowned 2024
+    footerField1: since 1996 to forever
+    footerField2: info@massappeal.com
+    footerField3: world renowned 2024
 ---
 
 # Home Page Content
