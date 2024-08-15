@@ -1,6 +1,6 @@
 // src/scripts/app.js
 // import { GsapAnimations } from "./gsapAnimations";
-// import { ThreeScene } from "./threeScene";
+import { ThreeScene } from "./threeScene";
 import { NavigationHandler } from "./navigationHandler";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,12 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log("app")
 
-//   if (window.innerWidth >= 1024) { 
-//     sceneInstance = new ThreeScene();
-//   }
-new NavigationHandler();
-
-// new GsapAnimations();
+  // if (window.innerWidth >= 1024) { 
+  //   sceneInstance = new ThreeScene();
+  // }
+new NavigationHandler();  
+new ThreeScene();
 });
 
 

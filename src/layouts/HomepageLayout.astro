@@ -1,22 +1,42 @@
 ---
 const { title, isHomePage } = Astro.props;
 
-// import { ViewTransitions } from 'astro:transitions';
+import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 
 ---
+<!--
 
-<html>
+   _____                                _____                              .__   
+  /     \ _____    ______ ______       /  _  \ ______ ______   ____ _____  |  |  
+ /  \ /  \\__  \  /  ___//  ___/      /  /_\  \\____ \\____ \_/ __ \\__  \ |  |  
+/    Y    \/ __ \_\___ \ \___ \      /    |    \  |_> >  |_> >  ___/ / __ \|  |__
+\____|__  (____  /____  >____  >     \____|__  /   __/|   __/ \___  >____  /____/
+        \/     \/     \/     \/              \/|__|   |__|        \/     \/      
+
+
+-->
+<!doctype html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./public/images/ma-fav.svg" />
     <title>{title}</title>
-    <!-- <ViewTransitions /> -->
+    <link rel="stylesheet" href="https://use.typekit.net/shx7hrr.css">
   </head>
   <body class="bg-black text-white">
     <div data-barba="wrapper">
+      <div id="smooth-wrapper">
+      <div id="smooth-content">
       <div data-barba="container" data-barba-namespace={isHomePage ? "home" : "project-detail"}>
         <slot></slot>
       </div>
+      </div>
+      </div>
+      <div id="gl" class="fixed top-0 left-0 right-0 bottom-0 w-screen h-screen -z-10"></div>
+      <div id="persistent-container" class="fixed left-0 top-0 z-10 "></div>
     </div>
     <script src="../scripts/app.js"></script>
+  </body>
   </body>
 </html>

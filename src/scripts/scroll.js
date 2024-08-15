@@ -1,46 +1,66 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-// import { ScrollSmoother } from "gsap/ScrollSmoother";
+import { ScrollSmoother } from "../plugins/gsap/ScrollSmoother";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger,ScrollSmoother);
 
 export class Scroll {
   constructor() {
     this.smoother = null;
-    this.ctx = null;  // Initialize the context variable
+    this.ctx = null;  
+
+    this.initScrollSmoother()
   }
 
-  // Function to initialize ScrollSmoother using gsap.context
   initScrollSmoother() {
-    // if (!this.smoother) {
-    //   this.ctx = gsap.context(() => {
-    //     this.smoother = ScrollSmoother.create({
-    //       smooth: 1.5,
-    //       effects: true,
-    //     });
-       
-    //   });
-              document.body.style.height = '3000px';
 
-    // }
+    if (!this.smoother) {
+
+
+
+      this.ctx = gsap.context(() => {
+  
+        this.smoother = ScrollSmoother.create({
+          smooth: .5,
+          effects: true,
+        });
+ 
+       
+      });
+
+    }
   }
 
   // Function to kill ScrollSmoother and clean up the context
   killScrollSmoother() {
-    // if (this.smoother) {
+    if (this.smoother) {
 
-
-
-    //   if (this.ctx) {
-    //     this.ctx.revert();  // Revert all animations in the context
-    //     this.ctx = null;  // Clean up the context
-    //   }
+      if (this.ctx) {
+        this.ctx.revert();  // Revert all animations in the context
+        this.ctx = null;  // Clean up the context
+      }
       
-    //   this.smoother.kill();
-    //   this.smoother = null;
+      this.smoother.kill();
+      this.smoother = null;
 
-      // Optional: Set body height for testing
-      document.body.style.height = '1000px';
-    // }
+    }
+  }
+
+  scrollToProject(t) {
+
+
+    if (t) {
+
+      ScrollTrigger.refresh();
+
+      const targetElement = document.getElementById(t);
+      const scrollPosition = this.smoother.offset(targetElement, 0);
+      this.smoother.scrollTop(scrollPosition); 
+
+    }
+
+    
+   
+
   }
 }

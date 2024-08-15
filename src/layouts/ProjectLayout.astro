@@ -22,29 +22,23 @@ function getCleanProjectName(title: string): string {
 
 const cleanProjectName = getCleanProjectName(frontmatter.title);
 
-
 ---
 
 <MainLayout title={frontmatter.title}>
- 
-  <section>
-    <div class="absolute top-0 left-0 z-10">
-    <a href="/">Close </a>
+  <section class="relative h-screen w-full" id={cleanProjectName}>
+    <a href="/" data-project-name={cleanProjectName}>Close </a>
     <h1>{frontmatter.title}</h1>
     <p>{frontmatter.description}</p>
-  </div>
-    <div id={cleanProjectName} class="absolute top-0 left-0 z-0">
+    <div id={cleanProjectName} class="absolute inset-0 z-[-1]" >
     {frontmatter.media && frontmatter.media.endsWith('.mp4') ? (
-    <video autoplay muted playsinline loop transition:persist transition:animate="none" transition:name={cleanProjectName} >
+    <video autoplay muted playsinline loop  class="w-full h-full object-cover">
       <source src={frontmatter.media} type="video/mp4" />
       Your browser does not support the video tag.
     </video>
   ) : frontmatter.media ? (
-    <img src={frontmatter.media} alt={frontmatter.title} transition:persist transition:animate="none" transition:name={cleanProjectName} />
+    <img src={frontmatter.media} alt={frontmatter.title}  class="w-full h-full object-cover" />
   ) : null}
   </div>
-
     <Content />
   </section>
-
 </MainLayout>

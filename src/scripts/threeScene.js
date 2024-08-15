@@ -12,8 +12,15 @@ export class ThreeScene {
     this.camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.renderer = new WebGLRenderer();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(this.renderer.domElement);
+    // Find the div with ID "gl"
+    const glDiv = document.getElementById('gl');
 
+    // Ensure the div exists before appending the canvas
+    if (glDiv) {
+      glDiv.appendChild(this.renderer.domElement);
+    } else {
+      console.error('Div with ID "gl" not found');
+    }
     this.geometry = new BoxGeometry();
     this.material = new MeshBasicMaterial({ color: 0x00ff00 });
     this.cube = new Mesh(this.geometry, this.material);
