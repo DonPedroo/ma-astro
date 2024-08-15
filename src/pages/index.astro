@@ -17,6 +17,7 @@ interface Section {
   field2?: string;
   content?: string;
   quotes?: Quote[];
+  additionalParagraph?: { content: string };
   projects?: string[];
 }
 
@@ -103,7 +104,7 @@ const isHomePage = true;
         </section>
       );
     } else if (section.type === 'quotes' && section.quotes) {
-      return <Quotes quotes={section.quotes} />;}
+      return <Quotes quotes={section.quotes} additionalParagraph={section.additionalParagraph}  />;}
       else if (section.type === 'projects' && section.projects) {
       return (
           <>

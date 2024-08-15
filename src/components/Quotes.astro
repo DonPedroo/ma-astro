@@ -8,9 +8,11 @@ interface Quote {
 
 interface Props {
   quotes: Quote[];
+  additionalParagraph?: { content: string };
+
 }
 
-const { quotes } = Astro.props;
+const { quotes,additionalParagraph } = Astro.props;
 
 // Function to generate the alternating rotation values
 function generateRotation(index: number): number {
@@ -20,7 +22,7 @@ function generateRotation(index: number): number {
 
 ---
 
-<section class="h-screen border border-red-700">
+<section class="h-[200vh] border border-red-700">
   {quotes.map((quote, index) => {
     const bgColor = index % 3 === 0 ? 'bg-massyellow text-black' :
                     index % 3 === 1 ? 'bg-white text-black' :
@@ -36,6 +38,14 @@ function generateRotation(index: number): number {
       </div>
     );
   })}
+
+{additionalParagraph && (
+
+         <div class="min-h-screen w-full flex items-center justify-center">
+          <h1 class="breaker transform">{additionalParagraph.content}</h1>
+        </div>
+)}
+
 </section>
 
 
