@@ -41,9 +41,7 @@ sections:
         entertainment.
   - type: projects
     projects:
-      - test
       - hip hop 50
-      - one more test
   - type: footer
     media: /images/uploads/footer.mp4
     field1: since 1996 to forever
