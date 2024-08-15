@@ -41,7 +41,7 @@ sections:
         entertainment.
   - type: projects
     projects:
-      - hip hop 50
+      - hip hop 50 live
   - type: footer
     media: /images/uploads/footer.mp4
     field1: since 1996 to forever
