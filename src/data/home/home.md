@@ -17,12 +17,18 @@ sections:
       modern world.
   - type: quotes
     quotes:
-      - quote: a photographic shout-out to hip-hop
-        author: financial times
       - quote: mass appeal & sony music new product releases
         author: Adweek
       - quote: Don’t Just Talk about it. be about it
         author: Adweek
+      - quote: a photographic shout-out to hip-hop
+        author: Financial Times
+      - quote: outkast honored with limited edition statue
+        author: Vibe
+      - quote: hip-hop celebrates golden anniversary at yankee stadium
+        author: Vibe
+      - quote: more embrace ‘sisterhood’ as young women in hip-hop
+        author: Rolling Stone
   - type: introduction
     field1: THE ELEVATED VOICE OF HIP HOP
     field2: since 1996

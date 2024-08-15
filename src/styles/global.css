@@ -445,7 +445,7 @@
 
 @layer utilities {
   .bg-paper-image {
-    background-image: url('./images/paper.webp');
+    background-image: url('/images/paper.webp');
 
   }
 }

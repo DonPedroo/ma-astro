@@ -1,6 +1,7 @@
 ---
 import MainLayout from '../layouts/HomepageLayout.astro';
 import ProjectItem from '../components/ProjectItem.astro'; // Import the component
+import Quotes from '../components/Quotes.astro'; // Import the Quotes component
 
 interface Frontmatter {
   title: string;
@@ -102,22 +103,8 @@ const isHomePage = true;
         </section>
       );
     } else if (section.type === 'quotes' && section.quotes) {
-  return (
-    <section class="h-screen border border-red-700">
-      {section.quotes.map((quote, index) => {
-        const bgColor = index % 3 === 0 ? 'bg-massyellow text-black' :
-                        index % 3 === 1 ? 'bg-white text-black' :
-                        'bg-massblue text-white';
-        
-        return (
-          <div class={`${bgColor} stripe stripe-text`}>
-            <p class="stripe-text">"{quote.quote}"</p>
-            <span class="stripe-label w-max">- {quote.author}</span>
-          </div>
-        );
-      })}
-    </section>
-  );} else if (section.type === 'projects' && section.projects) {
+      return <Quotes quotes={section.quotes} />;}
+      else if (section.type === 'projects' && section.projects) {
       return (
           <>
             {section.projects.map((projectTitle) => {

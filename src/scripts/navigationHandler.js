@@ -1,6 +1,7 @@
 import { Scroll } from './scroll';
 import { GsapAnimations } from "./gsapAnimations";
 import barba from '@barba/core';
+import { QuoteAnimations } from '../scripts/quoteAnimations'; // Adjust path as necessary
 
 export class NavigationHandler {
   constructor() {
@@ -8,6 +9,7 @@ export class NavigationHandler {
     this.triggerManager = new GsapAnimations(); 
 
     this.initBarba(); 
+    QuoteAnimations.init();
   }
 
   initBarba() {
@@ -24,6 +26,8 @@ export class NavigationHandler {
           },
           afterEnter: (data) => {
             this.triggerManager.initScrollTriggers();
+            QuoteAnimations.init();
+
             data.current.container.remove();
             const projectName = data.trigger.dataset.projectName;
             this.scrollManager.scrollToProject(projectName);
@@ -47,6 +51,8 @@ export class NavigationHandler {
           namespace: 'project-detail',
           beforeEnter: () => {
             this.triggerManager.killScrollTriggers();
+            QuoteAnimations.kill();
+
           },
           afterEnter: (data) => {
 
