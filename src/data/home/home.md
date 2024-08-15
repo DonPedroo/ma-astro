@@ -1,11 +1,9 @@
 ---
 title: Home Page
 sections:
-  - type: projects
-    projects:
-      - test
-      - hip hop 50
-      - one more test
+  - type: introduction
+    field1: THE ELEVATED VOICE OF HIP HOP
+    field2: since 1996
   - type: largeParagraph
     content: |-
       we inspire current and future
@@ -40,9 +38,11 @@ sections:
         divesity within mainstream media and
 
         entertainment.
-  - type: introduction
-    field1: THE ELEVATED VOICE OF HIP HOP
-    field2: since 1996
+  - type: projects
+    projects:
+      - test
+      - hip hop 50
+      - one more test
 ---
 
 # Home Page Content
