@@ -43,6 +43,11 @@ sections:
       - test
       - hip hop 50
       - one more test
+  - type: footer
+    media: /images/uploads/footer.mp4
+    field1: since 1996 to forever
+    field2: info@massappeal.com
+    field3: world renowned 2024
 ---
 
 # Home Page Content
