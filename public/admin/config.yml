@@ -25,13 +25,18 @@ collections:
                 fields:
                   - { label: "Field 1", name: "field1", widget: "string" }
                   - { label: "Field 2", name: "field2", widget: "string" }
+              - label: "Large Paragraph"
+                name: "largeParagraph"
+                widget: "object"
+                fields:
+                  - { label: "Content", name: "content", widget: "markdown" }
               - label: "Quotes"
-                name: "quotes"
+                name: "quotesSection"
                 widget: "object"
                 max: 1
                 fields:
-                  - label: "Large Paragraph"
-                    name: "largeParagraph"
+                  - label: "Large Paragraph in Quotes"
+                    name: "quotesLargeParagraph"
                     widget: "object"
                     fields:
                       - { label: "Content", name: "content", widget: "markdown" }
