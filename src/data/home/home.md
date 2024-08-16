@@ -4,7 +4,7 @@ introduction:
   introField1: THE ELEVATED VOICE OF HIP HOP
   introField2: since 1996
   media: /images/uploads/header.mp4
-  nav_title: Introduction
+  nav_title: ""
 sections:
   - type: largeParagraph
     content: |-
