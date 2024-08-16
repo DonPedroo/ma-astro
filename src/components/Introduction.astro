@@ -1,0 +1,44 @@
+---
+// Introduction.astro
+
+import Arrow from '../components/Arrow.astro';
+
+
+interface Props {
+  introField1: string;
+  introField2: string;
+  media?: string;
+  id: string;
+}
+
+const { introField1, introField2, media, id } = Astro.props;
+---
+
+<section id={id} class="relative w-full h-screen">
+  {media && (
+    <>
+      {media.endsWith('.mp4') ? (
+        <video autoplay muted playsinline loop class="absolute inset-0 w-full h-full object-cover">
+          <source src={media} type="video/mp4" />
+        </video>
+      ) : (
+        <img src={media} class="absolute inset-0 w-full h-full object-cover" alt="Introduction Visual" />
+      )}
+    </>
+  )}
+  <div data-speed="1.3" class="intro-mp border">
+    <img src="./images/mass-appeal.svg" alt="Mass Appeal" />
+  </div>
+  <div data-speed="1.2" class="globe">
+    <div class="globe-offset">
+      <img class="absolute rotate-infinite w-full h-full" src="./images/globe-text.svg" alt="Mass Appeal" />
+      <img class="absolute w-full h-full" src="./images/globe.svg" alt="Mass Appeal" />
+    </div>
+  </div>  
+  <div data-speed="1.25" class="intro-copy elevated ">{introField1}</div>
+  <div data-speed="1.25" class="intro-copy since">{introField2}</div>
+
+  <Arrow imgSrc="/images/arrow-up.svg" css="rotate-180 absolute bottom-36 sm:bottom-24 left-[10vw] sm:left-[30vw]" altText="Scroll Down" />
+
+
+</section>

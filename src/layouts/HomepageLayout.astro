@@ -1,8 +1,8 @@
 ---
 const { title, isHomePage } = Astro.props;
 
-import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
+import Arrow from '../components/Arrow.astro';
 
 ---
 <!--
@@ -26,6 +26,17 @@ import '../styles/global.css';
   </head>
   <body class="bg-black text-white">
     <div data-barba="wrapper">
+      <Arrow imgSrc="/images/arrow-up.svg" css="fixed bottom-8 right-8 xl:bottom-12 xl:right-12 3xl:bottom-24 3xl:right-24" altText="Scroll Down" />
+      <!-- <nav class="fixed top-0 z-40 w-full mix-blend-difference" data-nav>
+        <ul class="hidden sm:flex w-full sm:mt-8 sm:pl-8 md:pl-16 xl:pl-32 sm:pr-8 md:pr-16 xl:pr-32">
+            <li data-link class="flex-grow"><a href="#how-we-get-down" data-jump-link class="nav-link">How we<br>get down</a></li>
+            <li data-link class="flex-grow"><a href="#what-we-do" data-jump-link class="nav-link">What<br>we do</a></li>
+            <li data-link class="flex-grow"><a href="#you-heard" data-jump-link class="nav-link">You<br>heard?</a></li>
+            <li data-link class="flex-grow"><a href="#work" data-jump-link class="nav-link">Our latest<br>work</a></li>
+            <li data-link class="flex-grow"><a href="#connect" data-jump-link class="nav-link">Connect<br>& politic</a></li>
+            <li data-link class="flex-grow"><a href="https://shop.massappeal.com/" target="_blank" class="nav-link">Shop<br>the masses</a></li>
+        </ul>
+    </nav> -->
       <div id="smooth-wrapper">
       <div id="smooth-content">
       <div data-barba="container" data-barba-namespace={isHomePage ? "home" : "project-detail"}>

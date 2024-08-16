@@ -14,28 +14,17 @@ collections:
         name: "home_content"
         fields:
           - { label: "Title", name: "title", widget: "string" }
+          - label: "Introduction"
+            name: "introduction"
+            widget: "object"
+            fields:
+              - { label: "Field 1", name: "field1", widget: "string" }
+              - { label: "Field 2", name: "field2", widget: "string" }
+              - { label: "Intro Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
           - label: "Sections"
             name: "sections"
             widget: "list"
             types:
-              - label: "Introduction"
-                name: "introduction"
-                widget: "object"
-                max: 1
-                fields:
-                  - { label: "Field 1", name: "field1", widget: "string" }
-                  - { label: "Field 2", name: "field2", widget: "string" }
-                  - { label: "Intro Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-              - label: "Footer"
-                name: "footer"
-                widget: "object"
-                max: 1
-                fields:
-                  - { label: "Field 1", name: "field1", widget: "string" }
-                  - { label: "Field 2", name: "field2", widget: "string" }
-                  - { label: "Field 3", name: "field3", widget: "string" }
-                  - { label: "Footer Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-
               - label: "Large Paragraph"
                 name: "largeParagraph"
                 widget: "object"
@@ -44,7 +33,6 @@ collections:
               - label: "Quotes"
                 name: "quotes"
                 widget: "object"
-                max: 1
                 fields:
                   - label: "Quotes List"
                     name: "quotes"
@@ -60,7 +48,6 @@ collections:
               - label: "Projects"
                 name: "projects"
                 widget: "object"
-                max: 1
                 fields:
                   - label: "Projects List"
                     name: "projects"
@@ -70,6 +57,14 @@ collections:
                     search_fields: ["title"]
                     value_field: "title"
                     display_fields: ["title"]
+          - label: "Footer"
+            name: "footer"
+            widget: "object"
+            fields:
+              - { label: "Field 1", name: "field1", widget: "string" }
+              - { label: "Field 2", name: "field2", widget: "string" }
+              - { label: "Field 3", name: "field3", widget: "string" }
+              - { label: "Footer Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
 
   - name: "projects"
     label: "Projects"

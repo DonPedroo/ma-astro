@@ -1,0 +1,13 @@
+---
+// LargeParagraph.astro
+
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+---
+
+<section class="min-h-screen w-full flex items-center justify-center">
+  <h1 class="breaker transform">{content}</h1>
+</section>

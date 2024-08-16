@@ -1,0 +1,31 @@
+---
+// Footer.astro
+
+interface Props {
+  footerField1: string;
+  footerField2: string;
+  footerField3: string;
+  media?: string;
+}
+
+const { footerField1, footerField2, footerField3, media } = Astro.props;
+---
+
+<footer class="relative w-full h-screen bg-black text-white">
+  {media && (
+    <>
+      {media.endsWith('.mp4') ? (
+        <video autoplay muted playsinline loop class="absolute inset-0 w-full h-full object-cover">
+          <source src={media} type="video/mp4" />
+        </video>
+      ) : (
+        <img src={media} class="absolute inset-0 w-full h-full object-cover" alt="Footer Visual" />
+      )}
+    </>
+  )}
+  <div class="relative z-10 flex flex-col items-center justify-center h-full text-center p-8">
+    <h2 class="text-2xl font-bold mb-4">{footerField1}</h2>
+    <p class="mb-2">{footerField2}</p>
+    <p>{footerField3}</p>
+  </div>
+</footer>

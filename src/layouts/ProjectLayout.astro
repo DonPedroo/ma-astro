@@ -1,6 +1,7 @@
 ---
 import type { MarkdownInstance } from 'astro';
 import MainLayout from './HomepageLayout.astro';
+import Arrow from '../components/Arrow.astro';
 
 interface Frontmatter {
   title: string;
@@ -25,6 +26,8 @@ const cleanProjectName = getCleanProjectName(frontmatter.title);
 ---
 
 <MainLayout title={frontmatter.title}>
+  <Arrow imgSrc="/images/x.svg" css="fixed top-8 right-8 xl:bottom-12 xl:right-12 3xl:bottom-24 3xl:right-24" altText="Close" />
+
   <section class="relative h-screen w-full" id={cleanProjectName}>
     <a href="/" data-project-name={cleanProjectName}>Close </a>
     <h1>{frontmatter.title}</h1>

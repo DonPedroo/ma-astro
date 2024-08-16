@@ -1,0 +1,20 @@
+---
+// Arrow.astro
+
+interface Props {
+  imgSrc: string;
+  css: string;
+  altText: string;
+  dataSpeed?: string;
+}
+
+const { imgSrc, altText, dataSpeed = "1.38", css } = Astro.props;
+---
+
+<div class={`${css} cursor-pointer mix-blend-difference z-40`} data-speed={dataSpeed} data-arrow-down data-link>
+    <div class="w-28 h-28 sm:w-36 sm:h-36 xl:w-44 xl:h-44 2xl:w-52 2xl:h-52 border border-white rounded-full transition-color-border duration-300 ease-in-out hover:bg-massyellow hover:border-massyellow">
+    <div class="w-full h-full flex flex-col justify-center items-center mix-blend-difference">
+      <img src={imgSrc} alt={altText} />
+    </div>
+  </div>
+</div>
