@@ -21,7 +21,7 @@ collections:
               - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
               - { label: "Intro Field 1", name: "introField1", widget: "string" }
               - { label: "Intro Field 2", name: "introField2", widget: "string" }
-              - { label: "Intro Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+              - { label: "Intro Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
           - label: "Sections"
             name: "sections"
             widget: "list"
@@ -30,7 +30,7 @@ collections:
                 name: "largeParagraph"
                 widget: "object"
                 fields:
-                  - { label: "Content", name: "content", widget: "markdown" }
+                  - { label: "Content", name: "content", widget: "markdown", required: true }
                   - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
               - label: "Quotes"
                 name: "quotes"
@@ -41,13 +41,13 @@ collections:
                     name: "quotes"
                     widget: "list"
                     fields:
-                      - { label: "Quote", name: "quote", widget: "string" }
-                      - { label: "Author", name: "author", widget: "string" }
+                      - { label: "Quote", name: "quote", widget: "string", required: true }
+                      - { label: "Author", name: "author", widget: "string", required: true }
                   - label: "Additional Paragraph"
                     name: "additionalParagraph"
                     widget: "object"
                     fields:
-                      - { label: "Content", name: "content", widget: "markdown" }
+                      - { label: "Content", name: "content", widget: "markdown", required: false }
               - label: "Projects"
                 name: "projects"
                 widget: "object"
