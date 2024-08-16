@@ -86,15 +86,15 @@ collections:
   - name: "navigation"
     label: "Navigation"
     files:
-      - file: "src/data/home/home.md"
+      - file: "src/data/navigation/navigation.md"
         label: "Navigation Items"
         name: "navigation_items"
         fields:
           - label: "Navigation List"
-            name: "navigation_list"
+            name: "navigation"
             widget: "relation"
             collection: "homepage"
             multiple: true
             search_fields: ["sections.nav_title", "introduction.nav_title", "footer.nav_title"]
             value_field: "nav_title"
-            display_fields: ["nav_title"]
+            display_fields: ["sections.nav_title", "introduction.nav_title", "footer.nav_title"]
