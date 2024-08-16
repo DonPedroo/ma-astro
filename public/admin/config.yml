@@ -22,45 +22,41 @@ collections:
               - { label: "Intro Field 1", name: "introField1", widget: "string" }
               - { label: "Intro Field 2", name: "introField2", widget: "string" }
               - { label: "Intro Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-          - label: "Sections"
-            name: "sections"
-            widget: "list"
-            types:
-              - label: "Large Paragraph"
-                name: "largeParagraph"
-                widget: "object"
-                fields:
-                  - { label: "Content", name: "content", widget: "markdown", required: true }
-                  - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
-              - label: "Quotes"
+          - label: "Large Paragraph"
+            name: "largeParagraph"
+            widget: "object"
+            fields:
+              - { label: "Content", name: "content", widget: "markdown", required: true }
+              - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
+          - label: "Quotes"
+            name: "quotes"
+            widget: "object"
+            fields:
+              - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
+              - label: "Quotes List"
                 name: "quotes"
+                widget: "list"
+                fields:
+                  - { label: "Quote", name: "quote", widget: "string", required: true }
+                  - { label: "Author", name: "author", widget: "string", required: true }
+              - label: "Additional Paragraph"
+                name: "additionalParagraph"
                 widget: "object"
                 fields:
-                  - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
-                  - label: "Quotes List"
-                    name: "quotes"
-                    widget: "list"
-                    fields:
-                      - { label: "Quote", name: "quote", widget: "string", required: true }
-                      - { label: "Author", name: "author", widget: "string", required: true }
-                  - label: "Additional Paragraph"
-                    name: "additionalParagraph"
-                    widget: "object"
-                    fields:
-                      - { label: "Content", name: "content", widget: "markdown", required: false }
-              - label: "Projects"
+                  - { label: "Content", name: "content", widget: "markdown", required: false }
+          - label: "Projects"
+            name: "projects"
+            widget: "object"
+            fields:
+              - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
+              - label: "Projects List"
                 name: "projects"
-                widget: "object"
-                fields:
-                  - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
-                  - label: "Projects List"
-                    name: "projects"
-                    widget: "relation"
-                    collection: "projects"
-                    multiple: true
-                    search_fields: ["title"]
-                    value_field: "title"
-                    display_fields: ["title"]
+                widget: "relation"
+                collection: "projects"
+                multiple: true
+                search_fields: ["title"]
+                value_field: "title"
+                display_fields: ["title"]     
           - label: "Footer"
             name: "footer"
             widget: "object"
@@ -81,4 +77,4 @@ collections:
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Hero Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+      - { label: "Hero Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] }
