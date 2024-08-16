@@ -56,7 +56,7 @@ collections:
                 multiple: true
                 search_fields: ["title"]
                 value_field: "title"
-                display_fields: ["title"]     
+                display_fields: ["title"]
           - label: "Footer"
             name: "footer"
             widget: "object"
@@ -77,4 +77,4 @@ collections:
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Hero Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] }
+      - { label: "Hero Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
