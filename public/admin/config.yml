@@ -18,8 +18,8 @@ collections:
             name: "introduction"
             widget: "object"
             fields:
-              - { label: "Field 1", name: "field1", widget: "string" }
-              - { label: "Field 2", name: "field2", widget: "string" }
+              - { label: "Intro Field 1", name: "introField1", widget: "string" }
+              - { label: "Intro Field 2", name: "introField2", widget: "string" }
               - { label: "Intro Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
           - label: "Sections"
             name: "sections"
@@ -61,9 +61,9 @@ collections:
             name: "footer"
             widget: "object"
             fields:
-              - { label: "Field 1", name: "field1", widget: "string" }
-              - { label: "Field 2", name: "field2", widget: "string" }
-              - { label: "Field 3", name: "field3", widget: "string" }
+              - { label: "Footer Field 1", name: "footerField1", widget: "string" }
+              - { label: "Footer Field 2", name: "footerField2", widget: "string" }
+              - { label: "Footer Field 3", name: "footerField3", widget: "string" }
               - { label: "Footer Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
 
   - name: "projects"
