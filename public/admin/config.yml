@@ -95,6 +95,6 @@ collections:
             widget: "relation"
             collection: "homepage"
             multiple: true
-            search_fields: "nav_title"
+            search_fields: ["nav_title", "introduction.nav_title", "footer.nav_title"]
             value_field: "nav_title"
-            display_fields: "nav_title"
+            display_fields: ["nav_title", "introduction.nav_title", "footer.nav_title"]
