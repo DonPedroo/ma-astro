@@ -21,6 +21,7 @@ collections:
               - { label: "Intro Field 1", name: "introField1", widget: "string" }
               - { label: "Intro Field 2", name: "introField2", widget: "string" }
               - { label: "Intro Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+              - { label: "Navigation Title", name: "nav_title", widget: "string" }
           - label: "Sections"
             name: "sections"
             widget: "list"
@@ -30,10 +31,12 @@ collections:
                 widget: "object"
                 fields:
                   - { label: "Content", name: "content", widget: "markdown" }
+                  - { label: "Navigation Title", name: "nav_title", widget: "string" }
               - label: "Quotes"
                 name: "quotes"
                 widget: "object"
                 fields:
+                  - { label: "Navigation Title", name: "nav_title", widget: "string" }
                   - label: "Quotes List"
                     name: "quotes"
                     widget: "list"
@@ -49,6 +52,7 @@ collections:
                 name: "projects"
                 widget: "object"
                 fields:
+                  - { label: "Navigation Title", name: "nav_title", widget: "string" }
                   - label: "Projects List"
                     name: "projects"
                     widget: "relation"
@@ -61,6 +65,7 @@ collections:
             name: "footer"
             widget: "object"
             fields:
+              - { label: "Navigation Title", name: "nav_title", widget: "string" }
               - { label: "Footer Field 1", name: "footerField1", widget: "string" }
               - { label: "Footer Field 2", name: "footerField2", widget: "string" }
               - { label: "Footer Field 3", name: "footerField3", widget: "string" }
@@ -77,3 +82,18 @@ collections:
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Hero Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+
+  - name: "navigation"
+    label: "Navigation"
+    folder: "src/data/navigation"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - label: "Navigation List"
+        name: "home_content"
+        widget: "relation"
+        collection: "homepage"
+        multiple: true
+        search_fields: ["nav_title"]
+        value_field: "nav_title"
+        display_fields: ["nav_title"]
