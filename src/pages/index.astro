@@ -94,7 +94,13 @@ function getCleanProjectName(url: string): string {
 const isHomePage = true;
 ---
 
-<MainLayout title={data.title} isHomePage={isHomePage}>
+<MainLayout 
+  title={data.title} 
+  isHomePage={isHomePage}
+  introduction={data.introduction}
+  sections={data.sections}
+  footer={data.footer}
+>
 
   <Introduction 
     introField1={data.introduction.introField1} 
