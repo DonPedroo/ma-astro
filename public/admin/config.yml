@@ -18,6 +18,7 @@ collections:
             name: "introduction"
             widget: "object"
             fields:
+              - { label: "Navigation Title", name: "nav_title", widget: "string" }
               - { label: "Intro Field 1", name: "introField1", widget: "string" }
               - { label: "Intro Field 2", name: "introField2", widget: "string" }
               - { label: "Intro Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
@@ -85,7 +86,7 @@ collections:
   - name: "navigation"
     label: "Navigation"
     files:
-      - file: "src/data/navigation/navigation.md"
+      - file: "src/data/home/home.md"
         label: "Navigation Items"
         name: "navigation_items"
         fields:
@@ -94,6 +95,6 @@ collections:
             widget: "relation"
             collection: "homepage"
             multiple: true
-            search_fields: ["nav_title"]
+            search_fields: ["sections.nav_title", "introduction.nav_title", "footer.nav_title"]
             value_field: "nav_title"
             display_fields: ["nav_title"]
