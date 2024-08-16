@@ -83,18 +83,18 @@ collections:
       - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Hero Visual", name: "media", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
 
- - name: "navigation"
-    label: "Navigation"
-    files:
-      - file: "src/data/navigation/navigation.md"
-        label: "Navigation Items"
-        name: "navigation_items"
-        fields:
-          - label: "Navigation List"
-            name: "navigation_list"
-            widget: "relation"
-            collection: "homepage"
-            multiple: true
-            search_fields: ["nav_title"]
-            value_field: "nav_title"
-            display_fields: ["nav_title"]
+  - name: "navigation"
+      label: "Navigation"
+      files:
+        - file: "src/data/navigation/navigation.md"
+          label: "Navigation Items"
+          name: "navigation_items"
+          fields:
+            - label: "Navigation List"
+              name: "navigation_list"
+              widget: "relation"
+              collection: "homepage"
+              multiple: true
+              search_fields: ["nav_title"]
+              value_field: "nav_title"
+              display_fields: ["nav_title"]
