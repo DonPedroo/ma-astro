@@ -1,5 +1,6 @@
 ---
-const { title, isHomePage, introduction, sections, footer } = Astro.props;
+
+const { title, isHomePage, introduction, largeParagraph, quotes, projects, footer } = Astro.props; // New
 
 import '../styles/global.css';
 import Arrow from '../components/Arrow.astro';
@@ -19,14 +20,28 @@ if (introduction?.nav_title) {
   });
 }
 
-sections.forEach((section, index) => {
-  if (section.nav_title) {
-    navTitles.push({
-      title: section.nav_title,
-      id: `section-${index}`,
-    });
-  }
-});
+if (largeParagraph?.nav_title) {
+  navTitles.push({
+    title: largeParagraph.nav_title,
+    id: "largeParagraph",
+  });
+}
+
+if (quotes?.nav_title) {
+  navTitles.push({
+    title: quotes.nav_title,
+    id: "quotes",
+  });
+}
+
+if (projects?.nav_title) {
+  navTitles.push({
+    title: projects.nav_title,
+    id: "projects",
+  });
+}
+
+
 
 if (footer?.nav_title) {
   navTitles.push({
@@ -82,6 +97,5 @@ if (footer?.nav_title) {
       <div id="persistent-container" class="fixed left-0 top-0 z-10 "></div>
     </div>
     <script src="../scripts/app.js"></script>
-  </body>
   </body>
 </html>

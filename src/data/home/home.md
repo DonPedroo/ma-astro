@@ -5,47 +5,46 @@ introduction:
   introField2: since 1996
   media: /images/uploads/header.mp4
   nav_title: ""
-sections:
-  - type: largeParagraph
+largeParagraph:
+  content: |-
+    we inspire current and future
+
+    generations by continuing to lead and
+
+    tell the stories that matter for the
+
+    modern world.
+  nav_title: How We Get Down
+quotes:
+  nav_title: You Heard ?
+  quotes:
+    - quote: mass appeal & sony music new product releases
+      author: Adweek
+    - quote: Don’t Just Talk about it. be about it
+      author: Adweek
+    - quote: a photographic shout-out to hip-hop
+      author: Financial Times
+    - quote: outkast honored with limited edition statue
+      author: Vibe
+    - quote: hip-hop celebrates golden anniversary at yankee stadium
+      author: Vibe
+    - quote: more embrace ‘sisterhood’ as young women in hip-hop
+      author: Rolling Stone
+  additionalParagraph:
     content: |-
-      we inspire current and future
+      We relish the opportunity to
 
-      generations by continuing to lead and
+      collaborate with partners that want
 
-      tell the stories that matter for the
+      to join us in our mission to elevate
 
-      modern world.
-    nav_title: How We Get Down
-  - type: quotes
-    quotes:
-      - quote: mass appeal & sony music new product releases
-        author: Adweek
-      - quote: Don’t Just Talk about it. be about it
-        author: Adweek
-      - quote: a photographic shout-out to hip-hop
-        author: Financial Times
-      - quote: outkast honored with limited edition statue
-        author: Vibe
-      - quote: hip-hop celebrates golden anniversary at yankee stadium
-        author: Vibe
-      - quote: more embrace ‘sisterhood’ as young women in hip-hop
-        author: Rolling Stone
-    additionalParagraph:
-      content: |-
-        We relish the opportunity to
+      diversity within mainstream media and
 
-        collaborate with partners that want
-
-        to join us in our mission to elevate
-
-        diversity within mainstream media and
-
-        entertainment.
-    nav_title: You Heard ?
-  - type: projects
-    projects:
-      - hip hop 50 live
-    nav_title: Our Latest Work
+      entertainment.
+projects:
+  nav_title: Our Latest Work
+  projects:
+    - hip hop 50 live
 footer:
   media: /images/uploads/footer.mp4
   footerField1: since 1996 to forever
@@ -53,5 +52,3 @@ footer:
   footerField3: world renowned 2024
   nav_title: Connect & Politic
 ---
-
-# Home Page Content

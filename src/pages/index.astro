@@ -9,8 +9,10 @@ import LargeParagraph from '../components/LargeParagraph.astro';
 interface Frontmatter {
   title: string;
   introduction: Introduction;
-  sections: Array<LargeParagraphSection | QuotesSection | ProjectsSection>;
   footer: Footer;
+  largeParagraph: LargeParagraphSection;
+  quotes: QuotesSection;
+  projects: ProjectsSection;
 }
 
 interface Introduction {
@@ -98,8 +100,10 @@ const isHomePage = true;
   title={data.title} 
   isHomePage={isHomePage}
   introduction={data.introduction}
-  sections={data.sections}
   footer={data.footer}
+  largeParagraph={data.largeParagraph}
+  quotes={data.quotes}
+  projects={data.projects}
 >
 
   <Introduction 
@@ -109,32 +113,25 @@ const isHomePage = true;
     id="introduction" 
   />
 
-  {data.sections.map((section) => {
-    if (section.type === 'largeParagraph') {
-      return <LargeParagraph content={section.content} />;
-    } else if (section.type === 'quotes' && section.quotes) {
-      return <Quotes quotes={section.quotes} additionalParagraph={section.additionalParagraph} />;
-    } else if (section.type === 'projects' && section.projects) {
-      return (
-        <>
-          {section.projects.map((projectTitle) => {
-            const project = projectsMap[projectTitle];
-            const cleanProjectName = getCleanProjectName(project.url);
+  <LargeParagraph content={data.largeParagraph.content} />
 
-            return (
-              <ProjectItem
-                title={project.title}
-                description={project.description}
-                url={project.url}
-                media={project.media}
-                cleanProjectName={cleanProjectName}
-              />
-            );
-          })}
-        </>
-      );
-    }
+  <Quotes quotes={data.quotes.quotes} additionalParagraph={data.quotes.additionalParagraph} />
+  
+  {data.projects.projects.map((projectTitle) => {
+    const project = projectsMap[projectTitle];
+    const cleanProjectName = getCleanProjectName(project.url);
+  
+    return (
+      <ProjectItem
+        title={project.title}
+        description={project.description}
+        url={project.url}
+        media={project.media}
+        cleanProjectName={cleanProjectName}
+      />
+    );
   })}
+  
 
   <Footer 
     footerField1={data.footer.footerField1}
