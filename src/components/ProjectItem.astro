@@ -12,9 +12,23 @@ interface Props {
 const { title, description, url, media, cleanProjectName } = Astro.props;
 ---
 
-<div class="relative h-screen" id={cleanProjectName}>
+<div class="relative h-screen case-study" data-content-section data-case-study id={cleanProjectName}>
+  <div class="project-wrapper flex flex-col justify-end cursor-pointer" data-link data-play>
+
+
+  <p class="eyebrow">eyebrow</p>
+  <h3 class="project-header">{title}</h3>
+  <p class="project-description">{description}</p>
+
   <a href={url} data-project-name={cleanProjectName}>{title}</a>
-  <p>{description}</p>
+
+  <!-- <button data-link class="sm:hidden flex mt-8 cta-button">
+    <span>Explore</span>
+    <img src="${GLOBAL_SETTINGS.imagePaths.folder}icons/arrow-button.svg" alt="Button Image">
+  </button> -->
+
+
+  </div>
   <div class="absolute inset-0 z-[-1]">    
     {media && media.endsWith('.mp4') ? (
       <video autoplay muted playsinline loop class="w-full h-full object-cover">

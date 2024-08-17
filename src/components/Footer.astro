@@ -12,7 +12,10 @@ interface Props {
 const { footerField1, footerField2, footerField3, media, id } = Astro.props;
 ---
 
-<footer id={id} class="relative w-full h-screen bg-black text-white">
+
+
+<footer data-content-section data-type="video" id={id} class="relative flex flex-col justify-center items-center w-full h-screen overflow-hidden">
+    
   {media && (
     <>
       {media.endsWith('.mp4') ? (
@@ -24,9 +27,65 @@ const { footerField1, footerField2, footerField3, media, id } = Astro.props;
       )}
     </>
   )}
-  <div class="relative z-10 flex flex-col items-center justify-center h-full text-center p-8">
-    <h2 class="text-2xl font-bold mb-4">{footerField1}</h2>
-    <p class="mb-2">{footerField2}</p>
-    <p>{footerField3}</p>
-  </div>
+
+    <div class="flex flex-col sm:flex-row justify-between w-full sm:mt-8 mt-24 sm:px-8 md:px-16 xl:px-32 z-0">
+      <p class="footer-text">{footerField1}</p>
+      <p class="footer-text">{footerField2}</p>
+      <p class="footer-text">{footerField3}</p>
+    </div>
+
+    <div class="flex flex-col justify-between flex-1 w-full">
+
+
+    <div data-speed=".96" class="space-x-6 sm:space-x-12 flex flex-row flex-1 justify-center items-center">
+      <a data-link href="https://shop.massappeal.com/" target="_blank"><img src="./images/icon-cart.svg" class="h-[30px] sm:h-[60px]" alt="Shop Mass Appeal"></a>
+      <a data-link href="https://www.youtube.com/c/massappeal" target="_blank"><img src="./images/icon-tube.svg" class="h-[30px] sm:h-[60px]" alt="Youtube"></a>
+      <a data-link href="https://www.instagram.com/massappeal" target="_blank"><img src="./images/icon-insta.svg" class="h-[30px] sm:h-[60px]" alt="Instagram"></a>
+      <a data-link href="https://twitter.com/massappeal" target="_blank"><img src="./images/icon-x.svg" class="h-[30px] sm:h-[60px]" alt="X"></a>
+      <a data-link href="https://www.hiphop50.com/" target="_blank"><img src="./images/icon-hip-hop-50.svg" class="h-[30px] sm:h-[60px]" alt="Hip Hsop 50"></a>
+    </div>
+
+
+
+    <div data-speed=".92"  id="mc_embed_shell" class="flex flex-col flex-1 sm:flex-row items-center justify-center w-full">
+
+      <div id="mc_embed_signup" class="newsletter-wrapper">
+    
+    
+    
+          <form action="https://massappeal.us13.list-manage.com/subscribe/post?u=7915d58cc5dcf182f832c5292&amp;id=fe77ab107b&amp;f_id=00dbc2e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"  class="validate newsletter " target="_blank">
+            <div id="mce-responses">
+              <div class="response" id="mce-error-response" style="display: none;"></div>
+              <div class="response" id="mce-success-response" style="display: none;"></div>
+          </div>  
+                  <div class="mc-field-group w-full max-w ">
+                    <input type="email" name="EMAIL"  placeholder="ENTER YOUR EMAIL TO CONNECT" class="required email " id="mce-EMAIL" required="" value="">
+                  </div>
+           
+              <div aria-hidden="true" style="position: absolute; left: -5000px;">
+                <input type="text" name="b_7915d58cc5dcf182f832c5292_fe77ab107b" tabindex="-1" value="">
+              </div>
+                  <button type="submit" name="subscribe" id="mc-embedded-subscribe" data-link>
+                    <img src="./images/arrow-button.svg" alt="Button Image">
+                  </button>
+    
+                
+              </form>
+
+
+          
+        </div>
+    
+      <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script><script type="text/javascript">(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='MMERGE2';ftypes[2]='text';fnames[3]='MMERGE3';ftypes[3]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script></div>
+
+    </div>
+      <div class="flex flex-col w-full items-center justify-center mb-24 sm:mb-8 ">
+        <img data-speed=".85" class="left-1/2 max-w-[90vw] sm:max-w-[50vw]" src="./images/mass-appeal.svg" alt="Mass Appeal">
+      </div>
+
+      <!-- data-speed=".7" -->
+
+
+
+
 </footer>
