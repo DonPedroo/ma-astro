@@ -1,11 +1,13 @@
 ---
 title: Home Page
 introduction:
+  id: introduction
   introField1: THE ELEVATED VOICE OF HIP HOP
   introField2: since 1996
   media: /images/uploads/header.mp4
   nav_title: ""
 largeParagraph:
+  id: how-we-get-down
   content: |-
     we inspire current and future
 
@@ -16,6 +18,7 @@ largeParagraph:
     modern world.
   nav_title: How We Get Down
 quotes:
+  id: you-heard
   nav_title: You Heard ?
   quotes:
     - quote: mass appeal & sony music new product releases
@@ -42,10 +45,12 @@ quotes:
 
       entertainment.
 projects:
+  id: work
   nav_title: Our Latest Work
   projects:
     - hip hop 50 live
 footer:
+  id: connect
   media: /images/uploads/footer.mp4
   footerField1: since 1996 to forever
   footerField2: info@massappeal.com

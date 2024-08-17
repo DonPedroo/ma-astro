@@ -1,4 +1,5 @@
 ---
+id: hip-hop-50-live  # Automatically generated from the slug
 title: hip hop 50 live
 date: 2024-08-06T15:06:00.000Z
 description: description

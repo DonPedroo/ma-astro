@@ -14,7 +14,7 @@ interface Props {
 const { introField1, introField2, media, id } = Astro.props;
 ---
 
-<section id={id} class="relative w-full h-screen">
+<header id={id} class="relative w-full h-screen">
   {media && (
     <>
       {media.endsWith('.mp4') ? (
@@ -41,4 +41,4 @@ const { introField1, introField2, media, id } = Astro.props;
   <Arrow imgSrc="/images/arrow-up.svg" css="rotate-180 absolute bottom-36 sm:bottom-24 left-[10vw] sm:left-[30vw]" altText="Scroll Down" />
 
 
-</section>
+</header>

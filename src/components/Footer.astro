@@ -6,12 +6,13 @@ interface Props {
   footerField2: string;
   footerField3: string;
   media?: string;
+  id: string;
 }
 
-const { footerField1, footerField2, footerField3, media } = Astro.props;
+const { footerField1, footerField2, footerField3, media, id } = Astro.props;
 ---
 
-<footer class="relative w-full h-screen bg-black text-white">
+<footer id={id} class="relative w-full h-screen bg-black text-white">
   {media && (
     <>
       {media.endsWith('.mp4') ? (

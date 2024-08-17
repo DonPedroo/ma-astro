@@ -16,28 +16,33 @@ interface Frontmatter {
 }
 
 interface Introduction {
+  id: string;
   introField1: string;
   introField2: string;
   media?: string;
 }
 
 interface LargeParagraphSection {
+  id: string;
   type: 'largeParagraph';
   content: string;
 }
 
 interface QuotesSection {
+  id: string;
   type: 'quotes';
   quotes: Quote[];
   additionalParagraph?: { content: string };
 }
 
 interface ProjectsSection {
+  id: string;
   type: 'projects';
   projects: string[];
 }
 
 interface Footer {
+  id: string;
   footerField1: string;
   footerField2: string;
   footerField3: string;
@@ -110,18 +115,26 @@ const isHomePage = true;
     introField1={data.introduction.introField1} 
     introField2={data.introduction.introField2} 
     media={data.introduction.media} 
-    id="introduction" 
+    id={data.introduction.id}
   />
 
-  <LargeParagraph content={data.largeParagraph.content} />
+  <LargeParagraph 
+  content={data.largeParagraph.content}
+  id={data.largeParagraph.id}
+  />
 
-  <Quotes quotes={data.quotes.quotes} additionalParagraph={data.quotes.additionalParagraph} />
+  <Quotes 
+  quotes={data.quotes.quotes} 
+  additionalParagraph={data.quotes.additionalParagraph}
+  id={data.quotes.id} 
+   />
   
-  {data.projects.projects.map((projectTitle) => {
+   {data.projects.projects.map((projectTitle) => {
     const project = projectsMap[projectTitle];
     const cleanProjectName = getCleanProjectName(project.url);
   
     return (
+      <section id={data.projects.id} >
       <ProjectItem
         title={project.title}
         description={project.description}
@@ -129,15 +142,19 @@ const isHomePage = true;
         media={project.media}
         cleanProjectName={cleanProjectName}
       />
+      </section>
     );
   })}
   
+  
 
   <Footer 
-    footerField1={data.footer.footerField1}
-    footerField2={data.footer.footerField2}
-    footerField3={data.footer.footerField3}
-    media={data.footer.media}
-  />
+  footerField1={data.footer.footerField1}
+  footerField2={data.footer.footerField2}
+  footerField3={data.footer.footerField3}
+  media={data.footer.media}
+  id={data.footer.id}  
+/>
+
 
 </MainLayout>

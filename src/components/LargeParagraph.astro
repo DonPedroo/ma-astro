@@ -3,11 +3,12 @@
 
 interface Props {
   content: string;
+  id: string;
 }
 
-const { content } = Astro.props;
+const { content, id } = Astro.props;
 ---
 
-<section class="min-h-screen w-full flex items-center justify-center">
+<section id={id} class="min-h-screen w-full flex items-center justify-center">
   <h1 class="breaker transform">{content}</h1>
 </section>

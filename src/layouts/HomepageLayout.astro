@@ -16,28 +16,28 @@ const navTitles: NavTitle[] = [];
 if (introduction?.nav_title) {
   navTitles.push({
     title: introduction.nav_title,
-    id: "introduction",
+    id: introduction.id,
   });
 }
 
 if (largeParagraph?.nav_title) {
   navTitles.push({
     title: largeParagraph.nav_title,
-    id: "largeParagraph",
+    id: largeParagraph.id,
   });
 }
 
 if (quotes?.nav_title) {
   navTitles.push({
     title: quotes.nav_title,
-    id: "quotes",
+    id: quotes.id,
   });
 }
 
 if (projects?.nav_title) {
   navTitles.push({
     title: projects.nav_title,
-    id: "projects",
+    id: projects.id,
   });
 }
 
@@ -46,7 +46,7 @@ if (projects?.nav_title) {
 if (footer?.nav_title) {
   navTitles.push({
     title: footer.nav_title,
-    id: "footer",
+    id: footer.id,
   });
 }
 
@@ -85,7 +85,6 @@ if (footer?.nav_title) {
       <li data-link class="flex-grow"><a href="https://shop.massappeal.com/" target="_blank" class="nav-link">Shop<br>the masses</a></li>
       </ul>
     </nav>
-    
       <div id="smooth-wrapper">
       <div id="smooth-content">
       <div data-barba="container" data-barba-namespace={isHomePage ? "home" : "project-detail"}>

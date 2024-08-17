@@ -12,7 +12,7 @@ interface Props {
 const { title, description, url, media, cleanProjectName } = Astro.props;
 ---
 
-<section class="relative h-screen" id={cleanProjectName}>
+<div class="relative h-screen" id={cleanProjectName}>
   <a href={url} data-project-name={cleanProjectName}>{title}</a>
   <p>{description}</p>
   <div class="absolute inset-0 z-[-1]">    
@@ -25,4 +25,4 @@ const { title, description, url, media, cleanProjectName } = Astro.props;
       <img src={media} alt={title} class="w-full h-full object-cover" />
     ) : null}
   </div>
-</section>
+</div>
