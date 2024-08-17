@@ -87,6 +87,10 @@ whatwedo:
         that take our stories off the screen, and 
 
         place you at the center of it all.
+      media1: /images/uploads/wwd-thumb-a-11.webp
+      media2: /images/uploads/wwd-thumb-b-06.webp
+      media3: /images/uploads/wwd-thumb-c-02.webp
+      media4: /images/uploads/wwd-thumb-a-12.webp
   nav_title: What We Do
 quotes:
   id: you-heard
