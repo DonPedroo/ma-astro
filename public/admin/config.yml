@@ -41,7 +41,7 @@ collections:
                 widget: "list"
                 fields:
                   - { label: "Title", name: "title", widget: "string", required: true }
-                  - { label: "Content", name: "content", widget: "string", required: true }
+                  - { label: "Content", name: "content", widget: "markdown", required: true }
           - label: "You Heard?"
             name: "quotes"
             widget: "object"
