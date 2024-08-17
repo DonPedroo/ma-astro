@@ -52,6 +52,10 @@ whatwedo:
         digital, TV, film, and podcast platforms. 
 
         Anything.
+      media1: /images/uploads/wwd-thumb-a-06.webp
+      media2: /images/uploads/wwd-thumb-b-03.webp
+      media3: /images/uploads/wwd-thumb-a-05.webp
+      media4: /images/uploads/wwd-thumb-b-01.webp
     - title: Music
       content: |-
         Leading indie label co-founded by Nas, with 
