@@ -63,6 +63,10 @@ whatwedo:
         global reach and capabilities in helping 
 
         brands navigate the music space.
+      media1: /images/uploads/rectangle9.webp
+      media2: /images/uploads/wwd-thumb-a-08.webp
+      media3: /images/uploads/wwd-thumb-a-07.webp
+      media4: /images/uploads/wwd-thumb-a-02.webp
     - title: Consumer
       content: |-
         Connecting with fans via unique projects & 
