@@ -26,6 +26,10 @@ whatwedo:
         stories from the perspective of those who
 
         shape and shift our culture
+      media1: /images/uploads/wwd-thumb-a-066.webp
+      media2: /images/uploads/wwd-thumb-b-011.webp
+      media3: /images/uploads/wwd-thumb-a-011.webp
+      media4: /images/uploads/wwd-thumb-a-022.webp
     - title: Creative
       content: |-
         Award-winning creative agency with 
