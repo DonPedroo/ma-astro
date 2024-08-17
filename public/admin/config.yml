@@ -42,6 +42,10 @@ collections:
                 fields:
                   - { label: "Title", name: "title", widget: "string", required: true }
                   - { label: "Content", name: "content", widget: "markdown", required: true }
+                  - { label: "Media 1", name: "media1", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+                  - { label: "Media 2", name: "media2", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+                  - { label: "Media 3", name: "media3", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+                  - { label: "Media 4", name: "media4", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
           - label: "You Heard?"
             name: "quotes"
             widget: "object"

@@ -4,6 +4,10 @@
 interface Page {
   title: string;
   content: string;
+  media1?: string;
+  media2?: string;
+  media3?: string;
+  media4?: string;
 }
 
 interface Props {
@@ -28,6 +32,20 @@ const { pages, id } = Astro.props;
     {pages.map((page, index) => (
       <div class="min-h-screen w-full">
         <p class="text-base leading-relaxed">{page.content}</p>
+        {[page.media1, page.media2, page.media3, page.media4].map((media, i) => (
+          media && (
+            <div>
+              {media.endsWith('.mp4') ? (
+                <video controls>
+                  <source src={media} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
+                <img src={media} alt={`Media ${i + 1}`} class="w-full h-auto" />
+              )}
+            </div>
+          )
+        ))}
       </div>
     ))}
 

@@ -1,6 +1,6 @@
 ---
 
-const { title, isHomePage, introduction, largeParagraph, quotes, projects, footer } = Astro.props; // New
+const { title, isHomePage, introduction, largeParagraph, quotes, projects, footer, whatwedo } = Astro.props; // New
 
 import '../styles/global.css';
 import Arrow from '../components/Arrow.astro';
@@ -26,6 +26,15 @@ if (largeParagraph?.nav_title) {
     id: largeParagraph.id,
   });
 }
+
+if (whatwedo?.nav_title) {
+  navTitles.push({
+    title: whatwedo.nav_title,
+    id: whatwedo.id,
+  });
+}
+
+
 
 if (quotes?.nav_title) {
   navTitles.push({
