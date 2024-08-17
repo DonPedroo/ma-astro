@@ -39,6 +39,10 @@ whatwedo:
         partnerships and campaigns that shift 
 
         culture.
+      media1: /images/uploads/wwd-thumb-a-03.webp
+      media2: /images/uploads/wwd-thumb-b-02.webp
+      media3: /images/uploads/wwd-thumb-a-01.webp
+      media4: /images/uploads/wwd-thumb-a-04.webp
     - title: Content
       content: |-
         Full-service production studio that develops 
