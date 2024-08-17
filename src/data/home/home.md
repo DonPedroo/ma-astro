@@ -74,6 +74,10 @@ whatwedo:
         product collaborations that include apparel, 
 
         accessories, vinyl, art, collectibles, and more
+      media1: /images/uploads/wwd-thumb-b-05.webp
+      media2: /images/uploads/wwd-thumb-c-01.webp
+      media3: /images/uploads/wwd-thumb-a-09.webp
+      media4: /images/uploads/wwd-thumb-a-10.webp
     - title: Experiential
       content: |-
         Leveraging the spirit and energy of our 
