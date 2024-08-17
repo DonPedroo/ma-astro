@@ -67,6 +67,7 @@ whatwedo:
         that take our stories off the screen, and 
 
         place you at the center of it all.
+  nav_title: What We Do
 quotes:
   id: you-heard
   nav_title: You Heard ?
