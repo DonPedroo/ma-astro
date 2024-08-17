@@ -17,10 +17,10 @@ const { title, description, url, media, cleanProjectName } = Astro.props;
 
 
   <p class="eyebrow">eyebrow</p>
-  <h3 class="project-header">{title}</h3>
+  <a href={url} data-project-name={cleanProjectName}><h3 class="project-header">{title}</h3></a>
   <p class="project-description">{description}</p>
 
-  <a href={url} data-project-name={cleanProjectName}>{title}</a>
+  <!-- <a href={url} data-project-name={cleanProjectName}>{title}</a> -->
 
   <!-- <button data-link class="sm:hidden flex mt-8 cta-button">
     <span>Explore</span>

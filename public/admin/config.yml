@@ -30,6 +30,18 @@ collections:
               - { label: "ID", name: "id", widget: "hidden", default: "how-we-get-down" }
               - { label: "Content", name: "content", widget: "markdown", required: true }
               - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
+          - label: "What We Do"
+            name: "whatwedo"
+            widget: "object"
+            fields:
+              - { label: "ID", name: "id", widget: "hidden", default: "what-we-do" }
+              - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
+              - label: "What We Do Pages"
+                name: "pages"
+                widget: "list"
+                fields:
+                  - { label: "Title", name: "title", widget: "string", required: true }
+                  - { label: "Content", name: "content", widget: "string", required: true }
           - label: "You Heard?"
             name: "quotes"
             widget: "object"
