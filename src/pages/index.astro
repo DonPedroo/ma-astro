@@ -93,11 +93,11 @@ const allProjects = import.meta.glob<ProjectMarkdownFile>('../data/projects/*.md
 
 const post = allPages['../data/home/home.md'];
 
-if (!post) {
-  console.error('Post not found');
-} else {
-  console.log('Post found:', post);
-}
+// if (!post) {
+//   console.error('Post not found');
+// } else {
+//   console.log('Post found:', post);
+// }
 
 const data = post?.frontmatter || { title: 'Home Page', sections: [] };
 const Content = post?.default || 'Content not found.';

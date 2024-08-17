@@ -1,0 +1,19 @@
+---
+// Media.astro
+
+interface Props {
+  src: string;
+  alt: string;
+  cssClasses?: string;
+}
+
+const { src, alt, cssClasses = '' } = Astro.props;
+---
+
+{src.endsWith('.mp4') ? (
+  <video autoplay muted playsinline loop class={cssClasses}>
+    <source src={src} type="video/mp4" />
+  </video>
+) : (
+  <img src={src} alt={alt} class={cssClasses} />
+)}

@@ -1,5 +1,6 @@
 ---
 // WhatWeDo.astro
+import Media from '../components/Media.astro';
 
 interface Page {
   title: string;
@@ -19,35 +20,31 @@ const { pages, id } = Astro.props;
 
 ---
 
-<section id={id} class="relative h-[200vh] flex flex-col">
-  <nav class="absolute top-0">
-
+<section id={id} class=`relative h-[${pages.length}00vh] flex flex-col items-center text-center relative overflow-hidden bg-massgrey`>
+  <!-- <ul class="what-we-do-nav">
   {pages.map((page, index) => (
-      <p class="text-xl font-bold mb-2">"{page.title}"</p>
+      <li>{page.title}</li>
    
   ))}
- </nav>
+ </ul> -->
 
 
     {pages.map((page, index) => (
-      <div class="min-h-screen w-full">
-        <p class="text-base leading-relaxed">{page.content}</p>
-        {[page.media1, page.media2, page.media3, page.media4].map((media, i) => (
+<div class="what-we-do-sections flex-1">
+  <h3 class="sub-header">{page.content}</h3>
+        {/* {[page.media1, page.media2, page.media3, page.media4].map((media, i) => (
           media && (
-            <div>
-              {media.endsWith('.mp4') ? (
-                <video controls>
-                  <source src={media} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              ) : (
-                <img src={media} alt={`Media ${i + 1}`} class="w-full h-auto" />
-              )}
-            </div>
+            <>
+                {media && (
+                    <Media src={media} alt={`Media ${i + 1}`} cssClasses="w-16" />
+                  )}
+            </>
           )
-        ))}
+        ))} */}
       </div>
     ))}
-
+    <div class="what-we-do-logo">
+      <img src="./images/1996.svg" alt="Mass Appeal 1996">
+    </div>
 
 </section>

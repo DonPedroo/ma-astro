@@ -1,5 +1,6 @@
 ---
 // ProjectItem.astro
+import Media from '../components/Media.astro';
 
 interface Props {
   title: string;
@@ -29,7 +30,13 @@ const { title, description, url, media, cleanProjectName } = Astro.props;
 
 
   </div>
-  <div class="absolute inset-0 z-[-1]">    
+    
+    {media && (
+      <Media src={media} alt={title} cssClasses="absolute inset-0 z-[-1] w-full h-full object-cover" />
+    )}
+
+<!-- <div class="absolute inset-0 z-[-1]">   
+
     {media && media.endsWith('.mp4') ? (
       <video autoplay muted playsinline loop class="w-full h-full object-cover">
         <source src={media} type="video/mp4" />
@@ -38,5 +45,5 @@ const { title, description, url, media, cleanProjectName } = Astro.props;
     ) : media ? (
       <img src={media} alt={title} class="w-full h-full object-cover" />
     ) : null}
-  </div>
+  </div> -->
 </div>

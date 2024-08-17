@@ -2,6 +2,7 @@
 import type { MarkdownInstance } from 'astro';
 import MainLayout from './HomepageLayout.astro';
 import Arrow from '../components/Arrow.astro';
+import Media from '../components/Media.astro';
 
 interface Frontmatter {
   title: string;
@@ -33,14 +34,12 @@ const cleanProjectName = getCleanProjectName(frontmatter.title);
     <h1>{frontmatter.title}</h1>
     <p>{frontmatter.description}</p>
     <div id={cleanProjectName} class="absolute inset-0 z-[-1]" >
-    {frontmatter.media && frontmatter.media.endsWith('.mp4') ? (
-    <video autoplay muted playsinline loop  class="w-full h-full object-cover">
-      <source src={frontmatter.media} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  ) : frontmatter.media ? (
-    <img src={frontmatter.media} alt={frontmatter.title}  class="w-full h-full object-cover" />
-  ) : null}
+
+      {frontmatter.media && (
+        <Media src={frontmatter.media} alt={frontmatter.title} cssClasses="w-full h-full object-cover" />
+      )}
+
+
   </div>
     <Content />
   </section>
