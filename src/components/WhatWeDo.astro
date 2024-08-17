@@ -1,0 +1,35 @@
+---
+// WhatWeDo.astro
+
+interface Page {
+  title: string;
+  content: string;
+}
+
+interface Props {
+  pages: Page[];
+  id: string;
+}
+
+const { pages, id } = Astro.props;
+
+---
+
+<section id={id} class="relative h-[200vh] flex flex-col">
+  <nav class="absolute top-0">
+
+  {pages.map((page, index) => (
+      <p class="text-xl font-bold mb-2">"{page.title}"</p>
+   
+  ))}
+ </nav>
+
+
+    {pages.map((page, index) => (
+      <div class="min-h-screen w-full">
+        <p class="text-base leading-relaxed">{page.content}</p>
+      </div>
+    ))}
+
+
+</section>
