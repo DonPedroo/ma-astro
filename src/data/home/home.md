@@ -17,6 +17,56 @@ largeParagraph:
 
     modern world.
   nav_title: How We Get Down
+whatwedo:
+  pages:
+    - title: intro
+      content: |-
+        Our mission is to tell diverse and authentic
+
+        stories from the perspective of those who
+
+        shape and shift our culture
+    - title: Creative
+      content: |-
+        Award-winning creative agency with 
+
+        expertise in developing unique brand 
+
+        partnerships and campaigns that shift 
+
+        culture.
+    - title: Content
+      content: |-
+        Full-service production studio that develops 
+
+        and produces premium programming for 
+
+        digital, TV, film, and podcast platforms. 
+
+        Anything.
+    - title: Music
+      content: |-
+        Leading indie label co-founded by Nas, with 
+
+        global reach and capabilities in helping 
+
+        brands navigate the music space.
+    - title: Consumer
+      content: |-
+        Connecting with fans via unique projects & 
+
+        product collaborations that include apparel, 
+
+        accessories, vinyl, art, collectibles, and more
+    - title: Experiential
+      content: |-
+        Leveraging the spirit and energy of our 
+
+        audience's passions to create IRL moments 
+
+        that take our stories off the screen, and 
+
+        place you at the center of it all.
 quotes:
   id: you-heard
   nav_title: You Heard ?
