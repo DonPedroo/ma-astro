@@ -9,6 +9,14 @@ interface Page {
   media2?: string;
   media3?: string;
   media4?: string;
+  media1_description?: string;
+  media2_description?: string;
+  media3_description?: string;
+  media4_description?: string;
+  media1_css?: string;
+  media2_css?: string;
+  media3_css?: string;
+  media4_css?: string;
 }
 
 interface Props {
@@ -18,51 +26,54 @@ interface Props {
 
 const { pages, id } = Astro.props;
 
-
+const defaultClasses = ["default-a", "default-b", "default-c", "default-d"];
+const defaultAltText = (index: number) => `Media ${index + 1}`;
 ---
 
-<section id={id} class=`relative h-[100vh] flex flex-col items-center text-center  overflow-hidden bg-massgrey`>
+<section id={id} class="relative h-[100vh] flex flex-col items-center text-center overflow-hidden bg-massgrey">
   <ul class="what-we-do-nav">
+    {pages.map((page, index) => (
+      <li>
+        <div class="relative flex items-center">
+          <span class="z-10">{page.title}</span>
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-0 h-1 bg-massblue"></div>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ul>
+
   {pages.map((page, index) => (
-    <li>
-      <div class="relative flex items-center">
-        <span class="z-10">{page.title}</span>
-        <div class="absolute inset-0 flex items-center">
-          <div class="w-0 h-1 bg-massblue"></div>
-        </div>
-      </div>
-    </li>
+    <aside class="h-screen flex items-center text-center absolute top-0">
+      <h3 class="sub-header" id={`test${index + 1}`}>{page.content}</h3>
+      {[page.media1, page.media2, page.media3, page.media4].map((media, i) => {
+        if (!media) return null;
+
+        const wrapperClasses = [
+          "absolute w-[50%] h-[50vh] flex items-center",
+          i === 0 ? "justify-left top-0 left-0" :
+          i === 1 ? "justify-end top-0 right-0" :
+          i === 2 ? "justify-left bottom-0 left-0" :
+          "justify-end bottom-0 right-0"
+        ].join(" ");
+
+        const imageClasses = [
+          page[`media${i + 1}_css`] || defaultClasses[i]
+        ].join(" ");
+
+        const altText = page[`media${i + 1}_description`] || defaultAltText(i);
+
+        return (
+          <div class={wrapperClasses}>
+            <Media src={media} alt={altText} cssClasses={imageClasses} />
+          </div>
+        );
+      })}
+    </aside>
   ))}
- </ul>
 
- {pages.map((page, index) => (
-  <aside class="h-screen flex items-center text-center absolute top-0">
-    <h3 class="sub-header" id={`test${index + 1}`}>{page.content}</h3>
-    {[page.media1, page.media2, page.media3, page.media4].map((media, i) => {
-      if (!media) return null;
-
-      let wrapperClasses = "";
-      if (i === 0) wrapperClasses = "absolute w-[50%] h-[50vh] flex items-center justify-left top-0 left-0";
-      else if (i === 1) wrapperClasses = "absolute w-[50%] h-[50vh] flex items-center justify-end  top-0 right-0";
-      else if (i === 2) wrapperClasses = "absolute w-[50%] h-[50vh] flex items-center justify-left  bottom-0 left-0";
-      else if (i === 3) wrapperClasses = "absolute w-[50%] h-[50vh] flex items-center justify-end  bottom-0 right-0";
-
-      let imageClasses = "";
-      if (i === 0) imageClasses = "intro-a";
-      else if (i === 1) imageClasses = "intro-b";
-      else if (i === 2) imageClasses = "intro-c";
-      else if (i === 3) imageClasses = "intro-d";
-
-      return (
-        <div class={wrapperClasses}>
-          <Media src={media} alt={`Media ${i + 1}`} cssClasses={imageClasses} />
-        </div>
-      );
-    })}
-  </aside>
-))}
-    <div class="what-we-do-logo absolute bottom-0">
-      <!-- <div class="bg-massblue h-2" id="what-we-do-progress"></div> -->
-      <img src="./images/1996.svg" alt="Mass Appeal 1996">
-    </div>
+  <div class="what-we-do-logo absolute bottom-0">
+    <img src="./images/1996.svg" alt="Mass Appeal 1996">
+  </div>
 </section>

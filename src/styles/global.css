@@ -513,11 +513,7 @@
   uppercase
 }
 
-/* image explosion */
-
-/* 01 intro */
-
-.intro-a {
+.default-a {
   @apply 
 
   ml-2 
@@ -535,7 +531,7 @@
 
 }
 
-.intro-b {
+.default-b {
   @apply 
 
   mr-2 
@@ -553,7 +549,7 @@
 
 }
 
-.intro-c {
+.default-c {
   @apply 
 
   ml-8 
@@ -571,7 +567,7 @@
 
 }
 
-.intro-d {
+.default-d {
   @apply 
 
   mr-2 
@@ -589,9 +585,85 @@
 
 }
 
+/* image explosion */
+
+/* 01 intro */
+
+/* .intro-a {
+  @apply 
+
+  ml-2 
+  -mt-20 
+  max-w-[32vw] 
+  
+  lg:ml-12 
+  lg:mt-20 
+  lg:max-w-[12vw] 
+  
+  3xl:ml-12 
+  3xl:mt-20 
+  3xl:max-w-[12vw]
+
+
+} */
+
+/* .intro-b {
+  @apply 
+
+  mr-2 
+  mt-0 
+  max-w-[22vw] 
+  
+  lg:ml-36 
+  lg:mt-64 
+  lg:max-w-[12vw] 
+  
+  3xl:ml-36 
+  3xl:mt-64 
+  3xl:max-w-[12vw]
+
+
+} */
+
+/* .intro-c {
+  @apply 
+
+  ml-8 
+  mt-20 
+  max-w-[31vw] 
+
+  lg:ml-28 
+  lg:mt-0 
+  lg:max-w-[18vw] 
+  
+  3xl:ml-28 
+  3xl:mt-0 
+  3xl:max-w-[18vw]
+
+
+} */
+
+/* .intro-d {
+  @apply 
+
+  mr-2 
+  mt-36 
+  max-w-[33vw] 
+  
+  lg:mr-60 
+  lg:mt-40 
+  lg:max-w-[21vw] 
+  
+  3xl:mr-60 
+  3xl:mt-40 
+  3xl:max-w-[21vw]
+
+
+} */
+
 /* 02 creative */
 
-.creative-a {
+/* .creative-a {
   @apply 
 
   ml-2 
@@ -663,11 +735,11 @@
   
  
 
-}
+} */
 
 /* 03 content */
 
-.content-a {
+/* .content-a {
   @apply 
 
   ml-8 -mt-28 max-w-[31vw] lg:ml-6 lg:mt-16 lg:max-w-[12vw] 3xl:ml-0 3xl:mt-0 3xl:max-w-[14vw]
@@ -701,11 +773,11 @@
 
 
 
-}
+} */
 
 /* 04 music */
 
-.music-a {
+/* .music-a {
   @apply 
 
   -ml-10 -mt-10 max-w-[32vw] lg:-ml-5 lg:-mt-10 lg:max-w-[18vw] 3xl:ml-20 3xl:mt-20 3xl:max-w-[11vw]
@@ -737,11 +809,11 @@
 
 
 
-}
+} */
 
 /* 05 consumer */
 
-.consumer-a {
+/* .consumer-a {
   @apply 
 
   ml-0 mt-2 max-w-[31vw] lg:-ml-2 lg:mt-0 lg:max-w-[16vw] 3xl:ml-8 3xl:-mt-16 3xl:max-w-[16vw]
@@ -775,11 +847,11 @@
 
 
 
-}
+} */
 
 /* 06 experiential */
 
-.experiential-a {
+/* .experiential-a {
   @apply 
 
   ml-12 -mt-10 max-w-[24vw] lg:-ml-2 lg:mt-44 lg:max-w-[16vw] 3xl:ml-16 3xl:mt-0 3xl:max-w-[14vw]
@@ -813,7 +885,7 @@
 
 
 
-}
+} */
 
 
 
