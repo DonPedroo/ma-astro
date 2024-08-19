@@ -19,17 +19,29 @@ largeParagraph:
   nav_title: How We Get Down
 whatwedo:
   pages:
-    - title: intro
+    - media1_description: Image Description 1
+      media2_description: Image Description 1
+      media3_description: image 3
+      media1: /images/uploads/wwd-thumb-a-066.webp
+      media4_description: img 4
+      media2: /images/uploads/wwd-thumb-b-011.webp
+      media3: /images/uploads/wwd-thumb-a-011.webp
+      media4: /images/uploads/wwd-thumb-a-022.webp
+      media1_css: ml-2 -mt-20 max-w-[32vw] lg:ml-12 lg:mt-20 lg:max-w-[12vw] 3xl:ml-12
+        3xl:mt-20 3xl:max-w-[12vw]
+      media2_css: mr-2 mt-0 max-w-[22vw] lg:ml-36 lg:mt-64 lg:max-w-[12vw] 3xl:ml-36
+        3xl:mt-64 3xl:max-w-[12vw]
+      media3_css: ml-8 mt-20 max-w-[31vw] lg:ml-28 lg:mt-0 lg:max-w-[18vw] 3xl:ml-28
+        3xl:mt-0 3xl:max-w-[18vw]
+      media4_css: mr-2 mt-36 max-w-[33vw] lg:mr-60 lg:mt-40 lg:max-w-[21vw] 3xl:mr-60
+        3xl:mt-40 3xl:max-w-[21vw]
+      title: intro
       content: |-
         Our mission is to tell diverse and authentic
 
         stories from the perspective of those who
 
         shape and shift our culture
-      media1: /images/uploads/wwd-thumb-a-066.webp
-      media2: /images/uploads/wwd-thumb-b-011.webp
-      media3: /images/uploads/wwd-thumb-a-011.webp
-      media4: /images/uploads/wwd-thumb-a-022.webp
     - title: Creative
       content: |-
         Award-winning creative agency with 
