@@ -18,33 +18,51 @@ interface Props {
 
 const { pages, id } = Astro.props;
 
+
 ---
 
-<section id={id} class=`relative h-[${pages.length}00vh] flex flex-col items-center text-center relative overflow-hidden bg-massgrey`>
-  <!-- <ul class="what-we-do-nav">
+<section id={id} class=`relative h-[100vh] flex flex-col items-center text-center  overflow-hidden bg-massgrey`>
+  <ul class="what-we-do-nav">
   {pages.map((page, index) => (
-      <li>{page.title}</li>
-   
-  ))}
- </ul> -->
-
-
-    {pages.map((page, index) => (
-<div class="what-we-do-sections flex-1">
-  <h3 class="sub-header">{page.content}</h3>
-        {/* {[page.media1, page.media2, page.media3, page.media4].map((media, i) => (
-          media && (
-            <>
-                {media && (
-                    <Media src={media} alt={`Media ${i + 1}`} cssClasses="w-16" />
-                  )}
-            </>
-          )
-        ))} */}
+    <li>
+      <div class="relative flex items-center">
+        <span class="z-10">{page.title}</span>
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-0 h-1 bg-massblue"></div>
+        </div>
       </div>
-    ))}
-    <div class="what-we-do-logo">
+    </li>
+  ))}
+ </ul>
+
+ {pages.map((page, index) => (
+  <aside class="h-screen flex items-center text-center absolute top-0">
+    <h3 class="sub-header" id={`test${index + 1}`}>{page.content}</h3>
+    {[page.media1, page.media2, page.media3, page.media4].map((media, i) => {
+      if (!media) return null;
+
+      let wrapperClasses = "";
+      if (i === 0) wrapperClasses = "absolute w-[50%] h-[50vh] flex items-center justify-left top-0 left-0";
+      else if (i === 1) wrapperClasses = "absolute w-[50%] h-[50vh] flex items-center justify-end  top-0 right-0";
+      else if (i === 2) wrapperClasses = "absolute w-[50%] h-[50vh] flex items-center justify-left  bottom-0 left-0";
+      else if (i === 3) wrapperClasses = "absolute w-[50%] h-[50vh] flex items-center justify-end  bottom-0 right-0";
+
+      let imageClasses = "";
+      if (i === 0) imageClasses = "intro-a";
+      else if (i === 1) imageClasses = "intro-b";
+      else if (i === 2) imageClasses = "intro-c";
+      else if (i === 3) imageClasses = "intro-d";
+
+      return (
+        <div class={wrapperClasses}>
+          <Media src={media} alt={`Media ${i + 1}`} cssClasses={imageClasses} />
+        </div>
+      );
+    })}
+  </aside>
+))}
+    <div class="what-we-do-logo absolute bottom-0">
+      <!-- <div class="bg-massblue h-2" id="what-we-do-progress"></div> -->
       <img src="./images/1996.svg" alt="Mass Appeal 1996">
     </div>
-
 </section>

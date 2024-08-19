@@ -1,12 +1,15 @@
 import { Scroll } from './scroll';
 import { GsapAnimations } from "./gsapAnimations";
+import { WhatWeDoTrigger } from "./whatwedo";
+
 import barba from '@barba/core';
 import { QuoteAnimations } from '../scripts/quoteAnimations'; // Adjust path as necessary
 
 export class NavigationHandler {
   constructor() {
     this.scrollManager = new Scroll(); 
-    this.triggerManager = new GsapAnimations(); 
+    // this.triggerManager = new GsapAnimations(); 
+    this.whatwedo = new WhatWeDoTrigger(); 
 
     this.initBarba(); 
     QuoteAnimations.init();
@@ -18,6 +21,9 @@ export class NavigationHandler {
         {
           namespace: 'home',
           beforeLeave: (data) => {
+
+
+
             const projectName = data.trigger.dataset.projectName;
             const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
             if (media) {
@@ -25,13 +31,17 @@ export class NavigationHandler {
             }
           },
           afterEnter: (data) => {
-            this.triggerManager.initScrollTriggers();
+            // this.triggerManager.initScrollTriggers();
+            this.whatwedo.initScrollTriggers()
             QuoteAnimations.init();
+            console.log("afterEnter >>>>")
 
             data.current.container.remove();
             const projectName = data.trigger.dataset.projectName;
             this.scrollManager.scrollToProject(projectName);
             const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
+
+
             if (media) {
               const sectionMedia = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
               if (sectionMedia) {
@@ -42,21 +52,26 @@ export class NavigationHandler {
         },
         {
           beforeLeave: (data) => {
-            const container = data.current.container.firstElementChild.id;
-            const media = document.querySelector(`#${container} video`) || document.querySelector(`#${container} img`);
-            if (media) {
-              document.querySelector('#persistent-container').appendChild(media);
+            const sectionElement = data.current.container.querySelector("section");
+            if (sectionElement) {
+              const media = sectionElement.querySelector("video") || sectionElement.querySelector("img");
+              if (media) {
+                document.querySelector('#persistent-container').appendChild(media);
+              }
             }
+            
           },
           namespace: 'project-detail',
           beforeEnter: () => {
-            this.triggerManager.killScrollTriggers();
+            // this.triggerManager.killScrollTriggers();
+            this.whatwedo.killScrollTriggers()
             QuoteAnimations.kill();
 
           },
           afterEnter: (data) => {
 
             data.current.container.remove();
+
 
             const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
             if (media) {

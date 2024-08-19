@@ -19,9 +19,11 @@ const { introField1, introField2, media, id } = Astro.props;
   {media && (
     <Media src={media} alt="Introduction Visual" cssClasses="absolute inset-0 w-full h-full object-cover" />
   )}
-  <div data-speed="1.3" class="intro-mp border">
+  <img data-speed="1.3" class="intro-mp" src="./images/mass-appeal.svg" alt="Mass Appeal">
+
+  <!-- <div data-speed="1.3" class="intro-mp border">
     <img src="./images/mass-appeal.svg" alt="Mass Appeal" />
-  </div>
+  </div> -->
   <div data-speed="1.2" class="globe">
     <div class="globe-offset">
       <img class="absolute rotate-infinite w-full h-full" src="./images/globe-text.svg" alt="Mass Appeal" />

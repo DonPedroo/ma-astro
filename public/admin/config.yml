@@ -39,12 +39,21 @@ collections:
               - label: "What We Do Pages"
                 name: "pages"
                 widget: "list"
+                hint: "This section allows you to define the different pages under 'What We Do'. Each page can have a title, content, and up to four media items (images or videos) with custom Tailwind CSS classes and descriptions."
                 fields:
                   - { label: "Title", name: "title", widget: "string", required: true }
                   - { label: "Content", name: "content", widget: "markdown", required: true }
+                  - { label: "Tailwind CSS Classes Media 1", name: "media1_css", widget: "string", required: false }
+                  - { label: "Description (Alt tag) Media 1", name: "media1_description", widget: "string", required: false }
                   - { label: "Media 1", name: "media1", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+                  - { label: "Tailwind CSS Classes Media 2", name: "media2_css", widget: "string", required: false }
+                  - { label: "Description (Alt tag) Media 2", name: "media2_description", widget: "string", required: false }
                   - { label: "Media 2", name: "media2", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+                  - { label: "Tailwind CSS Classes Media 3", name: "media3_css", widget: "string", required: false }
+                  - { label: "Description (Alt tag) Media 3", name: "media3_description", widget: "string", required: false }
                   - { label: "Media 3", name: "media3", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+                  - { label: "Tailwind CSS Classes Media 4", name: "media4_css", widget: "string", required: false }
+                  - { label: "Description (Alt tag) Media 4", name: "media4_description", widget: "string", required: false }
                   - { label: "Media 4", name: "media4", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
           - label: "You Heard?"
             name: "quotes"

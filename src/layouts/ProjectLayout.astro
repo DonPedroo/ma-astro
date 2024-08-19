@@ -33,14 +33,11 @@ const cleanProjectName = getCleanProjectName(frontmatter.title);
     <a href="/" data-project-name={cleanProjectName}>Close </a>
     <h1>{frontmatter.title}</h1>
     <p>{frontmatter.description}</p>
-    <div id={cleanProjectName} class="absolute inset-0 z-[-1]" >
 
       {frontmatter.media && (
-        <Media src={frontmatter.media} alt={frontmatter.title} cssClasses="w-full h-full object-cover" />
+        <Media src={frontmatter.media} alt={frontmatter.title} cssClasses="absolute inset-0 z-[-1] w-full h-full object-cover" />
       )}
 
-
-  </div>
     <Content />
   </section>
 </MainLayout>
