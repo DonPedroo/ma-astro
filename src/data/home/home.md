@@ -42,7 +42,23 @@ whatwedo:
         stories from the perspective of those who
 
         shape and shift our culture
-    - title: Creative
+    - media1_description: "1"
+      media2_description: "2"
+      media3_description: "3"
+      media1: /images/uploads/wwd-thumb-a-03.webp
+      media4_description: "4"
+      media2: /images/uploads/wwd-thumb-b-02.webp
+      media3: /images/uploads/wwd-thumb-a-01.webp
+      media4: /images/uploads/wwd-thumb-a-04.webp
+      media1_css: ml-2 -mt-0 max-w-[22vw] lg:ml-0 lg:-mt-8 lg:max-w-[14vw] 3xl:ml-0
+        3xl:-mt-32 3xl:max-w-[14vw]
+      media2_css: mr-2 -mt-0 max-w-[28vw] lg:mr-0 lg:mt-32 lg:max-w-[12vw] 3xl:mr-0
+        3xl:mt-64 3xl:max-w-[12vw]
+      media3_css: ml-2 mt-40 max-w-[33vw] lg:ml-32 lg:-mt-20 lg:max-w-[18vw] 3xl:ml-32
+        3xl:-mt-16 3xl:max-w-[18vw]
+      media4_css: mr-2 mt-32 max-w-[30vw] lg:mr-28 lg:mt-16 lg:max-w-[14vw] 3xl:mr-52
+        3xl:mt-0 3xl:max-w-[14vw]
+      title: Creative
       content: |-
         Award-winning creative agency with 
 
@@ -51,10 +67,6 @@ whatwedo:
         partnerships and campaigns that shift 
 
         culture.
-      media1: /images/uploads/wwd-thumb-a-03.webp
-      media2: /images/uploads/wwd-thumb-b-02.webp
-      media3: /images/uploads/wwd-thumb-a-01.webp
-      media4: /images/uploads/wwd-thumb-a-04.webp
     - title: Content
       content: |-
         Full-service production studio that develops 
