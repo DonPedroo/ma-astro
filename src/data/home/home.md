@@ -89,7 +89,7 @@ whatwedo:
 
         and produces premium programming for 
 
-        digital, TV, film, and podcast platforms. 
+        **digital, TV, film, and podcast platforms.** 
 
         Anything.
     - media1_description: "1"
