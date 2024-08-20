@@ -28,6 +28,12 @@ const { pages, id } = Astro.props;
 
 const defaultClasses = ["default-a", "default-b", "default-c", "default-d"];
 const defaultAltText = (index: number) => `Media ${index + 1}`;
+
+// Function to convert **bold text** to a span with a custom class
+function convertBoldToSpan(content) {
+  return content.replace(/\*\*(.*?)\*\*/g, '<span class="line-through text-massblue">$1</span>');
+}
+
 ---
 
 <section id={id} class="relative h-[100vh] flex flex-col items-center text-center overflow-hidden bg-massgrey">
@@ -46,7 +52,9 @@ const defaultAltText = (index: number) => `Media ${index + 1}`;
 
   {pages.map((page, index) => (
     <aside class="h-screen flex items-center text-center absolute top-0">
-      <h3 class="sub-header" id={`test${index + 1}`}>{page.content}</h3>
+      {/* <h3 class="sub-header" id={`test${index + 1}`}>{page.content}</h3> */}
+      <h3 class="sub-header" id={`${id}-${index + 1}`} set:html={convertBoldToSpan(page.content)}></h3>
+
       {[page.media1, page.media2, page.media3, page.media4].map((media, i) => {
         if (!media) return null;
 

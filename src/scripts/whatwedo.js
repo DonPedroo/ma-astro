@@ -8,7 +8,6 @@ export class WhatWeDoTrigger {
   constructor() {
     this.gsapContext = null;
         // this.initScrollTriggers();
-        console.log("l")
 
   }
 
@@ -64,7 +63,7 @@ export class WhatWeDoTrigger {
           }
         });
         
-        const progressElement = document.getElementById("what-we-do-progress");
+        // const progressElement = document.getElementById("what-we-do-progress");
 
 
         const triggerPropsWrap = {
