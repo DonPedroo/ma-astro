@@ -77,7 +77,7 @@ collections:
             widget: "object"
             fields:
               - { label: "ID", name: "id", widget: "hidden", default: "work" }
-              - { label: "Navigation Title", name: "nav_title", widget: "markdown", required: false }
+              - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
               - label: "Projects List"
                 name: "projects"
                 widget: "relation"
