@@ -215,8 +215,5 @@ footer:
   footerField1: since 1996 to forever
   footerField2: info@massappeal.com
   footerField3: world renowned 2024
-  nav_title: |-
-    Connect 
-
-    & Politic
+  nav_title: Connect<br>& Politic
 ---
