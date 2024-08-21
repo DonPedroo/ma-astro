@@ -86,12 +86,10 @@ if (footer?.nav_title) {
     <nav class="fixed top-0 z-40 w-full mix-blend-difference" data-nav>
       <ul class="hidden sm:flex w-full sm:mt-8 sm:pl-8 md:pl-16 xl:pl-32 sm:pr-8 md:pr-16 xl:pr-32">
         {navTitles.map(({ title, id }) => (
-          <li data-link class="flex-grow">
-            <a href={`#${id}`} data-jump-link class="nav-link">
-              {title}
-            </a>
-          </li>
-        ))}
+        <li data-link class="flex-grow">
+          <a href={`#${id}`} data-jump-link class="nav-link" set:html={title}></a>
+        </li>
+      ))}
       <li data-link class="flex-grow"><a href="https://shop.massappeal.com/" target="_blank" class="nav-link">Shop<br>the masses</a></li>
       </ul>
     </nav>

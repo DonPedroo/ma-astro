@@ -19,7 +19,7 @@ collections:
             widget: "object"
             fields:
               - { label: "ID", name: "id", widget: "hidden", default: "introduction" }
-              - { label: "Navigation Title", name: "nav_title", widget: "markdown", required: false }
+              - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
               - { label: "Intro Field 1", name: "introField1", widget: "string" }
               - { label: "Intro Field 2", name: "introField2", widget: "string" }
               - { label: "Intro Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
@@ -29,13 +29,13 @@ collections:
             fields:
               - { label: "ID", name: "id", widget: "hidden", default: "how-we-get-down" }
               - { label: "Content", name: "content", widget: "markdown", required: true }
-              - { label: "Navigation Title", name: "nav_title", widget: "markdown", required: false }
+              - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
           - label: "What We Do"
             name: "whatwedo"
             widget: "object"
             fields:
               - { label: "ID", name: "id", widget: "hidden", default: "what-we-do" }
-              - { label: "Navigation Title", name: "nav_title", widget: "markdown", required: false }
+              - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
               - label: "What We Do Pages"
                 name: "pages"
                 widget: "list"
@@ -60,7 +60,7 @@ collections:
             widget: "object"
             fields:
               - { label: "ID", name: "id", widget: "hidden", default: "you-heard" }
-              - { label: "Navigation Title", name: "nav_title", widget: "markdown", required: false }
+              - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
               - label: "Quotes List"
                 name: "quotes"
                 widget: "list"
