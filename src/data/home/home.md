@@ -17,7 +17,7 @@ largeParagraph:
 
     modern world.
   nav_title: |-
-    How We 
+    How We  
 
     Get Down
 whatwedo:
