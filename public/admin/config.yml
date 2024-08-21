@@ -91,7 +91,7 @@ collections:
             widget: "object"
             fields:
               - { label: "ID", name: "id", widget: "hidden", default: "connect" }
-              - { label: "Navigation Title", name: "nav_title", widget: "markdown", required: false }
+              - { label: "Navigation Title", name: "nav_title", widget: "string", required: false }
               - { label: "Footer Field 1", name: "footerField1", widget: "string" }
               - { label: "Footer Field 2", name: "footerField2", widget: "string" }
               - { label: "Footer Field 3", name: "footerField3", widget: "string" }
