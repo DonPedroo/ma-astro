@@ -8,6 +8,9 @@ export class ThreeScene {
   }
 
   initScene() {
+
+    console.log('Three Scene Loaded');
+
     this.scene = new Scene();
     this.camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.renderer = new WebGLRenderer();

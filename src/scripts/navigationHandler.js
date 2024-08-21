@@ -1,15 +1,24 @@
 import { Scroll } from './scroll';
 import { GsapAnimations } from "./gsapAnimations";
 import { WhatWeDoTrigger } from "./whatwedo";
+import { MenuHandler } from "./nav";
+
+
+
+
 
 import barba from '@barba/core';
 import { QuoteAnimations } from '../scripts/quoteAnimations'; // Adjust path as necessary
 
 export class NavigationHandler {
-  constructor() {
+  constructor(context) {
+
+    this.context = context
     this.scrollManager = new Scroll(); 
     // this.triggerManager = new GsapAnimations(); 
     this.whatwedo = new WhatWeDoTrigger(); 
+
+    this.nav = new MenuHandler(this.context); 
 
     this.initBarba(); 
     QuoteAnimations.init();
@@ -34,6 +43,9 @@ export class NavigationHandler {
             // this.triggerManager.initScrollTriggers();
             this.whatwedo.initScrollTriggers()
             QuoteAnimations.init();
+
+            this.nav.init()
+
             console.log("afterEnter >>>>")
 
             data.current.container.remove();
