@@ -16,10 +16,7 @@ largeParagraph:
     tell the stories that matter for the
 
     modern world.
-  nav_title: |-
-    How We  
-
-    Get Down
+  nav_title: How We<br>Get Down
 whatwedo:
   pages:
     - media1_description: Image Description 1
@@ -166,17 +163,11 @@ whatwedo:
         that take our stories off the screen, and 
 
         place you at the center of it all.
-  nav_title: |-
-    What 
-
-    We Do
+  nav_title: What<br>We Do
   id: what-we-do
 quotes:
   id: you-heard
-  nav_title: |-
-    You 
-
-    Heard ?
+  nav_title: You<br>Heard ?
   quotes:
     - quote: mass appeal & sony music new product releases
       author: Adweek
@@ -203,10 +194,7 @@ quotes:
       entertainment.
 projects:
   id: work
-  nav_title: |-
-    Our Latest 
-
-    Work
+  nav_title: Our Latest<br>Work
   projects:
     - hip hop 50 live
 footer:
