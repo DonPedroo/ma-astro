@@ -12,7 +12,6 @@ export function toggleVisibility(element, { show, delay = 0 }) {
 
    
 
-    // console.log('show', show, 'element', element);
     if (show) {
         // console.log('show');
         // console.log('show',elData);

@@ -30,7 +30,6 @@ const cleanProjectName = getCleanProjectName(frontmatter.title);
   <Arrow imgSrc="/images/x.svg" css="fixed top-8 right-8 xl:bottom-12 xl:right-12 3xl:bottom-24 3xl:right-24" altText="Close" />
 
   <section class="relative h-screen w-full" id={cleanProjectName}>
-    <a href="/" data-project-name={cleanProjectName}>Close </a>
     <h1>{frontmatter.title}</h1>
     <p>{frontmatter.description}</p>
 
@@ -39,5 +38,7 @@ const cleanProjectName = getCleanProjectName(frontmatter.title);
       )}
 
     <Content />
+    <a href="/" data-project-name={cleanProjectName}>Close </a>
+
   </section>
 </MainLayout>

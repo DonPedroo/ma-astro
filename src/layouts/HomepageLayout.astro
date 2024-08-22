@@ -4,6 +4,7 @@ const { title, isHomePage, introduction, largeParagraph, quotes, projects, foote
 
 import '../styles/global.css';
 import Arrow from '../components/Arrow.astro';
+import Nav from '../components/Nav.astro';
 
 
 interface NavTitle {
@@ -59,6 +60,8 @@ if (footer?.nav_title) {
   });
 }
 
+console.log("navTitles",navTitles)
+
 ---
 <!--
 
@@ -76,23 +79,14 @@ if (footer?.nav_title) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <link rel="icon" type="image/svg+xml" href="./images/ma-fav.svg" />
+    <link rel="icon" type="image/svg+xml" href="/images/ma-fav.svg" />
     <title>{title}</title>
     <link rel="stylesheet" href="https://use.typekit.net/shx7hrr.css">
   </head>
   <body class="bg-black text-white">
     <div data-barba="wrapper">
       <Arrow imgSrc="/images/arrow-up.svg" css="fixed bottom-8 right-8 xl:bottom-12 xl:right-12 3xl:bottom-24 3xl:right-24" altText="Scroll Down" />
-    <nav class="fixed top-0 z-40 w-full mix-blend-difference" data-nav>
-      <ul class="hidden sm:flex w-full sm:mt-8 sm:pl-8 md:pl-16 xl:pl-32 sm:pr-8 md:pr-16 xl:pr-32">
-        {navTitles.map(({ title, id }) => (
-        <li data-link class="flex-grow">
-          <a href={`#${id}`} data-jump-link class="nav-link" set:html={title}></a>
-        </li>
-      ))}
-      <li data-link class="flex-grow"><a href="https://shop.massappeal.com/" target="_blank" class="nav-link">Shop<br>the masses</a></li>
-      </ul>
-    </nav>
+      <Nav navTitles={navTitles} />
       <div id="smooth-wrapper">
       <div id="smooth-content">
       <div data-barba="container" data-barba-namespace={isHomePage ? "home" : "project-detail"}>

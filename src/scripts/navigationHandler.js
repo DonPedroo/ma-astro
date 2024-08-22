@@ -2,13 +2,8 @@ import { Scroll } from './scroll';
 import { GsapAnimations } from "./gsapAnimations";
 import { WhatWeDoTrigger } from "./whatwedo";
 import { MenuHandler } from "./nav";
-
-
-
-
-
 import barba from '@barba/core';
-import { QuoteAnimations } from '../scripts/quoteAnimations'; // Adjust path as necessary
+import { QuoteAnimations } from './quoteAnimations'; // Adjust path as necessary
 
 export class NavigationHandler {
   constructor(context) {
@@ -16,12 +11,11 @@ export class NavigationHandler {
     this.context = context
     this.scrollManager = new Scroll(); 
     // this.triggerManager = new GsapAnimations(); 
-    this.whatwedo = new WhatWeDoTrigger(); 
-
+    this.whatwedo = new WhatWeDoTrigger(this.context); 
     this.nav = new MenuHandler(this.context); 
-
+    this.quoteAnimations = new QuoteAnimations(this.context);
     this.initBarba(); 
-    QuoteAnimations.init();
+
   }
 
   initBarba() {
@@ -42,7 +36,8 @@ export class NavigationHandler {
           afterEnter: (data) => {
             // this.triggerManager.initScrollTriggers();
             this.whatwedo.initScrollTriggers()
-            QuoteAnimations.init();
+            this.quoteAnimations.init();
+
 
             this.nav.init()
 
@@ -77,7 +72,8 @@ export class NavigationHandler {
           beforeEnter: () => {
             // this.triggerManager.killScrollTriggers();
             this.whatwedo.killScrollTriggers()
-            QuoteAnimations.kill();
+            this.quoteAnimations.kill();
+            this.nav.kill()
 
           },
           afterEnter: (data) => {

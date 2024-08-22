@@ -1,0 +1,118 @@
+---
+// Nav.astro
+
+interface NavTitle {
+  title: string;
+  id: string;
+}
+
+interface MarkdownFile {
+  frontmatter: any;
+  default: any;
+}
+
+// Load the Markdown files
+const allPages = import.meta.glob<MarkdownFile>('../data/**/*.md', { eager: true });
+
+// Get the home.md file
+const post = allPages['../data/home/home.md'];
+
+const navTitles: NavTitle[] = [];
+
+// Populate navTitles from home.md frontmatter
+if (post?.frontmatter?.introduction?.nav_title) {
+  navTitles.push({
+    title: post.frontmatter.introduction.nav_title,
+    id: post.frontmatter.introduction.id,
+  });
+}
+
+if (post?.frontmatter?.largeParagraph?.nav_title) {
+  navTitles.push({
+    title: post.frontmatter.largeParagraph.nav_title,
+    id: post.frontmatter.largeParagraph.id,
+  });
+}
+
+if (post?.frontmatter?.whatwedo?.nav_title) {
+  navTitles.push({
+    title: post.frontmatter.whatwedo.nav_title,
+    id: post.frontmatter.whatwedo.id,
+  });
+}
+
+if (post?.frontmatter?.quotes?.nav_title) {
+  navTitles.push({
+    title: post.frontmatter.quotes.nav_title,
+    id: post.frontmatter.quotes.id,
+  });
+}
+
+if (post?.frontmatter?.projects?.nav_title) {
+  navTitles.push({
+    title: post.frontmatter.projects.nav_title,
+    id: post.frontmatter.projects.id,
+  });
+}
+
+if (post?.frontmatter?.footer?.nav_title) {
+  navTitles.push({
+    title: post.frontmatter.footer.nav_title,
+    id: post.frontmatter.footer.id,
+  });
+}
+
+// Utility function to replace <br> with a space
+const cleanTitle = (title) => {
+  return title.replace(/<br\s*\/?>/gi, ' ');
+};
+---
+
+    <!-- mobile nav -->
+    <nav class="fixed sm:hidden top-0 z-50 w-full mix-blend-difference p-6" data-nav-mobile>
+        <div class="m-nav-wrapper">
+          <div class="m-nav-logo">
+              <img src="/images/ma-fav.svg" class="w-auto h-[20px]" alt="Mass Appeal">
+          </div>
+          <div class="burger-wrapper">
+            <div class="burger" data-menu>
+              <div class="burger-line line1"></div>
+              <div class="burger-line line2"></div>
+            </div>
+          </div>
+          <div class="m-nav-cart-wrapper">
+            <a href="https://shop.massappeal.com/" target="_blank"><img src="/images/icon-cart.svg" class="w-auto h-[40px]" alt="Mass Appeal"></a>
+          </div>
+        </div>
+      <div class="hidden flex-col h-full" data-nav-mobile-links>
+        <ul class="mobile-nav">
+          {navTitles.map(({ title, id }) => (
+          <li data-link class="opacity-0">
+          <a href={`#${id}`} data-jump-link class="mobile-nav-link">{cleanTitle(title)}</a>
+        </li>
+        ))}
+      </ul>
+      <div class="mobile-logos">
+        <a data-link href="https://www.youtube.com/c/massappeal" target="_blank"><img src="/images/icon-tube.svg" alt="Youtube"></a>
+        <a data-link href="https://www.instagram.com/massappeal" target="_blank"><img src="/images/icon-insta.svg" alt="Instagram"></a>
+        <a data-link href="https://twitter.com/massappeal" target="_blank"><img src="/images/icon-x.svg" alt="X"></a>
+        <a data-link href="https://www.hiphop50.com/" target="_blank"><img src="/images/icon-hip-hop-50.svg" alt="Hip Hsop 50"></a>
+      </div>
+    </div>
+    </nav>
+    <div data-nav-mobile-overlay class="mobile-nav-overlay hidden opacity-0 "></div>
+    <!-- mobile nav -->
+
+
+<nav class="fixed top-0 z-40 w-full mix-blend-difference" data-nav>
+  <ul class="hidden sm:flex w-full sm:mt-8 sm:pl-8 md:pl-16 xl:pl-32 sm:pr-8 md:pr-16 xl:pr-32">
+    {navTitles.map(({ title, id }) => (
+      <li data-link class="flex-grow">
+        <a href={`#${id}`} data-jump-link class="nav-link" set:html={title}></a>
+      </li>
+    ))}
+    <li data-link class="flex-grow">
+      <a href="https://shop.massappeal.com/" target="_blank" class="nav-link">Shop<br>the masses</a>
+    </li>
+  </ul>
+</nav>

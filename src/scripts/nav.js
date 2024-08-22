@@ -11,10 +11,14 @@ export class MenuHandler {
   constructor(context) {
     this.context = context;
     this.gsapContext = null;
-    console.log("nav this.context",this.context)
+    this.handleMobileNavClick = this.handleMobileNavClick.bind(this); 
+    this.handleLinkClick = this.handleLinkClick.bind(this);
+
   }
 
   init() {
+
+
     this.getSelectors();
     this.initCommon();
     
@@ -26,9 +30,13 @@ export class MenuHandler {
   getSelectors() {
     if (this.context.isMobile) {
       this.mobileNav = document.querySelector('[data-nav-mobile]');
-      this.mobileNavLinks = this.mobileNav?.querySelector('ul');
-      this.mobileNavOverlay = document.querySelector('[data-nav-overlay]');
+      
+      this.mobileNavLinks = document.querySelector('[data-nav-mobile-links]');
+      this.mobileNavOverlay = document.querySelector('[data-nav-mobile-overlay]');
       this.mobileNavTrigger = document.querySelector('[data-menu]');
+
+  
+
     }
     
     this.navLinks = document.querySelectorAll('[data-jump-link]');
@@ -43,12 +51,14 @@ export class MenuHandler {
     if (!this.mobileNavTrigger) return;
     this.initScrollTrigger();
 
-    this.mobileNavTrigger.addEventListener('click', this.handleMobileNavClick.bind(this));
+    this.mobileNavTrigger.addEventListener('click', this.handleMobileNavClick); // Use stored reference
+
   }
 
   handleMobileNavClick(event) {
     event.preventDefault();
     if (this.mobileNav.classList.contains('menu-open')) {
+
       this.mobileMenuClose();
     } else {
       this.mobileMenuOpen();
@@ -56,14 +66,18 @@ export class MenuHandler {
   }
 
   mobileMenuOpen() {
-    console.log('open');
 
+    
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
     document.documentElement.style.touchAction = 'none';
     document.body.style.touchAction = 'none';
 
     this.mobileNav.classList.add('menu-open', 'h-[100vh]');
+
+    
+ 
+
     toggleVisibility(this.mobileNavOverlay, { show: true });
 
     this.mobileNav.style.height = `${window.innerHeight}px`;
@@ -73,6 +87,8 @@ export class MenuHandler {
 
     const links = this.mobileNavLinks.querySelectorAll('li');
     const icons = this.mobileNavLinks.querySelectorAll('img');
+
+    
 
     gsap.fromTo(links, { opacity: 0, y: 30 }, {
       opacity: 1,
@@ -92,6 +108,8 @@ export class MenuHandler {
   }
 
   mobileMenuClose() {
+
+    
     document.body.style.overflow = '';
     document.documentElement.style.overflow = '';
     document.documentElement.style.touchAction = '';
@@ -117,23 +135,28 @@ export class MenuHandler {
   initLinks() {
     this.navLinks.forEach(link => {
       const target = link.getAttribute('href');
-
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        gsap.to(window, { duration: 0, scrollTo: target });
-
-        if (this.context.isMobile) {
-          this.mobileMenuClose();
-        }
-      });
+  
+      link.addEventListener('click', this.handleLinkClick); // Use the stored reference
     });
   }
+
+  handleLinkClick(e) {
+    e.preventDefault();
+    const target = e.currentTarget.getAttribute('href');
+    gsap.to(window, { duration: 0, scrollTo: target,ease: "custom" });
+  
+    if (this.context.isMobile) {
+      this.mobileMenuClose();
+    }
+  }
+  
+  
 
   initScrollTrigger() {
     // Use gsap.context to manage ScrollTriggers
     this.gsapContext = gsap.context(() => {
       ScrollTrigger.create({
-        trigger: 'body',
+        trigger: document.body,
         start: 'top top',
         end: 'bottom bottom',
         onUpdate: (self) => {
@@ -144,32 +167,43 @@ export class MenuHandler {
           }
         }
       });
-    }, this.mobileNav); // The scope of the context is limited to mobileNav (or any other element you want to scope it to)
+    }, this.mobileNav); 
   }
 
   kill() {
     this.killCommon();
 
     if (this.context.isMobile) {
+      
       this.killMobile();
     }
   }
 
   killCommon() {
-    if (this.gsapContext) {
-      this.gsapContext.revert(); // This will clean up all ScrollTriggers and animations created within the context
-      this.gsapContext = null;
-    }
-
     if (this.navLinks) {
-      this.navLinks.forEach(link => link.removeEventListener('click', this.handleLinkClick));
+      this.navLinks.forEach(link => link.removeEventListener('click', this.handleLinkClick)); // Use stored reference
     }
   }
+  
   killMobile() {
     if (this.mobileNavTrigger) {
-      this.mobileNavTrigger.removeEventListener('click', this.handleMobileNavClick);
+      this.mobileNavTrigger.removeEventListener('click', this.handleMobileNavClick); // Use stored reference
+
+
     }
+    if (this.gsapContext) {
+      this.gsapContext.revert(); 
+      this.gsapContext = null;
+
+
+    }
+
     gsap.killTweensOf(this.mobileNavLinks?.querySelectorAll('li'));
     gsap.killTweensOf(this.mobileNavLinks?.querySelectorAll('img'));
+
   }
+
+
+
+  
 }
