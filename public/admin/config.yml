@@ -112,8 +112,6 @@ collections:
       - label: "Logos"
         name: "logos"
         widget: "list"
-        allow_add: false
-        max: 8
         field:
           { label: "Logo", name: "logo", widget: "image", required: false }
   
