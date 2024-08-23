@@ -112,6 +112,13 @@ collections:
       - label: "Logos"
         name: "logos"
         widget: "list"
+        hint: "Up to 8 logos."
         field:
-          { label: "Logo", name: "logo", widget: "image", required: false }
+          { label: "Logo", name: "detailed_logos", widget: "image", required: false }
+      - label: "Quote"
+        name: "detailed_quote"
+        widget: "object"
+        fields:
+          - { label: "Quote", name: "detailed_quote_content", widget: "markdown", required: true }
+          - { label: "Author", name: "detailed_quote_content_auth", widget: "string", required: false }
   
