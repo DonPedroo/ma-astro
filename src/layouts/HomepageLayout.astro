@@ -4,6 +4,8 @@ const { title, isHomePage, introduction, largeParagraph, quotes, projects, foote
 
 import '../styles/global.css';
 import Arrow from '../components/Arrow.astro';
+import Mouse from '../components/Mouse.astro';
+
 import Nav from '../components/Nav.astro';
 
 
@@ -60,7 +62,6 @@ if (footer?.nav_title) {
   });
 }
 
-console.log("navTitles",navTitles)
 
 ---
 <!--
@@ -84,6 +85,7 @@ console.log("navTitles",navTitles)
     <link rel="stylesheet" href="https://use.typekit.net/shx7hrr.css">
   </head>
   <body class="bg-black text-white">
+    <Mouse />
     <div data-barba="wrapper">
       <Arrow imgSrc="/images/arrow-up.svg" css="fixed bottom-8 right-8 xl:bottom-12 xl:right-12 3xl:bottom-24 3xl:right-24" altText="Scroll Down" />
       <Nav navTitles={navTitles} />

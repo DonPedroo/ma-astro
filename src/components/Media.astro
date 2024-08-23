@@ -11,9 +11,9 @@ const { src, alt, cssClasses = '' } = Astro.props;
 ---
 
 {src.endsWith('.mp4') ? (
-  <video autoplay muted playsinline loop class={cssClasses}>
+  <video autoplay muted playsinline loop class={cssClasses} data-gl>
     <source src={src} type="video/mp4" />
   </video>
 ) : (
-  <img src={src} alt={alt} class={cssClasses} />
+  <img src={src} alt={alt} class={cssClasses} data-gl />
 )}

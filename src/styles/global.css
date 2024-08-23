@@ -685,13 +685,8 @@
 .intro-mp {
   @apply 
 
-  absolute 
-  top-1/2 
-  left-1/2 
-  transform 
-  -translate-x-1/2 
-  -translate-y-[15vh] 
-  sm:-translate-y-1/2 
+
+
   max-w-[90vw] 
   sm:max-w-[70vw] 
 

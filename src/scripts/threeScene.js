@@ -2,14 +2,16 @@
 import { Scene, PerspectiveCamera, WebGLRenderer, BoxGeometry, MeshBasicMaterial, Mesh } from 'three';
 
 export class ThreeScene {
-  constructor() {
+  constructor(context) {
+    this.context = context
     this.initScene();
     this.animate();
   }
 
   initScene() {
 
-    console.log('Three Scene Loaded');
+    console.log('Three Scene Loaded',this.context);
+    this.setDataGlOpacity(0);
 
     this.scene = new Scene();
     this.camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -37,6 +39,15 @@ export class ThreeScene {
     this.cube.rotation.x += 0.01;
     this.cube.rotation.y += 0.01;
     this.renderer.render(this.scene, this.camera);
+
+    console.log(">",this.context.cursor.followMouse)
+  }
+
+  setDataGlOpacity(opacity) {
+    const glElements = document.querySelectorAll('[data-gl]');
+    glElements.forEach(el => {
+      el.style.opacity = opacity;
+    });
   }
 
   getScene() {

@@ -97,15 +97,22 @@ collections:
               - { label: "Footer Field 3", name: "footerField3", widget: "string" }
               - { label: "Footer Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
 
-  - name: "projects"
-    label: "Manage Projects"
-    folder: "src/data/projects"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "ID", name: "id", widget: "hidden", default: "{{slug}}" }  # Hidden field for ID using slug
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Description", name: "description", widget: "text" }
-      - { label: "Body", name: "body", widget: "markdown" }
-      - { label: "Hero Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+- name: "projects"
+  label: "Manage Projects"
+  folder: "src/data/projects"
+  create: true
+  slug: "{{slug}}"
+  fields:
+    - { label: "ID", name: "id", widget: "hidden", default: "{{slug}}" }  # Hidden field for ID using slug
+    - { label: "Title", name: "title", widget: "string" }
+    - { label: "Date", name: "date", widget: "datetime" }
+    - { label: "Description", name: "description", widget: "text" }
+    - { label: "Body", name: "body", widget: "markdown" }
+    - { label: "Hero Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+    - label: "Logos"
+      name: "logos"
+      widget: "list"
+      allow_add: false
+      max: 8
+      field:
+        { label: "Logo", name: "logo", widget: "image", required: false }

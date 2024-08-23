@@ -19,7 +19,7 @@ const { footerField1, footerField2, footerField3, media, id } = Astro.props;
 <footer data-content-section data-type="video" id={id} class="relative flex flex-col justify-center items-center w-full h-screen overflow-hidden">
     
   {media && (
-    <Media src={media} alt="Footer Visual" cssClasses="absolute inset-0 w-full h-full object-cover" />
+    <Media src={media} alt="Footer Visual" cssClasses="absolute inset-0 w-full h-full object-cover  " />
   )}
 
     <div class="flex flex-col sm:flex-row justify-between w-full sm:mt-8 mt-24 sm:px-8 md:px-16 xl:px-32 z-0">
@@ -28,7 +28,7 @@ const { footerField1, footerField2, footerField3, media, id } = Astro.props;
       <p class="footer-text">{footerField3}</p>
     </div>
 
-    <div class="flex flex-col justify-between flex-1 w-full">
+    <div class="flex flex-col justify-between flex-1 w-full z-0">
 
 
     <div data-speed=".96" class="space-x-6 sm:space-x-12 flex flex-row flex-1 justify-center items-center">
@@ -41,7 +41,7 @@ const { footerField1, footerField2, footerField3, media, id } = Astro.props;
 
 
 
-    <div data-speed=".92"  id="mc_embed_shell" class="flex flex-col flex-1 sm:flex-row items-center justify-center w-full">
+    <div data-speed=".92"  id="mc_embed_shell" class="flex flex-col flex-1 sm:flex-row items-center justify-center w-full z-0">
 
       <div id="mc_embed_signup" class="newsletter-wrapper">
     
@@ -68,12 +68,13 @@ const { footerField1, footerField2, footerField3, media, id } = Astro.props;
 
 
           
-        </div>
     
       <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script><script type="text/javascript">(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='MMERGE2';ftypes[2]='text';fnames[3]='MMERGE3';ftypes[3]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script></div>
 
     </div>
-      <div class="flex flex-col w-full items-center justify-center mb-24 sm:mb-8 ">
+
+    
+      <div class="flex flex-col w-full items-center justify-center mb-24 sm:mb-8 z-0">
         <img data-speed=".85" class="left-1/2 max-w-[90vw] sm:max-w-[50vw]" src="./images/mass-appeal.svg" alt="Mass Appeal">
       </div>
 

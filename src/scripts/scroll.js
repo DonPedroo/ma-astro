@@ -9,10 +9,11 @@ export class Scroll {
     this.smoother = null;
     this.ctx = null;  
 
-    this.initScrollSmoother()
+    this.init()
+
   }
 
-  initScrollSmoother() {
+  init() {
 
     if (!this.smoother) {
 
@@ -22,8 +23,11 @@ export class Scroll {
   
         this.smoother = ScrollSmoother.create({
           smooth: .5,
-          effects: true,
+          // effects: true,
         });
+
+
+        console.log("smoother created")
  
        
       });
@@ -31,17 +35,42 @@ export class Scroll {
     }
   }
 
-  // Function to kill ScrollSmoother and clean up the context
-  killScrollSmoother() {
+  initEffects() {
+
+    if (this.smoother) {
+      this.smoother.effects("[data-speed]");
+
+      console.log("effects added")
+
+
+    }
+
+
+  }
+
+  killEffects() {
+
     if (this.smoother) {
 
+    this.smoother.effects().forEach((t) => t.kill());
+
+  }
+
+  }
+
+  kill() {
+    if (this.smoother) {
+
+
       if (this.ctx) {
-        this.ctx.revert();  // Revert all animations in the context
-        this.ctx = null;  // Clean up the context
+        this.ctx.revert();  
+        this.ctx = null; 
       }
       
       this.smoother.kill();
       this.smoother = null;
+
+
 
     }
   }
