@@ -770,7 +770,7 @@
   flex-col 
   w-full 
   sm:flex-row
-  sm:w-max
+  /* sm:w-max */
   sm:h-full 
   select-none	
 
