@@ -85,6 +85,7 @@ interface Project {
   title: string;
   description: string;
   url: string;
+  eyebrow: string;
   media?: string;
 }
 
@@ -115,6 +116,7 @@ const Content = post?.default || 'Content not found.';
 const projectsMap = Object.values(allProjects).reduce((map, project) => {
   map[project.frontmatter.title] = {
     title: project.frontmatter.title,
+    eyebrow: project.frontmatter.eyebrow,
     description: project.frontmatter.description || '',
     url: `/projects/${project.frontmatter.title.toLowerCase().replace(/\s+/g, '-')}`,
     media: project.frontmatter.media || '',  
@@ -169,6 +171,7 @@ const isHomePage = true;
         title={project.title}
         description={project.description}
         url={project.url}
+        eyebrow={project.eyebrow}
         media={project.media}
         cleanProjectName={cleanProjectName}
       />

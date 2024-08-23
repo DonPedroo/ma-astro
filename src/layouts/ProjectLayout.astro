@@ -6,9 +6,11 @@ import Media from '../components/Media.astro';
 
 interface Frontmatter {
   title: string;
-  date: string;
   description: string;
   media?: string;
+  square_image?: {
+    square_image_media: string;
+  };
   logos?: string[];
   detailed_quote?: {
     detailed_quote_content: string;
@@ -21,7 +23,7 @@ interface ProjectPageProps {
   Content: MarkdownInstance<Frontmatter>['default'];
 }
 
-const { frontmatter, Content } = Astro.props as ProjectPageProps;
+const { frontmatter } = Astro.props as ProjectPageProps;
 
 function getCleanProjectName(title: string): string {
   return title.toLowerCase().replace(/\s+/g, '-');
@@ -78,7 +80,7 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
 
 
 
-    <a href="/" data-link data-project-name={cleanProjectName}>Close </a>
+    <a href="/" class="absolute top-14 z-20" data-link data-project-name={cleanProjectName}>Close </a>
 
     <div class="horizontal-slider cursor-grab overflow-x-scroll overflow-y-hidden  bg-red-400/25" data-horizontal-scroll>
 
@@ -109,7 +111,11 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
 
       <section class="flex h-[100vw] w-[100vw] sm:h-[100vh] sm:w-[100vh] aspect-square bg-blue-700" data-slider-gl data-type="image" data-bg="">
 
-        zzz
+        {frontmatter.square_image?.square_image_media && (
+          <Media src={frontmatter.square_image.square_image_media} alt={frontmatter.title} cssClasses="w-screen h-screen max-w-fit	 " />
+        )}
+        
+
       </section>
       
       <section class="flex flex-col sm:h-[100vh] sm:flex-row space-y-12 sm:space-y-0 sm:space-x-12 p-12 sm:p-0" data-slider-gl data-type="image">
