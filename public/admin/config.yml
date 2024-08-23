@@ -97,93 +97,93 @@ collections:
               - { label: "Footer Field 3", name: "footerField3", widget: "string" }
               - { label: "Footer Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
 
-- name: "projects"
-  label: "Manage Projects"
-  folder: "src/data/projects"
-  create: true
-  slug: "{{slug}}"
-  fields:
-    - { label: "ID", name: "id", widget: "hidden", default: "{{slug}}" }
-    - { label: "Title", name: "title", widget: "string" }
-    - { label: "Description", name: "description", widget: "text" }
-    - { label: "Eyebrow", name: "eyebrow", widget: "text" }
-    - { label: "Hero Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-    - label: "Logos"
-      name: "logos"
-      widget: "list"
-      hint: "Up to 8 logos."
-      fields:
-        - { label: "Logo", name: "detailed_logos", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-        - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
-    - label: "Quote"
-      name: "detailed_quote"
-      widget: "object"
-      fields:
-        - { label: "Quote", name: "detailed_quote_content", widget: "markdown", required: true }
-        - { label: "Author", name: "detailed_quote_content_auth", widget: "string", required: false }
-    - label: "1x1 Image"
-      name: "square_image"
-      widget: "object"
-      hint: "1x1 Image"
-      fields:
-        - { label: "1x1 Image", name: "square_image_media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-        - { label: "Alt Text", name: "alt_text", widget: "string", required: true }
-    - label: "Stats Module"
-      name: "stats_module"
-      widget: "object"
-      fields:
-        - label: "Section 1"
-          name: "section_1"
-          widget: "object"
-          fields:
-            - { label: "Header", name: "header", widget: "string" }
-            - { label: "Content", name: "content", widget: "string" }
-        - label: "Section 2"
-          name: "section_2"
-          widget: "object"
-          fields:
-            - { label: "Header", name: "header", widget: "string" }
-            - { label: "Content", name: "content", widget: "string" }
-        - label: "Section 3"
-          name: "section_3"
-          widget: "object"
-          fields:
-            - { label: "Header", name: "header", widget: "string" }
-            - { label: "Content", name: "content", widget: "string" }
-        - label: "Stats Hero Image"
-          name: "stats_hero_image"
-          widget: "object"
-          fields:
-            - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-            - { label: "Alt Text", name: "alt_text", widget: "string" }
-        - label: "Additional Section"
-          name: "additional_section"
-          widget: "object"
-          fields:
-            - { label: "Header", name: "header", widget: "string" }
-            - { label: "Content", name: "content", widget: "markdown" }
-            - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-            - { label: "Alt Text", name: "alt_text", widget: "string" }
-    - label: "Details Module"
-      name: "details_module"
-      widget: "object"
-      fields:
-        - label: "Main Section"
-          name: "main_section"
-          widget: "object"
-          fields:
-            - { label: "Header", name: "header", widget: "string" }
-            - { label: "Content", name: "content", widget: "markdown" }
-            - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-            - { label: "Alt Text", name: "alt_text", widget: "string" }
-        - label: "Three Images Section"
-          name: "three_images_section"
-          widget: "list"
-          hint: "Add up to 3 images."
-          max: 3
-          fields:
-            - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-            - { label: "Alt Text", name: "alt_text", widget: "string" }
+  - name: "projects"
+    label: "Manage Projects"
+    folder: "src/data/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "ID", name: "id", widget: "hidden", default: "{{slug}}" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Eyebrow", name: "eyebrow", widget: "text" }
+      - { label: "Hero Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+      - label: "Logos"
+        name: "logos"
+        widget: "list"
+        hint: "Up to 8 logos."
+        fields:
+          - { label: "Logo", name: "detailed_logos", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+          - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
+      - label: "Quote"
+        name: "detailed_quote"
+        widget: "object"
+        fields:
+          - { label: "Quote", name: "detailed_quote_content", widget: "markdown", required: true }
+          - { label: "Author", name: "detailed_quote_content_auth", widget: "string", required: false }
+      - label: "1x1 Image"
+        name: "square_image"
+        widget: "object"
+        hint: "1x1 Image"
+        fields:
+          - { label: "1x1 Image", name: "square_image_media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+          - { label: "Alt Text", name: "alt_text", widget: "string", required: true }
+      - label: "Stats Module"
+        name: "stats_module"
+        widget: "object"
+        fields:
+          - label: "Section 1"
+            name: "section_1"
+            widget: "object"
+            fields:
+              - { label: "Header", name: "header", widget: "string" }
+              - { label: "Content", name: "content", widget: "string" }
+          - label: "Section 2"
+            name: "section_2"
+            widget: "object"
+            fields:
+              - { label: "Header", name: "header", widget: "string" }
+              - { label: "Content", name: "content", widget: "string" }
+          - label: "Section 3"
+            name: "section_3"
+            widget: "object"
+            fields:
+              - { label: "Header", name: "header", widget: "string" }
+              - { label: "Content", name: "content", widget: "string" }
+          - label: "Stats Hero Image"
+            name: "stats_hero_image"
+            widget: "object"
+            fields:
+              - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+              - { label: "Alt Text", name: "alt_text", widget: "string" }
+          - label: "Additional Section"
+            name: "additional_section"
+            widget: "object"
+            fields:
+              - { label: "Header", name: "header", widget: "string" }
+              - { label: "Content", name: "content", widget: "markdown" }
+              - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+              - { label: "Alt Text", name: "alt_text", widget: "string" }
+      - label: "Details Module"
+        name: "details_module"
+        widget: "object"
+        fields:
+          - label: "Main Section"
+            name: "main_section"
+            widget: "object"
+            fields:
+              - { label: "Header", name: "header", widget: "string" }
+              - { label: "Content", name: "content", widget: "markdown" }
+              - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+              - { label: "Alt Text", name: "alt_text", widget: "string" }
+          - label: "Three Images Section"
+            name: "three_images_section"
+            widget: "list"
+            hint: "Add up to 3 images."
+            max: 3
+            fields:
+              - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+              - { label: "Alt Text", name: "alt_text", widget: "string" }
 
 
-  
+    
