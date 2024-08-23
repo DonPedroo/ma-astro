@@ -114,7 +114,7 @@ collections:
         hint: "Up to 8 logos."
         fields:
           - { label: "Logo", name: "detailed_logos", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-          - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
+          - { label: "Alt Text", name: "alt_text", widget: "string"}
       - label: "Quote"
         name: "detailed_quote"
         widget: "object"
