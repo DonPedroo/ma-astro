@@ -127,6 +127,6 @@ collections:
         widget: "object"
         hint: "1x1 Image"
         field:
-          - { label: 1x1 Image", name: "square_image_media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+          { label: 1x1 Image", name: "square_image_media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
 
   
