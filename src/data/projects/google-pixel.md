@@ -1,5 +1,6 @@
 ---
 id: google-pixel
+slug: google-pixel
 title: represents
 description: Pixel RePresents celebrates the past, present, and future of women in Hip Hop while paying homage to the genre’s originators.
 eyebrow: Google Pixel

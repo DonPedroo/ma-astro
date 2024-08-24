@@ -83,6 +83,7 @@ interface Quote {
 
 interface Project {
   title: string;
+  slug: string;
   description: string;
   url: string;
   eyebrow: string;
@@ -116,9 +117,10 @@ const Content = post?.default || 'Content not found.';
 const projectsMap = Object.values(allProjects).reduce((map, project) => {
   map[project.frontmatter.title] = {
     title: project.frontmatter.title,
+    slug: project.frontmatter.slug,
     eyebrow: project.frontmatter.eyebrow,
     description: project.frontmatter.description || '',
-    url: `/projects/${project.frontmatter.title.toLowerCase().replace(/\s+/g, '-')}`,
+    url: `/projects/${project.frontmatter.slug}`,
     media: project.frontmatter.media || '',  
   };
   return map;

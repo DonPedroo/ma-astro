@@ -1,5 +1,6 @@
 ---
 id: mixed-and-mastered
+slug: mixed-and-mastered
 title: Mixed & mastered
 description: PATRÓN PARTNERED WITH MASS APPEAL TO DEEPEN THEIR CONNECTION TO THE CULTURE AND SHOWCASE CRAFTSMANSHIP WITH TWO OF THE MOST RESPECTED CREATORS.
 eyebrow: patron

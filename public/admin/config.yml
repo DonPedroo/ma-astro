@@ -101,10 +101,12 @@ collections:
     label: "Manage Projects"
     folder: "src/data/projects"
     create: true
-    slug: "{{slug}}"
+    # slug: "{{slug}}"
+    slug: "{{fields.slug}}"  
     fields:
       - { label: "ID", name: "id", widget: "hidden", default: "{{slug}}" }
       - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string", hint: "This will be used for the URL filename." }  
       - { label: "Description", name: "description", widget: "text" }
       - { label: "Eyebrow", name: "eyebrow", widget: "text" }
       - { label: "Hero Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
