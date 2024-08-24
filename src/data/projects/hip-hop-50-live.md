@@ -31,26 +31,32 @@ square_image:
   alt_text: test
 stats_module:
   section_1:
-    header: x
-    content: sx
+    header: Total Attendees
+    content: 42K+
   section_2:
-    header: sx
-    content: xs
+    header: press
+    content: 7.2B
   section_3:
-    header: sx
-    content: sx
+    header: Livestream
+    content: 1.9M
   stats_hero_image:
     image: /images/uploads/hip-hop-50-live-image4.webp
     alt_text: test
   additional_section:
-    header: assa
-    content: asas
+    header: top tier production
+    content: In partnership with Live Nation and the Yankees, Mass Appeal helped
+      manage the behemoth task of producing this event. From overall event
+      experience to talent management, merchandising, content, and marketing.
+      Our teams collaborated on bringing every aspect of this celebration to
+      life.
     image: /images/uploads/hip-hop-50-live-1x1.webp
     alt_text: xsasxsax
 details_module:
   main_section:
-    header: as
-    content: assa
+    header: A Star-Studded Concert
+    content: This historic, milestone event featured 5 renowned DJs, 46 artists,
+      legends and surprise guests. The night ended with Run DMC’s ‘Bottom of the
+      Ninth…The Walk-Off’ final performance.
     image: /images/uploads/hip-hop-50-live-image1.webp
     alt_text: sfsf
   three_images_section:
