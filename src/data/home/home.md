@@ -197,6 +197,9 @@ projects:
   nav_title: Our Latest<br>Work
   projects:
     - hip hop 50 live
+    - "HIP HOP: CONSCIOUS / UNCONSCIOUS"
+    - represents
+    - Mixed & mastered
 footer:
   id: connect
   media: /images/uploads/footer.mp4
