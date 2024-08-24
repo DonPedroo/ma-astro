@@ -1,6 +1,6 @@
 ---
 id: fotografiska
-title: HIP HOP: CONSCIOUS / UNCONSCIOUS
+title: "HIP HOP: CONSCIOUS / UNCONSCIOUS"
 description: A GLOBAL TRAVELING PHOTOGRAPHY EXHIBIT DOCUMENTING THE 50-YEAR EVOLUTION OF HIP HOP IN PARTNERSHIP WITH INTERNATIONALLY RENOWNED PHOTOGRAPHY MUSEUM, FOTOGRAFISKA.
 eyebrow: fotografiska
 media: /images/uploads/fotografiska.mp4
@@ -22,9 +22,6 @@ stats_module:
     header: Photographers
     content: 200+
   section_2:
-    header: Attendees
-    content: 60K
-  section_3:
     header: Attendees
     content: 60K
   stats_hero_image:
