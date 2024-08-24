@@ -96,15 +96,15 @@ export class WhatWeDoTrigger {
           scrub: true, 
           pin: true,
           pinSpacing:true,
-          onEnter: () => {
-            console.log(`Entering inside section: ${section.id}`);
-          },
-          onLeave: () => {
-            console.log(`Leaving  inside section: ${section.id}`);
-          },
+          // onEnter: () => {
+          //   console.log(`Entering inside section: ${section.id}`);
+          // },
+          // onLeave: () => {
+          //   console.log(`Leaving  inside section: ${section.id}`);
+          // },
           onRefresh: (self) => {
             this.startValue = self.start; // Now `startValue` will be accurate
-            console.log("this.scrollJack start value after refresh:", this.startValue);
+            // console.log("this.scrollJack start value after refresh:", this.startValue);
           },
           onUpdate: (self) => {
             // if (progressElement) {

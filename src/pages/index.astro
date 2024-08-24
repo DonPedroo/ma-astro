@@ -162,25 +162,25 @@ const isHomePage = true;
   additionalParagraph={data.quotes.additionalParagraph}
   id={data.quotes.id} 
    />
-  
+   <section id={data.projects.id} >
+
    {data.projects.projects.map((projectTitle) => {
     const project = projectsMap[projectTitle];
     const cleanProjectName = getCleanProjectName(project.url);
   
     return (
-      <section id={data.projects.id} >
       <ProjectItem
         title={project.title}
         description={project.description}
         url={project.url}
         eyebrow={project.eyebrow}
         media={project.media}
-        cleanProjectName={cleanProjectName}
+        slug={project.slug}
       />
-      </section>
     );
   })}
-  
+        </section>
+
   
 
   <Footer 

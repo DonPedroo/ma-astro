@@ -15,7 +15,6 @@ class App {
     this.height = window.innerHeight;
     this.isMobile = false;
     this.gl = false
-
     this.cursor = new MouseEvenets(this); 
     this.whatwedo = new WhatWeDoTrigger(this); 
     this.nav = new MenuHandler(this); 
@@ -42,8 +41,14 @@ async init() {
           namespace: 'home',
           beforeLeave: (data) => {
 
+          // console.log("home beforeLeave >>>>")
+
+
             const projectName = data.trigger.dataset.projectName;
             const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
+
+            // console.log("home beforeLeave >>>> media",media)
+
             if (media) {
               document.querySelector('#persistent-container').appendChild(media);
             }
@@ -56,11 +61,12 @@ async init() {
             this.nav.init()
             this.cursor.mousePointer()
 
-            console.log("afterEnter >>>>")
+            // console.log("home afterEnter >>>>")
 
             data.current.container.remove();
             const projectName = data.trigger.dataset.projectName;
-            
+            // console.log("home afterEnter >>>>  this.scrollManager.scrollToProject(projectName);",projectName,data.trigger)
+
             this.scrollManager.scrollToProject(projectName);
             
             const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
@@ -92,11 +98,14 @@ async init() {
             this.whatwedo.killScrollTriggers()
             this.quoteAnimations.kill();
             this.nav.kill()
-            
+
+            // console.log("project-detail beforeEnter >>>>")
+
 
 
           },
           afterEnter: (data) => {
+            // console.log("project-detail afterEnter >>>>")
 
             data.current.container.remove();
             this.cursor.mousePointer()
