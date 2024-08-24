@@ -10,11 +10,26 @@ interface Frontmatter {
   media?: string;
   square_image?: {
     square_image_media: string;
+    alt_text: string;
   };
-  logos?: string[];
+  logos?: Array<{
+    detailed_logos: string;
+    alt_text: string;
+  }>;
   detailed_quote?: {
     detailed_quote_content: string;
     detailed_quote_content_auth: string;
+  };
+  stats_module?: {
+    section_1: { header: string; content: string };
+    section_2: { header: string; content: string };
+    section_3: { header: string; content: string };
+    stats_hero_image: { image: string; alt_text: string };
+    additional_section: { header: string; content: string; image: string; alt_text: string };
+  };
+  details_module?: {
+    main_section: { header: string; content: string; image: string; alt_text: string };
+    three_images_section: Array<{ image: string; alt_text: string }>;
   };
 }
 
@@ -69,113 +84,90 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
   <Arrow imgSrc="/images/x.svg" css="fixed top-8 right-8 xl:bottom-12 xl:right-12 3xl:bottom-24 3xl:right-24" altText="Close" />
 
   <section class="relative h-screen w-full" id={cleanProjectName}>
-    <!-- <h1>{frontmatter.title}</h1>
-    <p>{frontmatter.description}</p> -->
-
     {frontmatter.media && (
       <Media src={frontmatter.media} alt={frontmatter.title} cssClasses="absolute inset-0 z-[-1] w-full h-full object-cover" />
     )}
 
+    <a href="/" class="absolute top-14 z-20" data-link data-project-name={cleanProjectName}>Close</a>
 
-
-
-
-    <a href="/" class="absolute top-14 z-20" data-link data-project-name={cleanProjectName}>Close </a>
-
-    <div class="horizontal-slider cursor-grab overflow-x-scroll overflow-y-hidden  bg-red-400/25" data-horizontal-scroll>
-
-    <!-- <div class="horizontal-slider cursor-grab " data-horizontal-scroll> -->
+    <div class="horizontal-slider cursor-grab overflow-x-scroll overflow-y-hidden bg-red-400/25" data-horizontal-scroll>
       <section class="flex flex-col sm:flex-row w-[100vw] border border-green-600">
-          <div class="sm:w-[50vw] h-[55vh] sm:h-auto flex flex-col justify-center">
-                {frontmatter.logos && (
-                   <div class={logoContainerClass} horizontal-slider-logos>
-                    {frontmatter.logos.map((logo) => (
-                      <div data-horizontal-logos><img src={logo} alt={`Logo for ${frontmatter.title}`} class="logo-item" /></div>
-                    ))}
-                  </div>
-                )}
-              
+        <div class="sm:w-[50vw] h-[55vh] sm:h-auto flex flex-col justify-center">
+          {frontmatter.logos && (
+            <div class={logoContainerClass} horizontal-slider-logos>
+              {frontmatter.logos.map((logo) => (
+                <div data-horizontal-logos>
+                  <img src={logo.detailed_logos} alt={logo.alt_text} class="logo-item" />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div class="sm:w-[50vw] px-6 py-16 lg:p-8 xl:p-16 2xl:p-32 flex flex-col justify-center bg-massgrey sm:bg-transparent" data-quote-container data-slider-gl data-param="reveal" data-type="color" data-bg="#EAEAEA">
+          <div class="flex flex-row items-start space-x-3 sm:space-x-6" data-quote>
+            <img src="/images/quote.svg" class="max-w-[20px] sm:max-w-[30px] xl:max-w-[40px] 2xl:max-w-[50px]" alt="Quote">
+            <div class="flex flex-col mt-6">
+              {frontmatter.detailed_quote && (
+                <>
+                  <h4 class="horizontal-quote text-massblue">{frontmatter.detailed_quote.detailed_quote_content}</h4>
+                  <p class="stripe-label text-massblue">{frontmatter.detailed_quote.detailed_quote_content_auth}</p>
+                </>
+              )}
+            </div>
           </div>
-          <div class="sm:w-[50vw] px-6 py-16 lg:p-8 xl:p-16 2xl:p-32 flex flex-col justify-center bg-massgrey sm:bg-transparent" data-quote-container data-slider-gl data-param="reveal" data-type="color" data-bg="#EAEAEA">
-              <div class="flex flex-row items-start space-x-3 sm:space-x-6" data-quote>
-                  <img src="/images/quote.svg" class="max-w-[20px] sm:max-w-[30px] xl:max-w-[40px] 2xl:max-w-[50px]" alt="Quote">
-                  <div class="flex flex-col mt-6">
-                    {frontmatter.detailed_quote && (
-                        <h4 class="horizontal-quote text-massblue">{frontmatter.detailed_quote.detailed_quote_content}</h4>
-                        <p class="stripe-label text-massblue">{frontmatter.detailed_quote.detailed_quote_content_auth}</p>
-                    )}
-                  </div>
-              </div>
-          </div>
+        </div>
       </section>
 
-      <section class="flex h-[100vw] w-[100vw] sm:h-[100vh] sm:w-[100vh] aspect-square bg-blue-700" data-slider-gl data-type="image" data-bg="">
-
+      <section class="flex h-[100vw] w-[100vw] sm:h-[100vh] sm:w-[100vh] aspect-square bg-blue-700" data-slider-gl data-type="image">
         {frontmatter.square_image?.square_image_media && (
-          <Media src={frontmatter.square_image.square_image_media} alt={frontmatter.title} cssClasses="w-screen h-screen max-w-fit	 " />
+          <Media src={frontmatter.square_image.square_image_media} alt={frontmatter.square_image.alt_text} cssClasses="w-screen h-screen max-w-fit" />
         )}
-        
-
       </section>
-      
+
       <section class="flex flex-col sm:h-[100vh] sm:flex-row space-y-12 sm:space-y-0 sm:space-x-12 p-12 sm:p-0" data-slider-gl data-type="image">
-          <div class="horizontal-content-group sm:w-[50vw] justify-end">
-              <div class="horizontal-img-container"> 
-                ass
-               </div>
-              <div class="horizontal-textblock lg:w-[80%] xl:w-[80%] 2xl:w-[70%] 3xl:w-[60%]">
-                  <h4 class="horizontal-header">data.title2</h4>
-                  <p class="horizontal-description">data.description2</p>
-              </div>
+        <div class="horizontal-content-group sm:w-[50vw] justify-end">
+          <div class="horizontal-img-container">
+            <img src={frontmatter.details_module?.main_section.image} alt={frontmatter.details_module?.main_section.alt_text} />
           </div>
-
-          <div class="sm:relative flex flex-col sm:flex-row sm:w-[100vh] space-y-12 sm:space-y-0">
-
-            <div class="sm:absolute inset-0 flex  sm:h-full">
-              assa
-                  </div>
-      
-                  <div class="sm:absolute inset-0 flex justify-center ${getItemAlignmentClass(data.imageparalax1.items)} sm:h-full" data-parallax data-parallax-speed=".1">
-ass
-                  </div>
-      
-                  <div class="sm:absolute inset-0 flex justify-center ${getItemAlignmentClass(data.imageparalax2.items)} sm:h-full" data-parallax data-parallax-speed=".05">
-sasa
-                  </div>
+          <div class="horizontal-textblock lg:w-[80%] xl:w-[80%] 2xl:w-[70%] 3xl:w-[60%]">
+            <h4 class="horizontal-header">{frontmatter.details_module?.main_section.header}</h4>
+            <p class="horizontal-description">{frontmatter.details_module?.main_section.content}</p>
           </div>
+        </div>
 
-
+        <div class="sm:relative flex flex-col sm:flex-row sm:w-[100vh] space-y-12 sm:space-y-0">
+          {frontmatter.details_module?.three_images_section.map((image, index) => (
+            <div class="sm:absolute inset-0 flex justify-center sm:h-full" data-parallax data-parallax-speed={`${index * 0.05 + 0.1}`}>
+              <img src={image.image} alt={image.alt_text} />
+            </div>
+          ))}
+        </div>
       </section>
 
       <section class="flex flex-col sm:flex-row w-screen space-y-12 sm:space-y-0 sm:space-x-12 p-12 sm:p-0 bg-massgrey sm:bg-transparent" data-slider-gl data-type="color" data-bg="#EAEAEA">
-          <div class="sm:w-2/3 sm:h-[100vh] flex flex-col sm:flex-row justify-center items-center  space-y-12 sm:space-y-0">
-              <div class="horizontal-content-group sm:w-1/2 items-start">
-                  <div class="horizontal-textblock">
-                      <h4 class="text-black horizontal-header">data.title3</h4>
-                      <p class="text-black horizontal-description">data.description3</p>
-                  </div>
-
-                  <div class="horizontal-img-container">
-
-                  </div>
-
-                </div>
-              <div class="horizontal-img-container-full">
-
-              </div>
+        <div class="sm:w-2/3 sm:h-[100vh] flex flex-col sm:flex-row justify-center items-center space-y-12 sm:space-y-0">
+          <div class="horizontal-content-group sm:w-1/2 items-start">
+            <div class="horizontal-textblock">
+              <h4 class="text-black horizontal-header">{frontmatter.stats_module?.additional_section.header}</h4>
+              <p class="text-black horizontal-description">{frontmatter.stats_module?.additional_section.content}</p>
+            </div>
+            <div class="horizontal-img-container">
+              <img src={frontmatter.stats_module?.additional_section.image} alt={frontmatter.stats_module?.additional_section.alt_text} />
+            </div>
           </div>
-          <div class="sm:w-1/3 flex flex-col justify-center">
-              <p class="stripe-label text-massblue">data.stateyebrow1</p>
-              <h5 class="project-header text-massblue">data.stat1</h5>
-              <p class="stripe-label text-massblue">data.stateyebrow2</p>
-              <h5 class="project-header text-massblue">data.stat2</h5>
-              <p class="stripe-label text-massblue">data.stateyebrow3</p>
-              <h5 class="project-header text-massblue">data.stat3</h5>
+          <div class="horizontal-img-container-full">
+            <img src={frontmatter.stats_module?.stats_hero_image.image} alt={frontmatter.stats_module?.stats_hero_image.alt_text} />
           </div>
+        </div>
+        <div class="sm:w-1/3 flex flex-col justify-center">
+          {['section_1', 'section_2', 'section_3'].map(section => (
+            <div>
+              <p class="stripe-label text-massblue">{frontmatter.stats_module?.[section].header}</p>
+              <h5 class="project-header text-massblue">{frontmatter.stats_module?.[section].content}</h5>
+            </div>
+          ))}
+        </div>
       </section>
-
-  </div>
-
-
+    </div>
   </section>
 </MainLayout>
