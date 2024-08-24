@@ -24,6 +24,9 @@ stats_module:
   section_2:
     header: Attendees
     content: 60K
+  section_3:
+    header: Attendees
+    content: 60K
   stats_hero_image:
     image: /images/uploads/fotografiska-image3.webp
     alt_text: 
