@@ -763,19 +763,20 @@
 }
 
 
-.horizontal-slider {
+/* .horizontal-slider {
   @apply 
 
   flex 
   flex-col 
   w-full 
   sm:flex-row
-  /* sm:w-max */
   sm:h-full 
   select-none	
+  sm:w-max
+
 
   
-}
+} */
 
 .horizontal-slider-logos div {
 
@@ -975,7 +976,7 @@
  bg-massyellow
 }
 
-.close-btn {
+/* .close-btn {
   @apply 
   
   fixed 
@@ -995,7 +996,7 @@
   xl:w-24 xl:h-24 
   2xl:w-36 2xl:h-36
 
-}
+} */
 
 .cta-button {
   @apply 

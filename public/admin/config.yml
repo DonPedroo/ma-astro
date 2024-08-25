@@ -182,9 +182,10 @@ collections:
             name: "three_images_section"
             widget: "list"
             hint: "Add up to 3 images."
-            max: 3
             fields:
               - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
               - { label: "Alt Text", name: "alt_text", widget: "string" }
+              - { label: "Tailwind CSS Classes", name: "image_css", widget: "string", required: false }
+
 
     

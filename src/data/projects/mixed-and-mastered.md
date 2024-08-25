@@ -43,6 +43,6 @@ details_module:
       alt_text: 
     - image: /images/uploads/mixed-and-mastered-image-paralax-1.webp
       alt_text: 
-    - image: 
+    - image: /images/uploads/mixed-and-mastered-image-paralax-1.webp
       alt_text: 
 ---

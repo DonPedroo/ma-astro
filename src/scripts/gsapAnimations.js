@@ -17,6 +17,8 @@ export class GsapAnimations {
     this.gsapContext = gsap.context(() => {
       document.querySelectorAll("section").forEach((section) => {
 
+        console.log("section",section)
+
         // console.log("section",section)
         // Define ScrollTrigger properties for each section
         const triggerProps = {

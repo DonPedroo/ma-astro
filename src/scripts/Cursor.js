@@ -17,6 +17,7 @@ export class MouseEvenets {
     this.mouseEnterHandler = this.handleMouseEnter.bind(this);
     this.mouseLeaveHandler = this.handleMouseLeave.bind(this);
     this.mouseMove()
+    this.stickyUIeffectInit() 
     gsap.ticker.add(this.onTick);
   }
 
@@ -200,6 +201,97 @@ animateMouseFollow(isEntering, isReel, isDrag) {
             ease: "custom"
         });
     }
+}
+
+stickyUIeffectInit() {
+  const items = document.querySelectorAll('[data-sticky]');
+  items.forEach(item => {
+    this.stickyUIeffect(item);
+  });
+}
+
+stickyUIeffect(item) {
+
+  let activeArea = item.querySelector('[data-sticky]>div')
+  let activeAreaInner = item.querySelector('[data-sticky]>div>div')
+
+  // let scrollTo = null
+
+  // if (scrollTo) {
+  //     item.addEventListener('click', (e) => {
+  //         e.preventDefault();
+  //         gsap.to(window, {
+  //             duration: 0.3,
+  //             scrollTo: scrollTo,
+  //             ease: "power2.out"
+  //         });
+  //     });
+  // }
+
+
+
+  if (this.context.isMobile) return;
+
+  const handleMouseEnter = (e) => {
+      e.preventDefault();
+      gsap.to(activeArea, {
+          scale: 1.2,
+          duration: 0.5,
+          ease: "power2.Out"
+      });
+      item.addEventListener('mousemove', handleMouseMove);
+  };
+
+  const handleMouseLeave = (e) => {
+    e.preventDefault();
+    
+    gsap.to(activeArea, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: "power2.out"
+    });
+    
+    gsap.to(activeAreaInner, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        duration: 1,
+        ease: "power2.out"
+    });
+    
+    item.removeEventListener('mousemove', handleMouseMove);
+  };
+  
+
+  const handleMouseMove = (e) => {
+      e.preventDefault();
+      const deltaX = ((this.followMouse.x * this.context.width) - e.clientX);
+      const deltaY = ((this.followMouse.y * this.context.height) - e.clientY);
+
+
+      // gsap.killTweensOf(activeArea, activeAreaInner);
+
+      gsap.to(activeArea, {
+          x: deltaX * .2,
+          y: deltaY * .2,
+          scale: 1.2,
+          duration: 0.4,
+          ease: "power2.Out"
+      });
+
+      gsap.to(activeAreaInner, {
+          x: deltaX * .07,
+          y: deltaY * .07,
+          scale: 1.1,
+          duration: 0.3,
+          ease: "power2.Out"
+      });
+  };
+
+  item.addEventListener('mouseenter', handleMouseEnter);
+  item.addEventListener('mouseleave', handleMouseLeave);
 }
 
 

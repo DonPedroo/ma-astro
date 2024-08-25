@@ -47,4 +47,6 @@ details_module:
       alt_text: 
     - image: /images/uploads/fotografiska-image-paralax-1.webp
       alt_text: 
+    - image: /images/uploads/fotografiska-image-paralax-1.webp
+      alt_text: 
 ---
