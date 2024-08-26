@@ -123,9 +123,9 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
         </div>
       </section>
 
-      <section class="flex h-[100vw] sm:h-[100vh] sm:w-[50vw] bg-blue-700" data-slider-gl data-type="image">
+      <section class="flex h-[100vw] sm:h-[100vh] sm:w-[100vh] bg-blue-700" data-slider-gl data-type="image">
         {frontmatter.square_image?.square_image_media && (
-          <Media src={frontmatter.square_image.square_image_media} alt={frontmatter.square_image.alt_text} cssClasses="w-[100vw] sm:w-[50vw] sm:h-screen max-w-fit object-cover" />
+          <Media src={frontmatter.square_image.square_image_media} alt={frontmatter.square_image.alt_text} cssClasses="w-[100vw] sm:w-[100vh] sm:h-screen max-w-fit object-cover" />
         )}
       </section>
 
@@ -164,7 +164,7 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
       </section>
 
       <section class="flex flex-col sm:flex-row space-y-12 sm:space-y-0  bg-massgrey" data-slider-gl data-type="color" data-bg="#EAEAEA">
-        <div class="sm:w-[50vw]  flex flex-col sm:flex-row justify-center items-center space-y-12 sm:space-y-0">
+        <div class="sm:w-[65vw]  flex flex-col sm:flex-row justify-center items-center space-y-12 sm:space-y-0">
           <div class="horizontal-content-group sm:w-1/2 items-start">
             <div class="horizontal-textblock">
               <h4 class="text-black horizontal-header">{frontmatter.stats_module?.additional_section.header}</h4>
@@ -178,9 +178,9 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
             <img src={frontmatter.stats_module?.stats_hero_image.image} alt={frontmatter.stats_module?.stats_hero_image.alt_text} />
           </div>
         </div>
-        <div class="sm:w-[50vw] flex flex-col justify-center">
+        <div class="sm:w-[35vw] flex flex-col justify-center">
           {['section_1', 'section_2', 'section_3'].map(section => (
-            <div>
+            <div class="sm:pl-12">
               <p class="stripe-label text-massblue">{frontmatter.stats_module?.[section].header}</p>
               <h5 class="project-header text-massblue">{frontmatter.stats_module?.[section].content}</h5>
             </div>

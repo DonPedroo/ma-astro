@@ -19,6 +19,8 @@ export class MouseEvenets {
     this.mouseMove()
     this.stickyUIeffectInit() 
     gsap.ticker.add(this.onTick);
+
+    console.log("Cursor !")
   }
 
   mouseMove(){
@@ -83,7 +85,10 @@ handleMouseEnter(event) {
 
   mousePointer() {
     // Early return if on a touch device
-    if (this.context.isMobile) return;
+    // if (this.context.isMobile) return;
+
+    console.log("Cursor mousePointer !")
+
 
     // Clean up previous event listeners
     this.cleanupMousePointer();

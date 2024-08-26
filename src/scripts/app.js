@@ -1,7 +1,6 @@
 import { Scroll } from './scroll';
 import { GsapAnimations } from "./gsapAnimations";
 import { WhatWeDoTrigger } from "./whatwedo";
-import { MouseEvenets } from "./Cursor";
 import { MenuHandler } from "./nav";
 import barba from '@barba/core';
 import { QuoteAnimations } from './Quotes'; // Adjust path as necessary
@@ -15,22 +14,34 @@ class App {
     this.height = window.innerHeight;
     this.isMobile = false;
     this.gl = false
-    this.cursor = new MouseEvenets(this); 
+    this.cursor = null; // Initialize as null
     this.whatwedo = new WhatWeDoTrigger(this); 
     this.nav = new MenuHandler(this); 
     this.quoteAnimations = new QuoteAnimations(this);
+    this.horizontalScroll = null;
     this.initBarba(); 
     this.init();
+    this.handleResize(); 
 
+
+  }
+
+  handleResize() {
+    window.addEventListener('resize', () => {
+      this.width = window.innerWidth;
+      this.height = window.innerHeight;
+    });
   }
 
 async init() {
   
   if (this.gl) {
-    // Dynamically import the ThreeScene class only if needed
+
     const { ThreeScene } = await import('./threeScene');
     this.sceneInstance = new ThreeScene(this);
   }
+
+
 }
 
 
@@ -53,20 +64,33 @@ async init() {
               document.querySelector('#persistent-container').appendChild(media);
             }
           },
-          afterEnter: (data) => {
+          afterEnter: async (data) => {
             // this.triggerManager.initScrollTriggers();
             this.whatwedo.initScrollTriggers()
             this.quoteAnimations.init();
             this.scrollManager.initEffects()
             this.nav.init()
-            this.cursor.mousePointer()
 
-            // console.log("home afterEnter >>>>")
 
+            if (!this.isMobile) {
+              if (!this.cursor) {
+                const { MouseEvenets } = await import('./Cursor');
+                this.cursor = new MouseEvenets(this);
+              }
+              this.cursor.mousePointer()
+            }
+
+
+
+            if (this.horizontalScroll) {
+              this.horizontalScroll.kill();
+            }
+
+            
             data.current.container.remove();
             const projectName = data.trigger.dataset.projectName;
-            // console.log("home afterEnter >>>>  this.scrollManager.scrollToProject(projectName);",projectName,data.trigger)
 
+            
             this.scrollManager.scrollToProject(projectName);
             
             const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
@@ -92,23 +116,44 @@ async init() {
             
           },
           namespace: 'project-detail',
-          beforeEnter: () => {
+          beforeEnter: async () => {
             // this.triggerManager.killScrollTriggers();
             this.scrollManager.killEffects()
             this.whatwedo.killScrollTriggers()
             this.quoteAnimations.kill();
             this.nav.kill()
 
-            // console.log("project-detail beforeEnter >>>>")
+            
+            if (!this.isMobile) {
+              if (!this.horizontalScroll) {
+                const { horizontalScroll } = await import('./horizontalScroll');
+                this.horizontalScroll = new horizontalScroll(this);
+              }
+              this.horizontalScroll.init();
+            }
+
+            if (!this.isMobile) {
+
+              if (!this.cursor) {
+                const { MouseEvenets } = await import('./Cursor');
+                this.cursor = new MouseEvenets(this);
+              }
+            }
 
 
 
           },
-          afterEnter: (data) => {
-            // console.log("project-detail afterEnter >>>>")
+          afterEnter: async (data) => {
+            console.log("project-detail afterEnter >>>>")
 
             data.current.container.remove();
-            this.cursor.mousePointer()
+
+            if(this.cursor) {
+
+              this.cursor.mousePointer()
+            }
+
+      
 
             const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
             if (media) {
