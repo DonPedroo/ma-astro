@@ -40,7 +40,7 @@ export class ThreeScene {
     this.cube.rotation.y += 0.01;
     this.renderer.render(this.scene, this.camera);
 
-    console.log(">",this.context.cursor.followMouse)
+    // console.log(">",this.context.cursor.followMouse)
   }
 
   setDataGlOpacity(opacity) {

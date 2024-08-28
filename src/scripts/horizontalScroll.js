@@ -36,6 +36,8 @@ export class horizontalScroll {
     this.addEventListeners();
     gsap.ticker.add(this.animate);
     console.log("horizontal scroll created")
+
+    
   }
 
   kill() {

@@ -17,8 +17,8 @@ const { title, description, url, media, slug,eyebrow } = Astro.props;
 // console.log(Astro.props)
 ---
 
-<div class="relative h-screen case-study" data-content-section data-case-study id={slug}>
-  <div class="project-wrapper flex flex-col justify-end cursor-pointer" data-link data-play>
+<div class="relative h-screen case-study" data-content-section id={slug}>
+  <div class="project-wrapper flex flex-col justify-end cursor-pointer" data-link data-case-study>
   <p class="eyebrow">{eyebrow}</p>
   <a href={url} data-project-name={slug}><h3 class="project-header">{title}</h3></a>
   <p class="project-description">{description}</p>
@@ -31,3 +31,6 @@ const { title, description, url, media, slug,eyebrow } = Astro.props;
       <Media src={media} alt={title} cssClasses="absolute inset-0 z-[-1] w-full h-full object-cover" />
     )}
 </div>
+
+
+

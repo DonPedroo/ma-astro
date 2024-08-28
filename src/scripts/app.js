@@ -1,9 +1,10 @@
 import { Scroll } from './scroll';
-import { GsapAnimations } from "./gsapAnimations";
+// import { GsapAnimations } from "./gsapAnimations";
 import { WhatWeDoTrigger } from "./whatwedo";
 import { MenuHandler } from "./nav";
 import barba from '@barba/core';
 import { QuoteAnimations } from './Quotes'; // Adjust path as necessary
+import { getGPUInfo } from './gpuInfo'; // Import GPU functions
 
 class App {
   constructor() {
@@ -20,11 +21,28 @@ class App {
     this.quoteAnimations = new QuoteAnimations(this);
     this.horizontalScroll = null;
     this.initBarba(); 
-    this.init();
+    
     this.handleResize(); 
 
+      // Detect if the device is a touchscreen
+      this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+    // Only evaluate WebGL and GPU info if not a touchscreen device
+    if (!this.isMobile) {
+      const gpuInfo = getGPUInfo();
+
+      // If GPU info is available, enable WebGL
+      if (gpuInfo) {
+        console.log("set gl true");
+        this.gl = true;
+        this.initGl();
+      }
+  }
 
   }
+
+
+
 
   handleResize() {
     window.addEventListener('resize', () => {
@@ -33,9 +51,11 @@ class App {
     });
   }
 
-async init() {
+async initGl() {
   
   if (this.gl) {
+
+    console.log("gl started")
 
     const { ThreeScene } = await import('./threeScene');
     this.sceneInstance = new ThreeScene(this);
@@ -79,6 +99,17 @@ async init() {
               }
               this.cursor.mousePointer()
             }
+
+             // Make project-wrapper div clickable and handle Barba.js navigation
+              document.querySelectorAll('[data-case-study]').forEach(project => {
+                project.addEventListener('click', (event) => {
+                  const link = project.querySelector('a');
+                  if (link) {
+                    event.preventDefault();
+                    link.click(); 
+                  }
+                });
+              });
 
 
 
@@ -138,6 +169,9 @@ async init() {
                 const { MouseEvenets } = await import('./Cursor');
                 this.cursor = new MouseEvenets(this);
               }
+              this.cursor.mousePointer()
+              this.cursor.animateMouseFollow(true, false,true);
+
             }
 
 
