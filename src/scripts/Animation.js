@@ -1,10 +1,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from '../plugins/gsap//SplitText';
-import { CustomEase } from "gsap/CustomEase";
 import { useTextAnimation } from './AnimationText'; 
 
-gsap.registerPlugin(SplitText,CustomEase);
 
 export class Animation {    
   constructor(context) {
@@ -18,10 +15,7 @@ export class Animation {
   init() {
     // console.log("animation class init");
     this.ctx = gsap.context(() => {
-        this.animationProjects();
-
-        
-
+    this.animationProjects();
         setTimeout(() => {
             this.animationTxtLg();
           }, 0);
