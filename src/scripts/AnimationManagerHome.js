@@ -3,7 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTextAnimation } from './AnimationText'; 
 
 
-export class Animation {    
+export class AnimationHome {    
   constructor(context) {
     this.context = context; 
     this.ctx = null

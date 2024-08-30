@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+#persistent-container {
+
+  @apply
+
+  w-screen
+  h-screen
+  pointer-events-none
+  /* border-2
+
+  bg-red-400/25
+  border-red-500 */
+
+
+}
+
 .preloader {
 
   @apply

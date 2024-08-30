@@ -5,7 +5,7 @@ import { WhatWeDoTrigger } from "./whatwedo";
 import { MenuHandler } from "./nav";
 import barba from '@barba/core';
 import { QuoteAnimations } from './Quotes'; 
-import { Animation } from './Animation';
+import { AnimationHome } from './AnimationManagerHome';
 import { getGPUInfo } from './gpuInfo'; 
 
 class App {
@@ -20,7 +20,7 @@ class App {
     this.cursor = null; // Initialize as null
     this.whatwedo = new WhatWeDoTrigger(this); 
     this.nav = new MenuHandler(this); 
-    this.homeAnimation = new Animation(this); 
+    this.homeAnimation = new AnimationHome(this); 
 
     this.quoteAnimations = new QuoteAnimations(this);
     this.horizontalScroll = null;
@@ -80,32 +80,42 @@ async initGl() {
 
 }
 
-
+async handleHomeBeforeLeave(data) {
+  const projectName = data.trigger.dataset.projectName;
+  const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
+  if (media) {
+    document.querySelector('#persistent-container').appendChild(media);
+  }
+}
   initBarba() {
     barba.init({
       views: [
         {
           namespace: 'home',
-          beforeLeave: (data) => {
 
-          // console.log("home beforeLeave >>>>")
+          beforeLeave: this.handleHomeBeforeLeave.bind(this),
+
+          // beforeLeave: (data) => {
+
+          //   console.log("home beforeLeave")
 
 
-            const projectName = data.trigger.dataset.projectName;
-            const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
+          //   const projectName = data.trigger.dataset.projectName;
+          //   const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
+          //   console.log("home beforeLeave projectName",projectName)
 
-            // console.log("home beforeLeave >>>> media",media)
-
-            if (media) {
-              document.querySelector('#persistent-container').appendChild(media);
-            }
-          },
+          //   if (media) {
+          //     console.log("home beforeLeave append",media)
+          //     document.querySelector('#persistent-container').appendChild(media);
+          //   }
+          // },
           afterEnter: async (data) => {
 
+            console.log("home afterEnter")
+
+
             
-                        gsap.delayedCall(2, () => {
-                          this.quoteAnimations.init();
-                        });
+                        
                         
 
                         setTimeout(() => {
@@ -141,8 +151,8 @@ async initGl() {
               }, 0);
             }
 
-             // Make project-wrapper div clickable and handle Barba.js navigation
-             
+
+            
               setTimeout(() => {
                 document.querySelectorAll('[data-case-study]').forEach(project => {
                   project.addEventListener('click', (event) => {
@@ -172,6 +182,9 @@ async initGl() {
 
             
             data.current.container.remove();
+
+
+
             const projectName = data.trigger.dataset.projectName;
             this.scrollManager.scrollToProject(projectName);
             const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
@@ -186,6 +199,8 @@ async initGl() {
           },
         },
         {
+ 
+          namespace: 'project-detail',
           beforeLeave: (data) => {
             const sectionElement = data.current.container.querySelector("section");
             if (sectionElement) {
@@ -196,7 +211,6 @@ async initGl() {
             }
             
           },
-          namespace: 'project-detail',
           beforeEnter: async () => {
             this.setMediaOpacity(0);
             this.scrollManager.killEffects()
