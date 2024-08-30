@@ -11,7 +11,6 @@ export class ThreeScene {
   initScene() {
 
     console.log('Three Scene Loaded',this.context);
-    this.setDataGlOpacity(0);
 
     this.scene = new Scene();
     this.camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -33,6 +32,14 @@ export class ThreeScene {
 
     this.camera.position.z = 5;
   }
+
+  // setDataGlOpacity(opacity) {
+  //   const glElements = document.querySelectorAll('[data-gl]');
+  //   glElements.forEach(el => {
+  //     el.style.opacity = opacity;
+  //   });
+  // }
+
 
   animate() {
     requestAnimationFrame(this.animate.bind(this));

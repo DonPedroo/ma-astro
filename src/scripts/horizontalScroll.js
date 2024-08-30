@@ -16,6 +16,8 @@ export class horizontalScroll {
     this.scrollSmooth = 0.08;
     this.scrollHandlerBound = this.scrollHandler.bind(this);
     this.handleResizeBound = this.handleResize.bind(this);
+    this.progressBarContainer = null;
+
   }
 
   bindAll() {
@@ -35,6 +37,8 @@ export class horizontalScroll {
     this.bindAll();
     this.addEventListeners();
     gsap.ticker.add(this.animate);
+
+    this.initProgressUI()
     console.log("horizontal scroll created")
 
     
@@ -58,6 +62,14 @@ export class horizontalScroll {
         x: -this.currentScroll,
       });
     this.prevScroll = this.currentScroll;
+
+      // const maxScrollDistance = (this.target.scrollWidth-window.innerWidth);
+    const scrollPercentage = (this.currentScroll / this.width) * 100;
+    // const progressBarWidth = Math.min(scrollPercentage, 100);
+
+    gsap.set(this.progressBar, {
+        width: `${scrollPercentage}%`,
+      });
   }
 
   handleResize() {
@@ -155,6 +167,26 @@ export class horizontalScroll {
     this.target.removeEventListener('mouseup', this.endDrag);
     this.target = null;
     this.width = null;
+
+
+    if (this.progressBarContainer) {
+      this.progressBar.remove();
+      this.progressBar = null;
+      this.progressBarContainer.remove();
+      this.progressBarContainer = null;
+    }
+
+  }
+
+  initProgressUI() {
+
+    this.progressBarContainer = document.createElement('div');
+    this.progressBarContainer.className = 'progress-bar-container';
+    this.progressBar = document.createElement('div');
+    this.progressBar.className = 'progress-bar';
+    this.progressBarContainer.appendChild(this.progressBar);
+    this.target.insertAdjacentElement('afterend', this.progressBarContainer);
+
   }
 
 }

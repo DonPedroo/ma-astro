@@ -95,7 +95,7 @@ export class WhatWeDoTrigger {
           // markers: true,
           scrub: true, 
           pin: true,
-          pinSpacing:true,
+          // pinSpacing:true,
           // onEnter: () => {
           //   console.log(`Entering inside section: ${section.id}`);
           // },

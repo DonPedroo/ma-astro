@@ -17,7 +17,7 @@ export class GsapAnimations {
     this.gsapContext = gsap.context(() => {
       document.querySelectorAll("section").forEach((section) => {
 
-        console.log("section",section)
+        // console.log("section",section)
 
         // console.log("section",section)
         // Define ScrollTrigger properties for each section
@@ -25,15 +25,15 @@ export class GsapAnimations {
           trigger: section,
           start: "top top",
           end: "bottom top",
-          markers: true, // You can remove this in production
+          // markers: true, // You can remove this in production
           // scrub: true, // Smoothly scrubs the animation as you scroll
           onEnter: () => {
             // Custom animation logic on enter
-            console.log(`Entering section: ${section.id}`);
+            // console.log(`Entering section: ${section.id}`);
           },
           onLeave: () => {
             // Custom animation logic on leave
-            console.log(`Leaving section: ${section.id}`);
+            // console.log(`Leaving section: ${section.id}`);
           },
         };
 

@@ -1,10 +1,12 @@
+import { gsap } from 'gsap';
 import { Scroll } from './scroll';
-// import { GsapAnimations } from "./gsapAnimations";
+import { GsapAnimations } from "./gsapAnimations";
 import { WhatWeDoTrigger } from "./whatwedo";
 import { MenuHandler } from "./nav";
 import barba from '@barba/core';
-import { QuoteAnimations } from './Quotes'; // Adjust path as necessary
-import { getGPUInfo } from './gpuInfo'; // Import GPU functions
+import { QuoteAnimations } from './Quotes'; 
+import { Animation } from './Animation';
+import { getGPUInfo } from './gpuInfo'; 
 
 class App {
   constructor() {
@@ -18,11 +20,15 @@ class App {
     this.cursor = null; // Initialize as null
     this.whatwedo = new WhatWeDoTrigger(this); 
     this.nav = new MenuHandler(this); 
+    this.homeAnimation = new Animation(this); 
+
     this.quoteAnimations = new QuoteAnimations(this);
     this.horizontalScroll = null;
     this.initBarba(); 
     
     this.handleResize(); 
+
+
 
       // Detect if the device is a touchscreen
       this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -41,6 +47,16 @@ class App {
 
   }
 
+
+    setMediaOpacity(opacity) {
+return
+      if (!this.gl) return
+    const mediaElements = document.querySelectorAll('img, video');
+    mediaElements.forEach(media => {
+      media.style.opacity = opacity;
+
+    });
+  }
 
 
 
@@ -85,11 +101,34 @@ async initGl() {
             }
           },
           afterEnter: async (data) => {
-            // this.triggerManager.initScrollTriggers();
-            this.whatwedo.initScrollTriggers()
-            this.quoteAnimations.init();
+
+            
+                        gsap.delayedCall(2, () => {
+                          this.quoteAnimations.init();
+                        });
+                        
+
+                        setTimeout(() => {
+                          this.quoteAnimations.init();
+                        }, 0);
+
+
+                        
             this.scrollManager.initEffects()
-            this.nav.init()
+
+            
+            setTimeout(() => {
+              this.nav.init()
+            }, 0);
+
+            setTimeout(() => {
+              this.homeAnimation.init()
+            }, 0);
+
+
+            
+
+              this.whatwedo.initScrollTriggers()
 
 
             if (!this.isMobile) {
@@ -97,42 +136,53 @@ async initGl() {
                 const { MouseEvenets } = await import('./Cursor');
                 this.cursor = new MouseEvenets(this);
               }
-              this.cursor.mousePointer()
+              setTimeout(() => {
+                this.cursor.mousePointer()
+              }, 0);
             }
 
              // Make project-wrapper div clickable and handle Barba.js navigation
-              document.querySelectorAll('[data-case-study]').forEach(project => {
-                project.addEventListener('click', (event) => {
-                  const link = project.querySelector('a');
-                  if (link) {
-                    event.preventDefault();
-                    link.click(); 
-                  }
+             
+              setTimeout(() => {
+                document.querySelectorAll('[data-case-study]').forEach(project => {
+                  project.addEventListener('click', (event) => {
+                    const link = project.querySelector('a');
+                    if (link) {
+                      event.preventDefault();
+                      link.click(); 
+                    }
+                  });
                 });
-              });
+                            }, 0);
 
 
 
             if (this.horizontalScroll) {
-              this.horizontalScroll.kill();
+
+              setTimeout(() => {
+                this.horizontalScroll.kill();
+              }, 0);
             }
+
+            if (this.isMobile) {
+              this.scrollManager.smoother.scrollTop(0);
+            }
+            
+
 
             
             data.current.container.remove();
             const projectName = data.trigger.dataset.projectName;
-
-            
             this.scrollManager.scrollToProject(projectName);
-            
             const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
-
-
             if (media) {
               const sectionMedia = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
               if (sectionMedia) {
                 sectionMedia.replaceWith(media); 
               }
             }
+
+            
           },
         },
         {
@@ -148,11 +198,13 @@ async initGl() {
           },
           namespace: 'project-detail',
           beforeEnter: async () => {
-            // this.triggerManager.killScrollTriggers();
+            this.setMediaOpacity(0);
             this.scrollManager.killEffects()
             this.whatwedo.killScrollTriggers()
             this.quoteAnimations.kill();
             this.nav.kill()
+            this.homeAnimation.kill()
+
 
             
             if (!this.isMobile) {

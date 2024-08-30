@@ -23,7 +23,6 @@ export class MouseEvenets {
 
     this.sticky = new StickyUi(this.context,this.followMouse)
 
-    console.log("Cursor !")
   }
 
   mouseMove(){
@@ -54,18 +53,6 @@ if (this.cursor) {
 }    
 
 };
-
-// handleMouseEnter(event) {
-
-//   console.log("Cursor > handleMouseEnter ",event)
-//     const isCaseStudy = event.target.hasAttribute('data-case-study');
-//     this.animateMouseFollow(true, isCaseStudy);
-//   }
-
-//   handleMouseLeave(event) {
-//     const isCaseStudy = event.target.hasAttribute('data-case-study');
-//     this.animateMouseFollow(false, isCaseStudy);
-//   }
 
 handleMouseEnter(event) {
   console.log("Cursor > handleMouseEnter ", event);
@@ -123,8 +110,7 @@ handleMouseLeave(event) {
   }
 
   animateMouseFollow(isEntering, isCaseStudy, isDrag) {
-    console.log("animateMouseFollow", isEntering, isCaseStudy, isDrag);
-  
+
     let scaleValue = 1;
     let spanOpacity = 0;
     let spanText = "";
@@ -162,80 +148,5 @@ handleMouseLeave(event) {
     });
   }
   
-
-// animateMouseFollow(isEntering, isCaseStudy, isDrag) {
-
-//   console.log("animateMouseFollow",isEntering, isCaseStudy, isDrag)
-
-        
-//     let scaleValue;
-//     let spanOpacity;
-//     let spanText;
-
-//     if (!isEntering) {
-//         scaleValue = 1;
-//     } else if (isCaseStudy) {
-//         scaleValue = 8; 
-//     } else if (isDrag) {
-//         scaleValue = 6; 
-//     }
-    
-//     else {
-//         scaleValue = 2.5;
-//     }
-
-//     if (isEntering && isCaseStudy ) {
-//         spanOpacity = 1;
-//     } else if  (isEntering && isDrag ) {
-//         spanOpacity = 1;
-//     } else {
-//         spanOpacity = 0;
-//     }
-
-//     if (isEntering && isCaseStudy) {
-//         spanOpacity = 1;
-//         spanText = "View project"; 
-//     } else if (isEntering && isDrag) {
-//         spanOpacity = 1;
-//         spanText = "Drag"; 
-//     } else {
-//         spanOpacity = 0;
-//         spanText = ""; 
-//     }
-
-//     this.cursor.querySelector("[data-mouse-follow]>div>span").textContent = spanText;
-
-//     const duration = isEntering ? 1.5 : 1; 
-
-//     gsap.killTweensOf(['[data-mouse-follow]>div>div', '[data-mouse-follow]>div>span']);
-
-//     gsap.to("[data-mouse-follow]>div>div", {
-//         scale: scaleValue,
-//         duration: duration,
-//         ease: "custom" 
-//     });
-
-//     if (isCaseStudy || !isEntering) {
-//         gsap.to("[data-mouse-follow]>div>span", {
-//             opacity: spanOpacity,
-//             duration: 1,
-//             ease: "custom"
-//         });
-//     }
-
-//     if (isDrag || !isEntering) {
-//         gsap.to("[data-mouse-follow]>div>span", {
-//             opacity: spanOpacity,
-//             duration: 1,
-//             ease: "custom"
-//         });
-//     }
-// }
-
-
-
-
-
-
 
 }
