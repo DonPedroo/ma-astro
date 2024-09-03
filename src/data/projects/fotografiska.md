@@ -31,7 +31,7 @@ stats_module:
     header: Attendees
     content: 60K
   stats_hero_image:
-    image: /images/uploads/fotografiska-image3.webp
+    image: /images/uploads/fotografiska-image4.webp
     alt_text: wewer
   additional_section:
     header: a production for the ages
@@ -39,7 +39,7 @@ stats_module:
       influential voices who hosted workshops, private photo shoots, panels,
       performances and intimate chats. Launching in NYC in Jan 2023, the
       exhibition is currently open in Stockholm and will travel globally.
-    image: /images/uploads/fotografiska-1x1.webp
+    image: /images/uploads/fotografiska-image3.webp
     alt_text: sadewwed
 details_module:
   main_section:
