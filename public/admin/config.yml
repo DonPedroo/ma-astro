@@ -164,7 +164,7 @@ collections:
             fields:
               - { label: "Header", name: "header", widget: "string" }
               - { label: "Content", name: "content", widget: "markdown" }
-              - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+              - { label: "Image", name: "image", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
               - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
       - label: "Details Module"
         name: "details_module"
@@ -176,7 +176,7 @@ collections:
             fields:
               - { label: "Header", name: "header", widget: "string" }
               - { label: "Content", name: "content", widget: "markdown" }
-              - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+              - { label: "Image", name: "image", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
               - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
           - label: "Three Images Section"
             name: "three_images_section"

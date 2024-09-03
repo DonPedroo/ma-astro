@@ -30,9 +30,9 @@ export function getGPUInfo() {
     const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
 
     // Log the raw information for debugging purposes
-    // console.log("Raw GPU Information:");
-    // console.log("Vendor:", vendor);
-    // console.log("Renderer:", renderer);
+    console.log("Raw GPU Information:");
+    console.log("Vendor:", vendor);
+    console.log("Renderer:", renderer);
 
     // Extract detailed information
     const card = extractValue(new RegExp(`(${gpuKeywords})[^\d]*[^\s]+`), renderer);

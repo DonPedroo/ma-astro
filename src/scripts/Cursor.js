@@ -55,19 +55,19 @@ if (this.cursor) {
 };
 
 handleMouseEnter(event) {
-  console.log("Cursor > handleMouseEnter ", event);
+  // console.log("Cursor > handleMouseEnter ", event);
   
   const isCaseStudy = event.target.hasAttribute('data-case-study');
-  const isDrag = event.target.hasAttribute('data-horizontal-scroll');
+  // const isDrag = event.target.hasAttribute('data-horizontal-scroll');
 
-  this.animateMouseFollow(true, isCaseStudy, isDrag);
+  this.animateMouseFollow(true, isCaseStudy);
 }
 
 handleMouseLeave(event) {
   const isCaseStudy = event.target.hasAttribute('data-case-study');
-  const isDrag = event.target.hasAttribute('data-horizontal-scroll');
+  // const isDrag = event.target.hasAttribute('data-horizontal-scroll');
 
-  this.animateMouseFollow(false, isCaseStudy, isDrag);
+  this.animateMouseFollow(false, isCaseStudy);
 }
 
 
@@ -75,7 +75,7 @@ handleMouseLeave(event) {
 
     
 
-    console.log("Cursor mousePointer !")
+    // console.log("Cursor mousePointer !")
 
 
     // Clean up previous event listeners
@@ -109,7 +109,7 @@ handleMouseLeave(event) {
     this.links = [];
   }
 
-  animateMouseFollow(isEntering, isCaseStudy, isDrag) {
+  animateMouseFollow(isEntering, isCaseStudy) {
 
     let scaleValue = 1;
     let spanOpacity = 0;
@@ -120,11 +120,13 @@ handleMouseLeave(event) {
         scaleValue = 8;
         spanOpacity = 1;
         spanText = "View project";
-      } else if (isDrag) {
-        scaleValue = 6;
-        spanOpacity = 1;
-        spanText = "Drag";
-      } else {
+      } 
+      // else if (isDrag) {
+      //   scaleValue = 6;
+      //   spanOpacity = 1;
+      //   spanText = "Drag";
+      // } 
+      else {
         scaleValue = 2.5;
       }
     }

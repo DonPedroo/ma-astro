@@ -78,25 +78,42 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
 
 ---
 
+
 <MainLayout title={frontmatter.title}>
-  <Arrow imgSrc="/images/x.svg" cssOut="fixed top-[20px] right-[20px] sm:top-[30px] sm:right-[30px] 2xl:top-[50px] 2xl:right-[50px]" cssMid="w-20 h-20 xl:w-24 xl:h-24 2xl:w-36 2xl:h-36 bg-massyellow rounded-full" cssInner="w-full h-full flex flex-col justify-center items-center" altText="Close" slug={frontmatter.slug} link="/" type="data-arrow-scroll-close" />
-  <section class="relative h-screen" id={frontmatter.slug}>
-    {frontmatter.media && (
+
+  <!-- fixed top-[20px] right-[20px] sm:top-[30px] sm:right-[30px] 2xl:top-[50px] 2xl:right-[50px] -->
+
+   <div class="absolute right-0 top-0 z-40">
+  <Arrow imgSrc="/images/x.svg" cssOut="pt-[20px] pr-[20px] sm:pt-[30px] sm:pr-[30px] 2xl:pt-[50px] 2xl:pr-[50px] " cssMid="w-20 h-20 xl:w-24 xl:h-24 2xl:w-36 2xl:h-36 bg-massyellow rounded-full" cssInner="w-full h-full flex flex-col justify-center items-center" altText="Close" slug={frontmatter.slug} link="/" type="data-arrow-scroll-close" />
+ </div>
+ 
+ <div class="absolute top-0 left-0 w-screen h-screen" data-detailed-media>
+  {frontmatter.media && (
+    <Media src={frontmatter.media} alt={frontmatter.title} cssClasses="absolute inset-0 z-[-1] w-full h-full object-cover" />
+  )}
+ </div>
+
+  <div id={frontmatter.slug}>
+
+
+
+    <!-- {frontmatter.media && (
       <Media src={frontmatter.media} alt={frontmatter.title} cssClasses="absolute inset-0 z-[-1] w-full h-full object-cover" />
-    )}
+    )} -->
     <div class="
   flex 
   flex-col 
   sm:flex-row
-
   select-none	
-  cursor-grab 
   overflow-x-scroll 
   overflow-y-hidden
   " 
   data-horizontal-scroll
-  data-link
   >
+
+  <!-- cursor-grab 
+  overflow-x-scroll 
+  overflow-y-hidden -->
       <section class="flex flex-col sm:flex-row">
         <div class="sm:w-[50vw] h-[55vh] sm:h-auto flex flex-col justify-center">
           {frontmatter.logos && (
@@ -110,12 +127,12 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
           )}
         </div>
         <div class="sm:w-[50vw] px-6 py-16 lg:p-8 xl:p-16 2xl:p-32 flex flex-col justify-center bg-massgrey" data-quote-container data-slider-gl data-param="reveal" data-type="color" data-bg="#EAEAEA">
-          <div class="flex flex-row items-start space-x-3 sm:space-x-6" data-quote>
-            <img src="/images/quote.svg" class="max-w-[20px] sm:max-w-[30px] xl:max-w-[40px] 2xl:max-w-[50px]" alt="Quote">
+          <div class="flex flex-row items-start space-x-3 sm:space-x-6" data-animation-quote>
+            <img src="/images/quote.svg" class=" w-[20px] sm:w-[30px] xl:w-[40px] 2xl:w-[50px]" alt="Quote">
             <div class="flex flex-col mt-6">
               {frontmatter.detailed_quote && (
                 <>
-                  <h4 class="horizontal-quote text-massblue">{frontmatter.detailed_quote.detailed_quote_content}</h4>
+                  <h4 class="horizontal-quote text-massblue" data-test-anim>{frontmatter.detailed_quote.detailed_quote_content}</h4>
                   <p class="stripe-label text-massblue">{frontmatter.detailed_quote.detailed_quote_content_auth}</p>
                 </>
               )}
@@ -131,7 +148,7 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
       </section>
 
       <section class="flex flex-col sm:flex-row space-y-12 sm:space-y-0 bg-[url('/images/grunge.webp')] bg-repeat bg-[size:1024px_1024px] bg-center" data-slider-gl data-type="image">
-        <div class="horizontal-content-group sm:w-[50vw] justify-end">
+        <div class="horizontal-content-group sm:w-[50vw] justify-end" data-animation-txt-lg>
           <div class="horizontal-img-container">
             {frontmatter.details_module?.main_section.image && (
               <Media 
@@ -166,7 +183,7 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
 
       <section class="flex flex-col sm:flex-row space-y-12 sm:space-y-0  bg-massgrey" data-slider-gl data-type="color" data-bg="#EAEAEA">
         <div class="sm:w-[65vw]  flex flex-col sm:flex-row justify-center items-center space-y-12 sm:space-y-0">
-          <div class="horizontal-content-group sm:w-1/2 items-start">
+          <div class="horizontal-content-group sm:w-1/2 items-start" data-animation-txt-lg>
             <div class="horizontal-textblock">
               <h4 class="text-black horizontal-header">{frontmatter.stats_module?.additional_section.header}</h4>
               <p class="text-black horizontal-description">{frontmatter.stats_module?.additional_section.content}</p>
@@ -189,5 +206,7 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
         </div>
       </section>
     </div>
-  </section>
+  </div>
+
+
 </MainLayout>

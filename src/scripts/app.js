@@ -6,6 +6,10 @@ import { MenuHandler } from "./nav";
 import barba from '@barba/core';
 import { QuoteAnimations } from './Quotes'; 
 import { AnimationHome } from './AnimationManagerHome';
+import { AnimationDetailed } from './AnimationManagerDetailed';
+import { horizontalScrollGsap } from './horizontalScrollGsap';
+
+
 import { getGPUInfo } from './gpuInfo'; 
 
 class App {
@@ -21,9 +25,12 @@ class App {
     this.whatwedo = new WhatWeDoTrigger(this); 
     this.nav = new MenuHandler(this); 
     this.homeAnimation = new AnimationHome(this); 
+    // this.detailedAnimation = new AnimationDetailed(this); 
 
     this.quoteAnimations = new QuoteAnimations(this);
     this.horizontalScroll = null;
+    this.horizontalScrollGsap = new horizontalScrollGsap(this);
+
     this.initBarba(); 
     
     this.handleResize(); 
@@ -80,67 +87,19 @@ async initGl() {
 
 }
 
-async handleHomeBeforeLeave(data) {
+// Home View Methods
+
+handleHomeBeforeLeave(data) {
   const projectName = data.trigger.dataset.projectName;
   const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
+  console.log("handleHomeBeforeLeave media >>>>> ",projectName,media)
   if (media) {
     document.querySelector('#persistent-container').appendChild(media);
   }
 }
-  initBarba() {
-    barba.init({
-      views: [
-        {
-          namespace: 'home',
 
-          beforeLeave: this.handleHomeBeforeLeave.bind(this),
-
-          // beforeLeave: (data) => {
-
-          //   console.log("home beforeLeave")
-
-
-          //   const projectName = data.trigger.dataset.projectName;
-          //   const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
-          //   console.log("home beforeLeave projectName",projectName)
-
-          //   if (media) {
-          //     console.log("home beforeLeave append",media)
-          //     document.querySelector('#persistent-container').appendChild(media);
-          //   }
-          // },
-          afterEnter: async (data) => {
-
-            console.log("home afterEnter")
-
-
-            
-                        
-                        
-
-                        setTimeout(() => {
-                          this.quoteAnimations.init();
-                        }, 0);
-
-
-                        
-            this.scrollManager.initEffects()
-
-            
-            setTimeout(() => {
-              this.nav.init()
-            }, 0);
-
-            setTimeout(() => {
-              this.homeAnimation.init()
-            }, 0);
-
-
-            
-
-              this.whatwedo.initScrollTriggers()
-
-
+async handleHomeAfterEnter(data) {
+  this.initAnimations();
             if (!this.isMobile) {
               if (!this.cursor) {
                 const { MouseEvenets } = await import('./Cursor');
@@ -150,9 +109,36 @@ async handleHomeBeforeLeave(data) {
                 this.cursor.mousePointer()
               }, 0);
             }
+  this.initProjectLinks();
+  this.cleanUpHorizontalScroll();
 
+  this.scrollManager.smoother.scrollTop(0);
 
-            
+  // if (this.isMobile) {
+  // }
+
+  this.finalizeHomeTransition(data);
+}
+
+// Home Utility Methods
+initAnimations() {
+  this.scrollManager.initEffects();
+  this.whatwedo.initScrollTriggers();
+  setTimeout(() => {
+    this.nav.init();
+  }, 0);
+  // setTimeout(() => {
+  //   this.homeAnimation.init();
+  // }, 0);
+  setTimeout(() => {
+    this.homeAnimation.init();
+  });
+  setTimeout(() => {
+    this.quoteAnimations.init();
+  }, 0);
+}
+
+initProjectLinks() {
               setTimeout(() => {
                 document.querySelectorAll('[data-case-study]').forEach(project => {
                   project.addEventListener('click', (event) => {
@@ -163,113 +149,146 @@ async handleHomeBeforeLeave(data) {
                     }
                   });
                 });
-                            }, 0);
+  }, 0);
+}
+
+cleanUpHorizontalScroll() {
 
 
-
-            if (this.horizontalScroll) {
-
-              setTimeout(() => {
-                this.horizontalScroll.kill();
-              }, 0);
-            }
-
-            if (this.isMobile) {
-              this.scrollManager.smoother.scrollTop(0);
-            }
-            
+  setTimeout(() => {
+      this.horizontalScrollGsap.kill();
+    }, 0);
 
 
-            
-            data.current.container.remove();
+  // if (this.horizontalScroll) {
+  //   this.horizontalScroll.kill();
+  // }
+
+  // requestIdleCallback(() => {
+  //   this.detailedAnimation.kill();
+  // });
+}
+
+finalizeHomeTransition(data) {
+  data.current.container.remove();
+  const projectName = data.trigger.dataset.projectName;
+  this.scrollManager.scrollToProject(projectName);
+  const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
+  if (media) {
+    const sectionMedia = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
+    if (sectionMedia) {
+      sectionMedia.replaceWith(media); 
+    }
+  }
+}
+
+// Detailed Page View Methods
+
+handleProjectBeforeLeave() {
+
+  const sectionElement = document.querySelector("[data-detailed-media]");
+  if (sectionElement) {
+    const media = sectionElement.querySelector("video") || sectionElement.querySelector("img");
+    console.log("media", media)
+    if (media) {
+      document.querySelector('#persistent-container').appendChild(media);
+    }
+  }
+}
+
+handleProjectBeforeEnter() {
+  this.prepareForProjectDetail();
+
+}
+
+handleProjectAfterEnter(data) {
+
+  data.current.container.remove();
+  // this.scrollManager.smoother.scrollTop(0);
+
+  this.restoreMedia();
+  if (this.cursor) {
+    console.log(">>> mouse pointer ?")
+    this.cursor.mousePointer();
+  }
+
+  
+}
 
 
+// Detailed Page Utility Methods
 
-            const projectName = data.trigger.dataset.projectName;
-            this.scrollManager.scrollToProject(projectName);
-            const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
-            if (media) {
-              const sectionMedia = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
-              if (sectionMedia) {
-                sectionMedia.replaceWith(media); 
-              }
-            }
+async prepareForProjectDetail() {
+  this.setMediaOpacity(0);
+  this.scrollManager.killEffects();
+  this.whatwedo.killScrollTriggers();
+  this.quoteAnimations.kill();
+  this.nav.kill();
+  this.homeAnimation.kill();
 
-            
-          },
+  // if (!this.isMobile) {
+  //   if (!this.horizontalScroll) {
+  //     const { horizontalScroll } = await import('./horizontalScroll');
+  //     this.horizontalScroll = new horizontalScroll(this);
+  //   }
+  //   this.horizontalScroll.init();
+  // }
+
+    this.scrollManager.smoother.scrollTop(0);
+
+  // this.horizontalScrollGsap.init();
+
+  setTimeout(() => {
+    this.horizontalScrollGsap.init();
+  }, 0);
+
+  if (!this.isMobile) {
+    if (!this.cursor) {
+      const { MouseEvenets } = await import('./Cursor');
+      this.cursor = new MouseEvenets(this);
+    }
+    this.cursor.mousePointer();
+    this.cursor.animateMouseFollow(true, false, true);
+  }
+
+  // console.log(">>>>>>>>>")
+  // this.detailedAnimation.init();
+
+}
+
+restoreMedia() {
+  const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
+  if (media) {
+
+    const sectionElement = document.querySelector("[data-detailed-media] video") || document.querySelector("[data-detailed-media] img");
+
+    if (sectionElement) {
+      sectionElement.replaceWith(media); 
+    }
+  }
+}
+
+// Barba.js
+
+  initBarba() {
+    barba.init({
+      views: [
+        {
+          namespace: 'home',
+          beforeLeave: this.handleHomeBeforeLeave.bind(this),
+          afterEnter: this.handleHomeAfterEnter.bind(this),
         },
         {
- 
           namespace: 'project-detail',
-          beforeLeave: (data) => {
-            const sectionElement = data.current.container.querySelector("section");
-            if (sectionElement) {
-              const media = sectionElement.querySelector("video") || sectionElement.querySelector("img");
-              if (media) {
-                document.querySelector('#persistent-container').appendChild(media);
-              }
-            }
-            
-          },
-          beforeEnter: async () => {
-            this.setMediaOpacity(0);
-            this.scrollManager.killEffects()
-            this.whatwedo.killScrollTriggers()
-            this.quoteAnimations.kill();
-            this.nav.kill()
-            this.homeAnimation.kill()
-
-
-            
-            if (!this.isMobile) {
-              if (!this.horizontalScroll) {
-                const { horizontalScroll } = await import('./horizontalScroll');
-                this.horizontalScroll = new horizontalScroll(this);
-              }
-              this.horizontalScroll.init();
-            }
-
-            if (!this.isMobile) {
-
-              if (!this.cursor) {
-                const { MouseEvenets } = await import('./Cursor');
-                this.cursor = new MouseEvenets(this);
-              }
-              this.cursor.mousePointer()
-              this.cursor.animateMouseFollow(true, false,true);
-
-            }
-
-
-
-          },
-          afterEnter: async (data) => {
-            console.log("project-detail afterEnter >>>>")
-
-            data.current.container.remove();
-
-            if(this.cursor) {
-
-              this.cursor.mousePointer()
-            }
-
-      
-
-            const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
-            if (media) {
-              const sectionMedia = document.querySelector('section video') || document.querySelector('section img');
-              if (sectionMedia) {
-                sectionMedia.replaceWith(media); 
-              }
-            }
-          },
+          beforeLeave: this.handleProjectBeforeLeave.bind(this),
+          beforeEnter: this.handleProjectBeforeEnter.bind(this),
+          afterEnter: this.handleProjectAfterEnter.bind(this),
         }
       ],
     });
   }
 }
 
-// Attach the App class to the window or use an inline script in your Astro component
 document.addEventListener('DOMContentLoaded', () => {
   new App();
 });

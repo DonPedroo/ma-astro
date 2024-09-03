@@ -28,6 +28,7 @@ export class AnimationHome {
       ScrollTrigger.create({
         trigger: element,
         start: 'top bottom',
+        // markers:true,
         onEnter: () => {
            useTextAnimation(element, { type: 'lines' }, { moveup: true });
         }
@@ -61,7 +62,7 @@ export class AnimationHome {
   }
   
   kill() {
-    // console.log("animation class kill")
+    console.log("animation class kill")
     if (this.ctx) {
         // console.log("ctx",this.ctx.data)
         this.ctx.revert(); 

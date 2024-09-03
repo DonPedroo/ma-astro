@@ -14,6 +14,7 @@ export class WhatWeDoTrigger {
     this.startValue = null;
     this.scrollJack = null;
     this.context = context;
+    console.log("this.context whatwedo", this.context.isMobile)
 
   }
 
@@ -70,12 +71,7 @@ export class WhatWeDoTrigger {
 
           } else {
             timeline.fromTo(h3, { opacity: 0 }, { opacity: 1, duration: fadeDuration })
-            // timeline.fromTo(h3, { y: 0 }, { y: 20, duration: totalDuration }, "<")
-            // images.forEach((img, imgIndex) => {
-            //   const imageYStart = 0;
-            //   const imageYEnd = 13 * (imgIndex + 1);
-            //   timeline.fromTo(img, { y: 0 }, {y: imageYEnd, duration: totalDuration }, "<");
-            // });
+
             timeline.fromTo(images, { opacity: 0 }, { opacity: 1, duration: fadeDuration }, "<")
             timeline.to(h3, { opacity: 1, duration: holdDuration });
             timeline.to(images, { opacity: 1, duration: holdDuration }, "<");
@@ -84,7 +80,6 @@ export class WhatWeDoTrigger {
           }
         });
         
-        // const progressElement = document.getElementById("what-we-do-progress");
 
 
         const triggerPropsWrap = {
@@ -95,23 +90,13 @@ export class WhatWeDoTrigger {
           // markers: true,
           scrub: true, 
           pin: true,
-          // pinSpacing:true,
-          // onEnter: () => {
-          //   console.log(`Entering inside section: ${section.id}`);
-          // },
-          // onLeave: () => {
-          //   console.log(`Leaving  inside section: ${section.id}`);
-          // },
+          // pinType: "fixed",
+
           onRefresh: (self) => {
-            this.startValue = self.start; // Now `startValue` will be accurate
-            // console.log("this.scrollJack start value after refresh:", this.startValue);
+            this.startValue = self.start; 
           },
           onUpdate: (self) => {
-            // if (progressElement) {
-            //   progressElement.style.width = `${self.progress * 100}%`;
-            // }
 
-             // Update navigation divs based on scroll progress
           asideElements.forEach((aside, index) => {
             const start = sectionDuration * index;
             const end = start + sectionDuration;
@@ -126,11 +111,13 @@ export class WhatWeDoTrigger {
             }
           });
         
-
           },
         };
 
-        // ScrollTrigger.create(triggerPropsWrap);
+        if (this.context.isMobile) {
+          triggerPropsWrap.pinType = "fixed";
+        }
+
         this.scrollJack = ScrollTrigger.create(triggerPropsWrap);
 
 
