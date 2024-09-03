@@ -54,8 +54,11 @@ details_module:
   three_images_section:
     - image: /images/uploads/google-pixel-image2.webp
       alt_text: null
+      image_css: items-center
     - image: /images/uploads/google-pixel-image-paralax-1.webp
       alt_text: null
+      image_css: items-center
     - image: /images/uploads/google-pixel-image-paralax-2.webp
       alt_text: null
+      image_css: items-end
 ---
