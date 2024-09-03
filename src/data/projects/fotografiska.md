@@ -55,6 +55,8 @@ details_module:
   three_images_section:
     - image: /images/uploads/fotografiska-image2.webp
       alt_text: wedwed
+      image_css: items-center
     - image: /images/uploads/fotografiska-image-paralax-1.webp
       alt_text: wedew
+      image_css: items-end
 ---
