@@ -1,6 +1,8 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTextAnimation } from './AnimationText'; 
+// import { useObjectAnimation } from './AnimationObject'; 
+
 import { toggleVisibility } from './toggleVisibility'; 
 import { CustomEase } from 'gsap/CustomEase';
 
@@ -103,12 +105,13 @@ export class horizontalScrollGsap {
 
   animationTxtBlocks() {
 
-    const textAnimation = this.target.querySelectorAll('[data-animation-txt-lg]');
+    const textAnimation = document.querySelectorAll('[data-animation-txt-lg]');
 
 textAnimation.forEach(element => {
   const title = element.querySelector('h4');
   const paragraph = element.querySelector('p');
-  const image = element.querySelector('img');
+  const imageA = element.querySelector('[data-animation-img-a]');
+  const imageB = element.querySelector('[data-animation-img-b]');
 
   ScrollTrigger.create({
     trigger: element,
@@ -117,15 +120,53 @@ textAnimation.forEach(element => {
     scrub:0,
     containerAnimation: this.scrollTween,
     onEnter: () => {
-      if (image) {
-        toggleVisibility(image, { show: true, delay:.5 });
-
+      if (imageA) {
+        toggleVisibility(imageA, { show: true, delay:.2,duration:2 });
       }
+      if (imageB) {
+        toggleVisibility(imageB, { 
+          show: true, 
+          delay: imageA ? 0.4 : 0.2,  
+          duration: 2 
+        });      }
       useTextAnimation(title, { type: 'lines' }, { moveup: true, delay:.1 });
       useTextAnimation(paragraph, { type: 'lines' }, { moveup: true, delay:.3 });
     },
   });
 });
+
+  }
+
+
+  animationStatBlocks() {
+
+    const statAnimation = document.querySelector('[data-animation-stats]');
+
+    const statItems = statAnimation.querySelectorAll('div');
+
+
+  ScrollTrigger.create({
+    trigger: statAnimation,
+    start: 'left right',
+    // markers:true,
+    scrub:0,
+    containerAnimation: this.scrollTween,
+    onEnter: () => {
+      statItems.forEach((element, index) => {
+        const title = element.querySelector('h5');
+        const paragraph = element.querySelector('p');
+    
+        // Calculate delays based on the index
+        const titleDelay = 0.1 + index * 0.2; // Increase delay for title by 0.2s for each element
+        const paragraphDelay = 0.3 + index * 0.2; // Increase delay for paragraph by 0.2s for each element
+    
+        useTextAnimation(title, { type: 'lines' }, { moveup: true, delay: titleDelay });
+        useTextAnimation(paragraph, { type: 'lines' }, { moveup: true, delay: paragraphDelay });
+      });
+    },
+    
+  });
+
 
   }
 
@@ -143,6 +184,7 @@ textAnimation.forEach(element => {
       
       this.firstSection()
       this.animationTxtBlocks()
+      this.animationStatBlocks()
          
         });
 
@@ -161,7 +203,7 @@ textAnimation.forEach(element => {
 
   quoteAnimation() {
 
-    const quoteAnimation = this.target.querySelector('[data-animation-quote]');
+    const quoteAnimation = document.querySelector('[data-animation-quote]');
 
 
     const title = quoteAnimation.querySelector('h4');

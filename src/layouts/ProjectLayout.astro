@@ -149,7 +149,7 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
 
       <section class="flex flex-col sm:flex-row space-y-12 sm:space-y-0 bg-[url('/images/grunge.webp')] bg-repeat bg-[size:1024px_1024px] bg-center" data-slider-gl data-type="image">
         <div class="horizontal-content-group sm:w-[50vw] justify-end" data-animation-txt-lg>
-          <div class="horizontal-img-container">
+          <div class="horizontal-img-container" data-animation-img-a>
             {frontmatter.details_module?.main_section.image && (
               <Media 
                 src={frontmatter.details_module.main_section.image} 
@@ -165,11 +165,9 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
           </div>
         </div>
 
-        <div class="sm:relative flex flex-col sm:flex-row sm:w-[50vw] space-y-12 sm:space-y-0">
+        <div class=" flex flex-col sm:flex-row sm:w-[70vw] space-y-12 sm:space-y-0 border border-red-500">
           {frontmatter.details_module?.three_images_section.map((image, index) => (
-            <div 
-              class="sm:absolute inset-0 flex justify-center sm:h-full" 
-            >
+            <div class="flex flex-1 items-start sm:h-full bg-blue-400/25 border border-blue-700">
               <Media 
                 src={image.image} 
                 alt={image.alt_text} 
@@ -182,21 +180,33 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
       </section>
 
       <section class="flex flex-col sm:flex-row space-y-12 sm:space-y-0  bg-massgrey" data-slider-gl data-type="color" data-bg="#EAEAEA">
-        <div class="sm:w-[65vw]  flex flex-col sm:flex-row justify-center items-center space-y-12 sm:space-y-0">
-          <div class="horizontal-content-group sm:w-1/2 items-start" data-animation-txt-lg>
+        <div class="sm:w-[65vw]  flex flex-col sm:flex-row justify-center items-center space-y-12 sm:space-y-0" data-animation-txt-lg>
+          <div class="horizontal-content-group sm:w-1/2 items-start">
             <div class="horizontal-textblock">
               <h4 class="text-black horizontal-header">{frontmatter.stats_module?.additional_section.header}</h4>
               <p class="text-black horizontal-description">{frontmatter.stats_module?.additional_section.content}</p>
             </div>
-            <div class="horizontal-img-container">
-              <img src={frontmatter.stats_module?.additional_section.image} alt={frontmatter.stats_module?.additional_section.alt_text} />
-            </div>
+            {frontmatter.stats_module?.additional_section.image && (
+              <div class="horizontal-img-container" data-animation-img-a>
+              <Media 
+                src={frontmatter.stats_module.additional_section.image} 
+                alt={frontmatter.stats_module.additional_section.alt_text || "Mass Appeal"} 
+                cssClasses="object-contain pointer-events-none" 
+              />
+              </div>
+            )}            
           </div>
-          <div class="horizontal-img-container-full">
-            <img src={frontmatter.stats_module?.stats_hero_image.image} alt={frontmatter.stats_module?.stats_hero_image.alt_text} />
+          <div class="horizontal-img-container-full" data-animation-img-b>
+            {frontmatter.stats_module?.stats_hero_image.image && (
+              <Media 
+                src={frontmatter.stats_module?.stats_hero_image.image} 
+                alt={frontmatter.stats_module?.stats_hero_image.alt_text || "Mass Appeal"} 
+                cssClasses="object-contain pointer-events-none" 
+              />
+            )}  
           </div>
         </div>
-        <div class="sm:w-[35vw] flex flex-col justify-center">
+        <div class="sm:w-[35vw] flex flex-col justify-center" data-animation-stats>
           {['section_1', 'section_2', 'section_3'].map(section => (
             <div class="sm:pl-12">
               <p class="stripe-label text-massblue">{frontmatter.stats_module?.[section].header}</p>
