@@ -1,7 +1,7 @@
 ---
 id: hip-hop-50-live
-slug: hip-hop-50-live
 title: hip hop 50 live
+slug: hip-hop-50-live
 description: On the 50th Anniversary of Hip Hop, we took it back to where it all
   began. HIP HOP 50 LIVE at Yankee Stadium was a once-in-a-lifetime concert,
   featuring some of the most iconic names in music.
@@ -50,8 +50,8 @@ stats_module:
       experience to talent management, merchandising, content, and marketing.
       Our teams collaborated on bringing every aspect of this celebration to
       life.
-    image: /images/uploads/hip-hop-50-live-1x1.webp
-    alt_text: xsasxsax
+    image: ""
+    alt_text: ""
 details_module:
   main_section:
     header: A Star-Studded Concert
