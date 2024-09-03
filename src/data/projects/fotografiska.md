@@ -28,8 +28,8 @@ stats_module:
     header: Attendees
     content: 60K
   section_3:
-    header: Attendees
-    content: 60K
+    header: ""
+    content: ""
   stats_hero_image:
     image: /images/uploads/fotografiska-image4.webp
     alt_text: wewer
