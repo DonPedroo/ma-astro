@@ -53,6 +53,4 @@ details_module:
     - image: /images/uploads/mixed-and-mastered-image-paralax-1.webp
       alt_text: null
       image_css: items-center
-    - image: /images/uploads/fotografiska-1x1.webp
-      alt_text: null
 ---
