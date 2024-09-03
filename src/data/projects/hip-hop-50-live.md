@@ -63,8 +63,11 @@ details_module:
   three_images_section:
     - image: /images/uploads/hip-hop-50-live-image2.webp
       alt_text: sxwx
+      image_css: items-center
     - image: /images/uploads/hip-hop-50-live-image-paralax-1.webp
       alt_text: asewddew
+      image_css: items-end
     - image: /images/uploads/hip-hop-50-live-image-paralax-2.webp
       alt_text: ssaxsax
+      image_css: items-start
 ---
