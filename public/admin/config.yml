@@ -138,20 +138,20 @@ collections:
             name: "section_1"
             widget: "object"
             fields:
-              - { label: "Header", name: "header", widget: "string" }
-              - { label: "Content", name: "content", widget: "string" }
+              - { label: "Header", name: "header", widget: "string", required: false }
+              - { label: "Content", name: "content", widget: "string", required: false }
           - label: "Section 2"
             name: "section_2"
             widget: "object"
             fields:
-              - { label: "Header", name: "header", widget: "string" }
-              - { label: "Content", name: "content", widget: "string" }
+              - { label: "Header", name: "header", widget: "string", required: false }
+              - { label: "Content", name: "content", widget: "string", required: false }
           - label: "Section 3"
             name: "section_3"
             widget: "object"
             fields:
-              - { label: "Header", name: "header", widget: "string" }
-              - { label: "Content", name: "content", widget: "string" }
+              - { label: "Header", name: "header", widget: "string", required: false }
+              - { label: "Content", name: "content", widget: "string", required: false }
           - label: "Stats Hero Image"
             name: "stats_hero_image"
             widget: "object"
