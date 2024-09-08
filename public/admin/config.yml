@@ -130,6 +130,43 @@ collections:
         fields:
           - { label: "1x1 Image", name: "square_image_media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
           - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
+      - label: "Details Module"
+        name: "details_module"
+        widget: "object"
+        fields:
+          - label: "Main Section"
+            name: "main_section"
+            widget: "object"
+            fields:
+              - { label: "Header", name: "header", widget: "string" }
+              - { label: "Content", name: "content", widget: "markdown" }
+              - { label: "Image", name: "image", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+              - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
+              - label: "Image Size Tailwind CSS Classes"
+                name: "image_css"
+                widget: "string"
+                required: false
+                hint: "Add Tailwind CSS classes to control the maximum image width. Example: 'max-w-md' for medium width or 'max-w-lg' for large width. You can combine classes like 'max-w-64 lg:max-w-80'. Visit https://tailwindcss.com/docs/max-width for more options."
+          - label: "Three Images Section"
+            name: "three_images_section"
+            widget: "list"
+            hint: "Add up to 3 images."
+            fields:
+              - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
+              - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
+              - label: "Alignment"
+                name: "image_container_css"
+                widget: "select"
+                options:
+                  - { label: "Top", value: "items-start" }
+                  - { label: "Middle", value: "items-center" }
+                  - { label: "Bottom", value: "items-end" }
+                required: false
+              - label: "Image Size Tailwind CSS Classes"
+                name: "image_css"
+                widget: "string"
+                required: false
+                hint: "Add Tailwind CSS classes to control the maximum image width. Example: 'max-w-md' for medium width or 'max-w-lg' for large width. You can combine classes like 'max-w-64 lg:max-w-80'. Visit https://tailwindcss.com/docs/max-width for more options."
       - label: "Stats Module"
         name: "stats_module"
         widget: "object"
@@ -158,6 +195,11 @@ collections:
             fields:
               - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
               - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
+              - label: "Image Size Tailwind CSS Classes"
+                name: "image_css"
+                widget: "string"
+                required: false
+                hint: "Add Tailwind CSS classes to control the maximum image width. Example: 'max-w-md' for medium width or 'max-w-lg' for large width. You can combine classes like 'max-w-64 lg:max-w-80'. Visit https://tailwindcss.com/docs/max-width for more options."
           - label: "Additional Section"
             name: "additional_section"
             widget: "object"
@@ -166,33 +208,6 @@ collections:
               - { label: "Content", name: "content", widget: "markdown" }
               - { label: "Image", name: "image", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
               - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
-      - label: "Details Module"
-        name: "details_module"
-        widget: "object"
-        fields:
-          - label: "Main Section"
-            name: "main_section"
-            widget: "object"
-            fields:
-              - { label: "Header", name: "header", widget: "string" }
-              - { label: "Content", name: "content", widget: "markdown" }
-              - { label: "Image", name: "image", widget: "file", required: false, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-              - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
-          - label: "Three Images Section"
-            name: "three_images_section"
-            widget: "list"
-            hint: "Add up to 3 images."
-            fields:
-              - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
-              - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
-              - label: "Alignment"
-                name: "image_container_css"
-                widget: "select"
-                options:
-                  - { label: "Top", value: "items-start" }
-                  - { label: "Middle", value: "items-center" }
-                  - { label: "Bottom", value: "items-end" }
-                required: false
               - label: "Image Size Tailwind CSS Classes"
                 name: "image_css"
                 widget: "string"
