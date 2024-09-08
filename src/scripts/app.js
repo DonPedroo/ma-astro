@@ -2,12 +2,11 @@ import { gsap } from 'gsap';
 import { Scroll } from './scroll';
 import { GsapAnimations } from "./gsapAnimations";
 import { WhatWeDoTrigger } from "./whatwedo";
-import { MenuHandler } from "./nav";
 import barba from '@barba/core';
 import { QuoteAnimations } from './Quotes'; 
 import { AnimationHome } from './AnimationManagerHome';
-import { AnimationDetailed } from './AnimationManagerDetailed';
 import { horizontalScrollGsap } from './horizontalScrollGsap';
+import { toggleVisibility } from './toggleVisibility.js';
 
 
 import { getGPUInfo } from './gpuInfo'; 
@@ -16,14 +15,17 @@ class App {
   constructor() {
 
     this.scrollManager = new Scroll(); 
-    // this.triggerManager = new GsapAnimations(); 
+    this.triggerManager = new GsapAnimations(); 
     this.width = window.innerWidth;
     this.height = window.innerHeight;
     this.isMobile = false;
     this.gl = false
     this.cursor = null; // Initialize as null
     this.whatwedo = new WhatWeDoTrigger(this); 
-    this.nav = new MenuHandler(this); 
+    this.nav = null
+    this.navTouch = null
+
+
     this.homeAnimation = new AnimationHome(this); 
     // this.detailedAnimation = new AnimationDetailed(this); 
 
@@ -46,7 +48,7 @@ class App {
 
       // If GPU info is available, enable WebGL
       if (gpuInfo) {
-        console.log("set gl true");
+        // console.log("set gl true");
         this.gl = true;
         this.initGl();
       }
@@ -78,7 +80,7 @@ async initGl() {
   
   if (this.gl) {
 
-    console.log("gl started")
+    // console.log("gl started")
 
     const { ThreeScene } = await import('./threeScene');
     this.sceneInstance = new ThreeScene(this);
@@ -92,7 +94,7 @@ async initGl() {
 handleHomeBeforeLeave(data) {
   const projectName = data.trigger.dataset.projectName;
   const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
-  console.log("handleHomeBeforeLeave media >>>>> ",projectName,media)
+  // console.log("handleHomeBeforeLeave media >>>>> ",projectName,media)
   if (media) {
     document.querySelector('#persistent-container').appendChild(media);
   }
@@ -112,21 +114,43 @@ async handleHomeAfterEnter(data) {
   this.initProjectLinks();
   this.cleanUpHorizontalScroll();
 
+
+  if (this.isMobile) {
+    if (!this.navTouch) {
+      const { MenuHandlerTouch } = await import('./navTouch');
+      this.navTouch = new MenuHandlerTouch(); 
+      this.navTouch.init();
+    }
+  } else {
+    // console.log("<<<<<<")
+    if (!this.nav) {
+      // console.log("<<<<<<")
+
+      const { MenuHandler } = await import('./nav');
+      this.nav = new MenuHandler(); 
+      this.nav.init();
+    }
+
+
+  }
+
+  
+
+
   this.scrollManager.smoother.scrollTop(0);
 
-  // if (this.isMobile) {
-  // }
+
 
   this.finalizeHomeTransition(data);
+
+  
 }
 
 // Home Utility Methods
 initAnimations() {
   this.scrollManager.initEffects();
   this.whatwedo.initScrollTriggers();
-  setTimeout(() => {
-    this.nav.init();
-  }, 0);
+
   // setTimeout(() => {
   //   this.homeAnimation.init();
   // }, 0);
@@ -136,6 +160,11 @@ initAnimations() {
   setTimeout(() => {
     this.quoteAnimations.init();
   }, 0);
+
+  // setTimeout(() => {
+  //   this.triggerManager.init();
+  // }, 0);
+
 }
 
 initProjectLinks() {
@@ -189,7 +218,7 @@ handleProjectBeforeLeave() {
   const sectionElement = document.querySelector("[data-detailed-media]");
   if (sectionElement) {
     const media = sectionElement.querySelector("video") || sectionElement.querySelector("img");
-    console.log("media", media)
+    // console.log("media", media)
     if (media) {
       document.querySelector('#persistent-container').appendChild(media);
     }
@@ -208,7 +237,7 @@ handleProjectAfterEnter(data) {
 
   this.restoreMedia();
   if (this.cursor) {
-    console.log(">>> mouse pointer ?")
+    // console.log(">>> mouse pointer ?")
     this.cursor.mousePointer();
   }
 
@@ -223,8 +252,21 @@ async prepareForProjectDetail() {
   this.scrollManager.killEffects();
   this.whatwedo.killScrollTriggers();
   this.quoteAnimations.kill();
-  this.nav.kill();
+
+  if (this.navTouch) {
+  this.navTouch.kill();
+  this.navTouch = null
+  }
+  if (this.nav) {
+    this.nav.kill();
+    this.nav = null
+    }
+
   this.homeAnimation.kill();
+
+  // setTimeout(() => {
+  //   this.triggerManager.kill();
+  // }, 0);
 
   // if (!this.isMobile) {
   //   if (!this.horizontalScroll) {

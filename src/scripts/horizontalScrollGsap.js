@@ -41,13 +41,28 @@ export class horizontalScrollGsap {
 
   recalcDist() {
 
-    const totalWidth = this.sections.reduce((total, section) => {
-      return total + section.offsetWidth;
+    const totalWidth = this.sections.reduce((total, section, index) => {
+      const sectionWidth = section.offsetWidth;
+      // console.log(`Section ${index + 1} width:`, sectionWidth,section);
+      return total + sectionWidth;
     }, 0);
 
     this.scrollDistance = totalWidth - this.target.clientWidth;
 
+    // const section = this.sections[2]; // Assuming 'this.sections' is a NodeList or array
 
+    // if (section) {
+    //   // Get the direct child elements of section 3
+    //   const childElements = Array.from(section.children);
+  
+    //   // Log the width of each child element in section 3
+    //   childElements.forEach((child, i) => {
+    //     const childWidth = child.offsetWidth;
+    //     console.log(`Section 3, Child ${i + 1} width:`, childWidth, child);
+    //   });
+    // } else {
+    //   console.warn('Section 3 not found');
+    // }
 
   }
 
@@ -121,12 +136,12 @@ textAnimation.forEach(element => {
     containerAnimation: this.scrollTween,
     onEnter: () => {
       if (imageA) {
-        toggleVisibility(imageA, { show: true, delay:.2,duration:2 });
+        toggleVisibility(imageA, { show: true, delay:.3,duration:2 });
       }
       if (imageB) {
         toggleVisibility(imageB, { 
           show: true, 
-          delay: imageA ? 0.4 : 0.2,  
+          delay: imageA ? 0.5 : 0.3,  
           duration: 2 
         });      }
       useTextAnimation(title, { type: 'lines' }, { moveup: true, delay:.1 });
@@ -170,6 +185,58 @@ textAnimation.forEach(element => {
 
   }
 
+  animationParalax() {
+    const paralaxContainer = document.querySelector('[data-animation-paralax]');  
+    const paralaxImages = paralaxContainer.querySelectorAll('div');  // Select all divs inside the container
+  
+    if (paralaxContainer && paralaxImages.length > 0) {
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: paralaxContainer,
+          start: 'left right', 
+          scrub: true,         
+          containerAnimation: this.scrollTween,
+          onEnter: () => {
+
+
+          paralaxImages.forEach((image, index) => {
+          const img = image.querySelector('img'); // Select the single img inside the div
+          const delay = 0.3 + index * 0.2; // Increase delay for paragraph by 0.2s for each element
+
+            if (img) {
+              toggleVisibility(img, { show: true, delay: delay, duration: 2 });
+            }
+
+        })
+            
+          },
+        }
+      });
+  
+      paralaxImages.forEach((image, index) => {
+
+        let xValue = '0'; // Default value
+
+        // Adjust xValue based on the index
+         if (index === 0) {
+          xValue = '-10%';
+        }
+        else if (index === 1) {
+          xValue = '-50%';
+        } else if (index === 2) {
+          xValue = '-150%';
+        }
+
+          timeline.to(image, {
+          x: xValue, 
+          ease: 'none',
+        }, 0);
+      });
+    }
+  }
+  
+  
+
   init() {
 
     console.log("horizontal scroll GSAP created")
@@ -184,6 +251,7 @@ textAnimation.forEach(element => {
       
       this.firstSection()
       this.animationTxtBlocks()
+      this.animationParalax()
       this.animationStatBlocks()
          
         });

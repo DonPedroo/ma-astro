@@ -30,9 +30,11 @@ interface Frontmatter {
   };
   details_module?: {
     main_section: { header: string; content: string; image: string; alt_text: string };
-    three_images_section: Array<{ image: string; alt_text: string }>;
+    three_images_section: Array<{ image: string; alt_text: string; image_css: string;image_container_css: string }>;
   };
 }
+
+
 
 interface ProjectPageProps {
   frontmatter: Frontmatter;
@@ -107,6 +109,7 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
   select-none	
   overflow-x-scroll 
   overflow-y-hidden
+  sm:h-screen
   " 
   data-horizontal-scroll
   >
@@ -133,7 +136,7 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
               {frontmatter.detailed_quote && (
                 <>
                   <h4 class="horizontal-quote text-massblue" data-test-anim>{frontmatter.detailed_quote.detailed_quote_content}</h4>
-                  <p class="stripe-label text-massblue">{frontmatter.detailed_quote.detailed_quote_content_auth}</p>
+                  <p class="stripe-label text-massblue">- {frontmatter.detailed_quote.detailed_quote_content_auth}</p>
                 </>
               )}
             </div>
@@ -141,15 +144,17 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
         </div>
       </section>
 
-      <section class="flex h-[100vw] sm:h-[100vh] sm:w-[100vh] bg-blue-700" data-slider-gl data-type="image">
+
+
+      <section class="flex h-[100vw] sm:h-[100vh] aspect-square	 bg-blue-700" data-slider-gl data-type="image">
         {frontmatter.square_image?.square_image_media && (
-          <Media src={frontmatter.square_image.square_image_media} alt={frontmatter.square_image.alt_text} cssClasses="w-[100vw] sm:w-[100vh] sm:h-screen max-w-fit object-cover" />
+          <Media src={frontmatter.square_image.square_image_media} alt={frontmatter.square_image.alt_text} cssClasses="w-[100vw] sm:w-[100vh] aspect-square	 object-cover" />
         )}
       </section>
 
       <section class="flex flex-col sm:flex-row space-y-12 sm:space-y-0 bg-[url('/images/grunge.webp')] bg-repeat bg-[size:1024px_1024px] bg-center" data-slider-gl data-type="image">
-        <div class="horizontal-content-group sm:w-[50vw] justify-end" data-animation-txt-lg>
-          <div class="horizontal-img-container" data-animation-img-a>
+        <div class="horizontal-content-group sm:w-[50vw]  justify-end bg-blue-500" data-animation-txt-lg>
+          <div class="flex w-full bg-red-500" data-animation-img-a>
             {frontmatter.details_module?.main_section.image && (
               <Media 
                 src={frontmatter.details_module.main_section.image} 
@@ -159,30 +164,50 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
             )}
             
           </div>
-          <div class="horizontal-textblock lg:w-[80%] xl:w-[80%] 2xl:w-[70%] 3xl:w-[60%]">
+          <div class="flex flex-col 
+          space-y-8 
+  lg:space-y-8 
+  xl:space-y-10 
+  2xl:space-y-12 
+  3xl:space-y-16    
+  
+  lg:w-[80%] xl:w-[80%] 2xl:w-[70%] 3xl:w-[60%] bg-green-500">
             <h4 class="horizontal-header">{frontmatter.details_module?.main_section.header}</h4>
             <p class="horizontal-description">{frontmatter.details_module?.main_section.content}</p>
           </div>
         </div>
 
-        <div class=" flex flex-col sm:flex-row sm:w-[70vw] space-y-12 sm:space-y-0 border border-red-500">
-          {frontmatter.details_module?.three_images_section.map((image, index) => (
-            <div class="flex flex-1 items-start sm:h-full bg-blue-400/25 border border-blue-700">
-              <Media 
-                src={image.image} 
-                alt={image.alt_text} 
-                cssClasses="object-contain pointer-events-none" 
-              />
-            </div>
-          ))}
-        </div>
+        <div 
+        class={`flex flex-col sm:flex-row ${frontmatter.details_module?.three_images_section.length === 2 ? 'sm:w-[50vw]' : 'sm:w-[70vw]'} space-y-12 sm:space-y-0`} 
+        data-animation-paralax
+      >
+        {frontmatter.details_module?.three_images_section.map((image, index) => (
+          <div class={`flex sm:h-screen border border-red-600 ${image.image_container_css}`}>
+            <Media 
+              src={image.image} 
+              alt={image.alt_text} 
+              cssClasses={`object-contain pointer-events-none ${image.image_css}`} 
+            />
+          </div>
+        ))}
+      </div>
+      
         
       </section>
 
       <section class="flex flex-col sm:flex-row space-y-12 sm:space-y-0  bg-massgrey" data-slider-gl data-type="color" data-bg="#EAEAEA">
         <div class="sm:w-[65vw]  flex flex-col sm:flex-row justify-center items-center space-y-12 sm:space-y-0" data-animation-txt-lg>
           <div class="horizontal-content-group sm:w-1/2 items-start">
-            <div class="horizontal-textblock">
+            <div class="  flex 
+  flex-col 
+  flex-grow
+  space-y-8 
+  lg:space-y-8 
+  xl:space-y-10 
+  2xl:space-y-12 
+  3xl:space-y-16    
+  sm:h-1/2
+  justify-center ">
               <h4 class="text-black horizontal-header">{frontmatter.stats_module?.additional_section.header}</h4>
               <p class="text-black horizontal-description">{frontmatter.stats_module?.additional_section.content}</p>
             </div>

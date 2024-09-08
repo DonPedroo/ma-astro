@@ -10,7 +10,7 @@ export class GsapAnimations {
     // this.initScrollTriggers();
   }
 
-  initScrollTriggers() {
+  init() {
     // console.log("initScrollTriggers")
 
     // Create a GSAP context
@@ -25,7 +25,7 @@ export class GsapAnimations {
           trigger: section,
           start: "top top",
           end: "bottom top",
-          // markers: true, // You can remove this in production
+          markers: true, // You can remove this in production
           // scrub: true, // Smoothly scrubs the animation as you scroll
           onEnter: () => {
             // Custom animation logic on enter
@@ -44,7 +44,7 @@ export class GsapAnimations {
   }
 
   // Function to kill all ScrollTriggers and clear the GSAP context
-  killScrollTriggers() {
+  kill() {
     if (this.gsapContext) {
       this.gsapContext.revert(); // Kills all animations and ScrollTriggers within the context
       this.gsapContext = null; // Clear the context reference

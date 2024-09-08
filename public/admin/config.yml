@@ -185,7 +185,16 @@ collections:
             fields:
               - { label: "Image", name: "image", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
               - { label: "Alt Text", name: "alt_text", widget: "string", required: false }
-              - { label: "Tailwind CSS Classes", name: "image_css", widget: "string", required: false }
-
-
-    
+              - label: "Alignment"
+                name: "image_container_css"
+                widget: "select"
+                options:
+                  - { label: "Top", value: "items-start" }
+                  - { label: "Middle", value: "items-center" }
+                  - { label: "Bottom", value: "items-end" }
+                required: false
+              - label: "Image Size Tailwind CSS Classes"
+                name: "image_css"
+                widget: "string"
+                required: false
+                hint: "Add Tailwind CSS classes to control the maximum image width. Example: 'max-w-md' for medium width or 'max-w-lg' for large width. You can combine classes like 'max-w-64 lg:max-w-80'. Visit https://tailwindcss.com/docs/max-width for more options."

@@ -49,8 +49,10 @@ details_module:
   three_images_section:
     - image: /images/uploads/mixed-and-mastered-image2.webp
       alt_text: null
-      image_css: items-end
+      image_container_css: items-end 
+      image_css: max-w-2xl
     - image: /images/uploads/mixed-and-mastered-image-paralax-1.webp
       alt_text: null
-      image_css: items-center
+      image_container_css: items-center 
+      image_css: max-w-sm
 ---

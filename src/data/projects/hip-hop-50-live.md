@@ -63,11 +63,14 @@ details_module:
   three_images_section:
     - image: /images/uploads/hip-hop-50-live-image2.webp
       alt_text: sxwx
-      image_css: items-center
+      image_container_css: items-center
+      image_css: max-w-64 lg:max-w-80 xl:max-w-80 2xl:max-w-96 3xl:max-w-md
     - image: /images/uploads/hip-hop-50-live-image-paralax-1.webp
       alt_text: asewddew
-      image_css: items-end
+      image_container_css: items-end
+      image_css: max-w-lg lg:max-w-xl xl:max-w-2xl 3xl:max-w-4xl
     - image: /images/uploads/hip-hop-50-live-image-paralax-2.webp
       alt_text: ssaxsax
-      image_css: items-start
+      image_container_css: items-start
+      image_css: max-w-44 lg:max-w-56 xl:max-w-56 2xl:max-w-72 3xl:max-w-sm	
 ---

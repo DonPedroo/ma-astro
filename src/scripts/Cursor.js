@@ -35,8 +35,8 @@ export class MouseEvenets {
   getSpeed(){
     this.speed = Math.sqrt( (this.prevMouse.x- this.mouse.x)**2 + (this.prevMouse.y- this.mouse.y)**2 );    
     this.targetSpeed -= 0.1*(this.targetSpeed - this.speed);    
-    this.followMouse.x -= 0.1*(this.followMouse.x - this.mouse.x);
-    this.followMouse.y -= 0.1*(this.followMouse.y - this.mouse.y);    
+    this.followMouse.x -= 0.2*(this.followMouse.x - this.mouse.x);
+    this.followMouse.y -= 0.2*(this.followMouse.y - this.mouse.y);    
     this.prevMouse.x = this.mouse.x;
     this.prevMouse.y = this.mouse.y;
   }
@@ -46,7 +46,7 @@ this.getSpeed()
 
 
 
-if (Math.abs(this.prevMouse.x - this.followMouse.x) < 0.0001) return;
+// if (Math.abs(this.prevMouse.x - this.followMouse.x) < 0.0001) return;
 
 if (this.cursor) {
     this.cursor.style.transform = `translate(${(this.followMouse.x*this.context.width)-10}px, ${(this.followMouse.y*this.context.height)-10}px)`

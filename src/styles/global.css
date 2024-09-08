@@ -489,7 +489,7 @@
     lg:px-8 lg:my-3
     xl:px-10 xl:my-4
     2xl:px-14 2xl:my-5
-    3xl:px-16 3xl:my-6
+    3xl:px-16 3xl:my-2
 
     sm:bg-blend-multiply
     sm:bg-paper-image
@@ -906,7 +906,7 @@
 
 
 }
-
+/* 
 .horizontal-img-container {
 
   @apply 
@@ -915,9 +915,9 @@
   w-full 
   sm:h-1/2
 
-}
+} */
 
-.horizontal-textblock {
+/* .horizontal-textblock {
   @apply 
 
   flex 
@@ -932,7 +932,7 @@
   justify-center 
 
 
-}
+} */
 
 
 

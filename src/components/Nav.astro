@@ -69,7 +69,7 @@ const cleanTitle = (title) => {
 ---
 
     <!-- mobile nav -->
-    <nav class="fixed sm:hidden top-0 z-50 w-full mix-blend-difference p-6" data-nav-mobile>
+    <nav class="opacity-0 hidden fixed sm:hidden top-0 z-50 w-full mix-blend-difference p-6" data-nav-mobile>
         <div class="m-nav-wrapper">
           <div class="m-nav-logo">
               <img src="/images/ma-fav.svg" class="w-auto h-[20px]" alt="Mass Appeal">
@@ -104,7 +104,7 @@ const cleanTitle = (title) => {
     <!-- mobile nav -->
 
 
-<nav class="fixed top-0 z-40 w-full mix-blend-difference" data-nav>
+<nav class="hidden opacity-0 fixed top-0 z-40 w-full mix-blend-difference" data-nav>
   <ul class="hidden sm:flex w-full sm:mt-8 sm:pl-8 md:pl-16 xl:pl-32 sm:pr-8 md:pr-16 xl:pr-32">
     {navTitles.map(({ title, id }) => (
       <li data-link class="flex-grow">

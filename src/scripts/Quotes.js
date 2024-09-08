@@ -12,10 +12,23 @@ export class QuoteAnimations {
   init() {
     this.ctx = gsap.context(() => {
       const { width, height } = this.context;
+      const stripeTextWrap = document.querySelector('[data-stripe-wrap]');
+      const textElements = stripeTextWrap.querySelectorAll('[data-stripe-text]');
 
-      const textElements = document.querySelectorAll('[data-stripe-text]');
+      // Create a single timeline for all text elements
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: stripeTextWrap,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        }
+      });
 
-      textElements.forEach((textElement) => {
+      // Define a delay for staggered animations (0.1 seconds between each animation)
+      const staggerDelay = 0.05;
+
+      textElements.forEach((textElement, index) => {
         if (textElement instanceof HTMLElement) {
           const rotationDegree = parseFloat(
             textElement.getAttribute('data-stripe-text-rotate') || '0'
@@ -29,20 +42,18 @@ export class QuoteAnimations {
             endX = rotationDegree > 0 ? '-30%' : '30%';
           }
 
+          // Apply initial transform (rotation)
           textElement.style.transform = `rotate(${rotationDegree}deg)`;
 
-          gsap.fromTo(
+          // Add a tween for each text element to the timeline, with staggered offset
+          timeline.fromTo(
             textElement,
             { x: startX },
             {
               x: endX,
-              scrollTrigger: {
-                trigger: textElement,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: true,
-              },
-            }
+              ease: 'linear', // Ensure linear easing
+            },
+            index * staggerDelay // Create offset for each element
           );
         }
       });
@@ -51,7 +62,7 @@ export class QuoteAnimations {
 
   kill() {
     if (this.ctx) {
-      this.ctx.revert(); 
+      this.ctx.revert();
       this.ctx = null;
     }
   }
