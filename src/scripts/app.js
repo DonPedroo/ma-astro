@@ -5,7 +5,7 @@ import { WhatWeDoTrigger } from "./whatwedo";
 import barba from '@barba/core';
 import { QuoteAnimations } from './Quotes'; 
 import { AnimationHome } from './AnimationManagerHome';
-import { horizontalScrollGsap } from './horizontalScrollGsap';
+// import { horizontalScroll } from './horizontalScroll.js'
 import { toggleVisibility } from './toggleVisibility.js';
 
 
@@ -31,7 +31,6 @@ class App {
 
     this.quoteAnimations = new QuoteAnimations(this);
     this.horizontalScroll = null;
-    this.horizontalScrollGsap = new horizontalScrollGsap(this);
 
     this.initBarba(); 
     
@@ -151,19 +150,12 @@ initAnimations() {
   this.scrollManager.initEffects();
   this.whatwedo.initScrollTriggers();
 
-  // setTimeout(() => {
-  //   this.homeAnimation.init();
-  // }, 0);
   setTimeout(() => {
     this.homeAnimation.init();
   });
   setTimeout(() => {
     this.quoteAnimations.init();
   }, 0);
-
-  // setTimeout(() => {
-  //   this.triggerManager.init();
-  // }, 0);
 
 }
 
@@ -185,17 +177,10 @@ cleanUpHorizontalScroll() {
 
 
   setTimeout(() => {
-      this.horizontalScrollGsap.kill();
+    if (this.horizontalScroll) {
+      this.horizontalScroll.kill();
+    }
     }, 0);
-
-
-  // if (this.horizontalScroll) {
-  //   this.horizontalScroll.kill();
-  // }
-
-  // requestIdleCallback(() => {
-  //   this.detailedAnimation.kill();
-  // });
 }
 
 finalizeHomeTransition(data) {
@@ -268,21 +253,19 @@ async prepareForProjectDetail() {
   //   this.triggerManager.kill();
   // }, 0);
 
-  // if (!this.isMobile) {
-  //   if (!this.horizontalScroll) {
-  //     const { horizontalScroll } = await import('./horizontalScroll');
-  //     this.horizontalScroll = new horizontalScroll(this);
-  //   }
-  //   this.horizontalScroll.init();
-  // }
+
 
     this.scrollManager.smoother.scrollTop(0);
-
-  // this.horizontalScrollGsap.init();
-
-  setTimeout(() => {
-    this.horizontalScrollGsap.init();
+    if (!this.isMobile) {
+      if (!this.horizontalScroll) {
+        const { horizontalScroll } = await import('./horizontalScroll');
+        this.horizontalScroll = new horizontalScroll(this);
+      }
+        setTimeout(() => {
+       this.horizontalScroll.init();
   }, 0);
+    }
+
 
   if (!this.isMobile) {
     if (!this.cursor) {

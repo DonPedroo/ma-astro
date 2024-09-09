@@ -43,6 +43,7 @@ stats_module:
   stats_hero_image:
     image: /images/uploads/hip-hop-50-live-image4.webp
     alt_text: test
+    image_css: w-full sm:w-auto lg:max-w-64 xl:max-w-80 2xl:max-w-96 3xl:max-w-lg	
   additional_section:
     header: top tier production
     content: In partnership with Live Nation and the Yankees, Mass Appeal helped
@@ -52,6 +53,7 @@ stats_module:
       life.
     image: ""
     alt_text: ""
+    image_css: ""
 details_module:
   main_section:
     header: A Star-Studded Concert
@@ -60,17 +62,18 @@ details_module:
       Ninth…The Walk-Off’ final performance.
     image: /images/uploads/hip-hop-50-live-image1.webp
     alt_text: sfsf
+    image_css: w-full sm:w-auto lg:max-w-md xl:max-w-lg 2xl:max-w-xl 3xl:max-w-2xl
   three_images_section:
     - image: /images/uploads/hip-hop-50-live-image2.webp
       alt_text: sxwx
       image_container_css: items-center
-      image_css: max-w-64 lg:max-w-80 xl:max-w-80 2xl:max-w-96 3xl:max-w-md
+      image_css: w-full sm:w-auto lg:max-w-64 xl:max-w-72 2xl:max-w-96 3xl:max-w-md
     - image: /images/uploads/hip-hop-50-live-image-paralax-1.webp
       alt_text: asewddew
       image_container_css: items-end
-      image_css: max-w-lg lg:max-w-xl xl:max-w-2xl 3xl:max-w-4xl
+      image_css: w-full sm:w-auto lg:max-w-lg xl:max-w-xl 2xl:max-w-3xl 3xl:max-w-4xl
     - image: /images/uploads/hip-hop-50-live-image-paralax-2.webp
       alt_text: ssaxsax
       image_container_css: items-start
-      image_css: max-w-44 lg:max-w-56 xl:max-w-56 2xl:max-w-72 3xl:max-w-sm	
+      image_css: w-full sm:w-auto lg:max-w-52 xl:max-w-64 2xl:max-w-72 3xl:max-w-sm	
 ---

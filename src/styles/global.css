@@ -936,7 +936,7 @@
 
 
 
-.horizontal-content-group {
+/* .horizontal-content-group {
   @apply 
 
   flex 
@@ -952,9 +952,9 @@
   2xl:space-y-12 
   3xl:space-y-16 
 
-}
+} */
 
-.horizontal-img-container-full {
+/* .horizontal-img-container-full {
   @apply 
 
   sm:flex 
@@ -964,7 +964,7 @@
   sm:justify-center
   sm:py-0 
 
-}
+} */
 
 
 

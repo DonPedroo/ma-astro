@@ -23,6 +23,7 @@ export function useTextAnimation(selector, options = {}, settings = {}) {
       items.forEach(line => {
         const wrapper = document.createElement('div');
         wrapper.style.overflow = 'hidden';
+        // wrapper.classList.add('border','border-red-500'); // Add the 'block' class
 
         line.parentNode.insertBefore(wrapper, line);
         wrapper.appendChild(line);
