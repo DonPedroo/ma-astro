@@ -1122,6 +1122,20 @@
 }
 
 
+.grunge {
+  @apply
+  
+  bg-[url('/images/grunge.webp')] 
+  bg-repeat 
+  3xl:bg-[size:1500px_1500px]
+  xl:bg-[size:1200px_1200px]
+  lg:bg-[size:1000px_1000px]  
+  bg-[size:768px_768px] 
+
+  bg-center
+}
+
+
 
 
 

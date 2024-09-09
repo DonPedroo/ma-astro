@@ -9,6 +9,7 @@ interface Props {
 const { content, id } = Astro.props;
 ---
 
-<section id={id} class="min-h-screen w-full flex items-center justify-center bg-[url('/images/grunge.webp')] bg-repeat bg-[size:1024px_1024px] bg-center">
+<section id={id} class="relative min-h-screen w-full flex items-center justify-center grunge">
   <h1 data-speed="1.1" class="breaker transform" data-animation-txt-lg>{content}</h1>
+  <img src="./images/chain.webp" data-speed="1.2" alt="Mass Appeal Chain" class="absolute top-96 sm:-top-72 lg:-top-72  xl:-top-72 2xl:-top-72 3xl:-top-80 w-full h-auto aspect-square" />
 </section>
