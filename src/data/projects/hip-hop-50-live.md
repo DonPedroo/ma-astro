@@ -1,10 +1,13 @@
 ---
 id: hip-hop-50-live
 title: hip hop 50 live
+seo_title: "Hip Hop 50 Live at Yankee Stadium: Celebrating 50 Years of Hip Hop"
 slug: hip-hop-50-live
 description: On the 50th Anniversary of Hip Hop, we took it back to where it all
   began. HIP HOP 50 LIVE at Yankee Stadium was a once-in-a-lifetime concert,
   featuring some of the most iconic names in music.
+seo_description: "Celebrate Hip Hop's 50th anniversary with a historic concert at Yankee Stadium featuring legendary artists, DJs, and surprise guests, marking a once-in-a-lifetime event."
+seo_keywords: "Hip Hop 50 Live, 50th anniversary of Hip Hop, Yankee Stadium concert, legendary Hip Hop artists, Run DMC final performance, Live Nation, Mass Appeal event production"
 eyebrow: MLB X NY YANKEES
 media: /images/uploads/hip-hop-50-live.mp4
 logos:

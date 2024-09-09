@@ -6,7 +6,10 @@ import Media from '../components/Media.astro';
 
 interface Frontmatter {
   title: string;
+  seo_title: string;
   description: string;
+  seo_description: string;
+  seo_keywords: string;
   slug: string;
   media?: string;
   square_image?: {
@@ -81,7 +84,7 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
 ---
 
 
-<MainLayout title={frontmatter.title}>
+<MainLayout title={frontmatter.title} seo_title={frontmatter.seo_title} seo_description={frontmatter.seo_description} seo_keywords={frontmatter.seo_keywords}>
 
   <!-- fixed top-[20px] right-[20px] sm:top-[30px] sm:right-[30px] 2xl:top-[50px] 2xl:right-[50px] -->
 

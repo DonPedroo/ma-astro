@@ -1,9 +1,12 @@
 ---
 id: mixed-and-mastered
 title: Mixed & mastered
+seo_title: "Mixed & Mastered: Patrón and Mass Appeal Celebrate Craftsmanship in Hip Hop"
 slug: mixed-and-mastered
 description: PATRÓN PARTNERED WITH MASS APPEAL TO DEEPEN THEIR CONNECTION TO THE
   CULTURE AND SHOWCASE CRAFTSMANSHIP WITH TWO OF THE MOST RESPECTED CREATORS.
+seo_description: "Patrón partners with Mass Appeal to showcase craftsmanship with Hit-Boy and Offset, blending premium tequila and timeless hip hop in the Mixed & Mastered campaign."
+seo_keywords: "Patrón Mixed & Mastered, Hit-Boy, Offset, Patrón El Alto, premium tequila, hip hop craftsmanship, Mass Appeal collaboration, music and tequila, Missy Elliot performance"
 eyebrow: patron
 media: /images/uploads/mixed-and-mastered.mp4
 logos:
@@ -29,6 +32,7 @@ stats_module:
   stats_hero_image:
     image: /images/uploads/mixed-and-mastered-image4.webp
     alt_text: qdwdewdwed
+    image_css: w-full sm:w-auto lg:max-w-64 xl:max-w-80 2xl:max-w-96 3xl:max-w-lg	
   additional_section:
     header: premium production
     content: The collaboration included a high-energy ANTHEM PRODUCED BY HITBOY
@@ -46,13 +50,14 @@ details_module:
       missy elliot
     image: /images/uploads/mixed-and-mastered-image1.webp
     alt_text: null
+    image_css: w-full sm:w-auto lg:max-w-sm xl:max-w-sm 2xl:max-w-xl 3xl:max-w-2xl
   three_images_section:
     - image: /images/uploads/mixed-and-mastered-image2.webp
       alt_text: null
       image_container_css: items-end 
-      image_css: max-w-2xl
+      image_css: w-full sm:w-auto lg:max-w-sm xl:max-w-md 2xl:max-w-xl 3xl:max-w-3xl	
     - image: /images/uploads/mixed-and-mastered-image-paralax-1.webp
       alt_text: null
       image_container_css: items-center 
-      image_css: max-w-sm
+      image_css: w-full sm:w-auto lg:max-w-52 xl:max-w-64 2xl:max-w-72 3xl:max-w-sm	
 ---

@@ -1,9 +1,12 @@
 ---
 id: google-pixel
 title: represents
+seo_title: "Pixel RePresents: Celebrating Women in Hip Hop with Google Pixel"
 slug: google-pixel
 description: Pixel RePresents celebrates the past, present, and future of women
   in Hip Hop while paying homage to the genre’s originators.
+seo_description: "Pixel RePresents by Google Pixel honors the past, present, and future of women in Hip Hop, with artists remixing classic tracks and recreating album art using Real Tone."
+seo_keywords: "Google Pixel RePresents, women in Hip Hop, Pixel Real Tone, Hip Hop remix, female emcees, Angie Martinez, DJ Diamond Kutz, Pixtape compilation, Hip Hop album art"
 eyebrow: Google Pixel
 media: /images/uploads/google-pixel.mp4
 logos:
@@ -32,6 +35,7 @@ stats_module:
   stats_hero_image:
     image: /images/uploads/google-pixel-image4.webp
     alt_text: null
+    image_css: w-full sm:w-auto lg:max-w-64 xl:max-w-80 2xl:max-w-96 3xl:max-w-lg	
   additional_section:
     header: authentic production
     content: mass appeal developed unique mini-documentaries following their journey
@@ -41,6 +45,7 @@ stats_module:
       and vinyl.
     image: /images/uploads/google-pixel-image3.webp
     alt_text: null
+    image_css: w-full sm:w-auto lg:max-w-sm xl:max-w-sm 2xl:max-w-xl 3xl:max-w-2xl
 details_module:
   main_section:
     header: ALL HAIL THE QUEENS
@@ -51,17 +56,18 @@ details_module:
       continue to push the culture forward.
     image: /images/uploads/google-pixel-image1.webp
     alt_text: null
+    image_css: w-full sm:w-auto lg:max-w-sm xl:max-w-lg 2xl:max-w-xl 3xl:max-w-2xl
   three_images_section:
     - image: /images/uploads/google-pixel-image2.webp
       alt_text: null
       image_container_css: items-center
-      image_css: max-w-sm
+      image_css: w-full sm:w-auto lg:max-w-72 xl:max-w-96 2xl:max-w-lg 3xl:max-w-xl
     - image: /images/uploads/google-pixel-image-paralax-1.webp
       alt_text: null
       image_container_css: items-center
-      image_css: max-w-sm
+      image_css: w-full sm:w-auto lg:max-w-80 xl:max-w-96 2xl:max-w-xl 3xl:max-w-2xl
     - image: /images/uploads/google-pixel-image-paralax-2.webp
       alt_text: null
       image_container_css: items-end
-      image_css: max-w-sm
+      image_css: w-full sm:w-auto lg:max-w-80 xl:max-w-96 2xl:max-w-lg 3xl:max-w-xl
 ---

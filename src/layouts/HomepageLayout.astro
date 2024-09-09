@@ -1,6 +1,6 @@
 ---
 
-const { title, isHomePage, introduction, largeParagraph, quotes, projects, footer, whatwedo } = Astro.props; // New
+const { title, seo_title,seo_description,seo_keywords, isHomePage, introduction, largeParagraph, quotes, projects, footer, whatwedo } = Astro.props; // New
 
 import '../styles/global.css';
 import Arrow from '../components/Arrow.astro';
@@ -80,8 +80,10 @@ if (footer?.nav_title) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content=`${seo_keywords}` />
+    <meta name="description" content=`${seo_description}` />
     <link rel="icon" type="image/svg+xml" href="/images/ma-fav.svg" />
-    <title>{title}</title>
+    <title>{seo_title}</title>
     <link rel="stylesheet" href="https://use.typekit.net/shx7hrr.css">
   </head>
   <body class="bg-black text-white">

@@ -13,7 +13,10 @@ collections:
         label: "Homepage Content"
         name: "home_content"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Title", name: "title", widget: "string", required: false }
+          - { label: "SEO Title", name: "seo_title", widget: "string", required: false }
+          - { label: "SEO Description", name: "seo_description", widget: "string", required: false }
+          - { label: "SEO Keywords", name: "seo_keywords", widget: "string", required: false }
           - label: "Introduction"
             name: "introduction"
             widget: "object"
@@ -106,8 +109,11 @@ collections:
     fields:
       - { label: "ID", name: "id", widget: "hidden", default: "{{slug}}" }
       - { label: "Title", name: "title", widget: "string" }
+      - { label: "SEO Title", name: "seo_title", widget: "string" }
       - { label: "Slug", name: "slug", widget: "string", hint: "This will be used for the URL filename." }  
       - { label: "Description", name: "description", widget: "text" }
+      - { label: "SEO Description", name: "seo_description", widget: "text" }
+      - { label: "SEO Keywords", name: "seo_keywords", widget: "text" }
       - { label: "Eyebrow", name: "eyebrow", widget: "text" }
       - { label: "Hero Visual", name: "media", widget: "file", required: true, media_library: { allow_multiple: false, type: ["image/*", "video/mp4"] } }
       - label: "Logos"
