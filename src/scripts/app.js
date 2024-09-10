@@ -40,29 +40,6 @@ class App {
     this.handleResize(); 
 
 
-    // document.addEventListener('click', function (e) {
-    //   const el = e.target.closest('a');
-      
-    //   // Ensure an <a> tag was clicked
-    //   if (el) {
-    //     console.log("Global Click - Link clicked:", el.href);
-        
-    //     // If it's an external link, manually handle the click
-    //     if (el.href && !el.href.startsWith(window.location.origin)) {
-    //       console.log("This is an external link:", el.href);
-          
-    //       // Open in a new tab or same tab as per your requirements
-    //       window.open(el.href, '_blank');
-          
-    //       // Prevent Barba from handling this click if it was intercepting it
-    //       e.preventDefault();
-    //     }
-    //   }
-    // });
-    
-
-
-
       // Detect if the device is a touchscreen
       this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
@@ -118,15 +95,19 @@ async initGl() {
 handleHomeBeforeLeave(data) {
   const projectName = data.trigger.dataset.projectName;
   const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
-  console.log("handleHomeBeforeLeave media >>>>> ")
+  console.log("namespace: 'home', handleHomeBeforeLeave  >>>>> ")
+  console.log("namespace: 'home', handleHomeBeforeLeave  >>>>> media",data.trigger)
+
   if (media) {
+    console.log("namespace: 'home', handleHomeBeforeLeave media >>>>> ",media)
+
     document.querySelector('#persistent-container').appendChild(media);
   }
 }
 
 async handleHomeAfterEnter(data) {
 
-      console.log("handleHomeAfterEnter <<<<<<")
+      console.log("namespace: 'home', handleHomeAfterEnter <<<<<<")
 
   this.initAnimations();
             if (!this.isMobile) {
@@ -188,17 +169,23 @@ initAnimations() {
 }
 
 initProjectLinks() {
-  //             setTimeout(() => {
-  //               document.querySelectorAll('[data-case-study]').forEach(project => {
-  //                 project.addEventListener('click', (event) => {
-  //                   const link = project.querySelector('a');
-  //                   if (link) {
-  //                     // event.preventDefault();
-  //                     link.click(); 
-  //                   }
-  //                 });
-  //               });
-  // }, 0);
+
+
+              setTimeout(() => {
+
+                document.querySelectorAll('[data-case-study]').forEach(project => {
+                  project.addEventListener('click', (event) => {
+                    const link = project.querySelector('a');  // Get the anchor element
+                    if (link) {
+                      const href = link.getAttribute('href');  // Get the href value
+                      event.preventDefault();  // Prevent default click behavior
+                
+                      barba.go(href, project, event);
+                    }
+                  });
+                });
+                
+  }, 0);
 }
 
 cleanUpHorizontalScroll() {
@@ -213,8 +200,12 @@ cleanUpHorizontalScroll() {
 
 finalizeHomeTransition(data) {
 
+  console.log("namespace: 'home', finalizeHomeTransition ))))))",data)
+
+  if (!data.current.container) return
+
+
   data.current.container.remove();
-  console.log("finalizeHomeTransition ))))))")
 
   const projectName = data.trigger.dataset.projectName;
   this.scrollManager.scrollToProject(projectName);
@@ -230,7 +221,7 @@ finalizeHomeTransition(data) {
 // Detailed Page View Methods
 
 handleProjectBeforeLeave() {
-  console.log("handleProjectBeforeLeave (((((((")
+  console.log("namespace: 'project-detail' handleProjectBeforeLeave ")
 
   const sectionElement = document.querySelector("[data-detailed-media]");
   if (sectionElement) {
@@ -242,11 +233,15 @@ handleProjectBeforeLeave() {
 }
 
 handleProjectBeforeEnter() {
+  console.log("namespace: 'project-detail' handleProjectBeforeEnter ")
+
   this.prepareForProjectDetail();
 
 }
 
 handleProjectAfterEnter(data) {
+  console.log("namespace: 'project-detail' handleProjectAfterEnter ")
+  if (!data.current.container) return
 
   data.current.container.remove();
   // this.scrollManager.smoother.scrollTop(0);
@@ -333,31 +328,22 @@ restoreMedia() {
 
 
       debug: true,
-      prevent: ({ el }) => {
-        // Log the clicked element and its href
-        console.log("Clicked element:", el);
-        console.log("Element href:", el.href);
-        console.log("Same origin:", el.href.startsWith(window.location.origin));
-    
-        // Allow links that are external (not same-origin)
-        // return el.href && !el.href.startsWith(window.location.origin);
-      },
-      
+ 
 
 
-      // views: [
-      //   {
-      //     namespace: 'home',
-      //     beforeLeave: this.handleHomeBeforeLeave.bind(this),
-      //     afterEnter: this.handleHomeAfterEnter.bind(this),
-      //   },
-      //   {
-      //     namespace: 'project-detail',
-      //     beforeLeave: this.handleProjectBeforeLeave.bind(this),
-      //     beforeEnter: this.handleProjectBeforeEnter.bind(this),
-      //     afterEnter: this.handleProjectAfterEnter.bind(this),
-      //   }
-      // ],
+      views: [
+        {
+          namespace: 'home',
+          beforeLeave: this.handleHomeBeforeLeave.bind(this),
+          afterEnter: this.handleHomeAfterEnter.bind(this),
+        },
+        {
+          namespace: 'project-detail',
+          beforeLeave: this.handleProjectBeforeLeave.bind(this),
+          beforeEnter: this.handleProjectBeforeEnter.bind(this),
+          afterEnter: this.handleProjectAfterEnter.bind(this),
+        }
+      ],
     });
   }
 }
