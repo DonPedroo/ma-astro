@@ -40,6 +40,28 @@ class App {
     this.handleResize(); 
 
 
+    // document.addEventListener('click', function (e) {
+    //   const el = e.target.closest('a');
+      
+    //   // Ensure an <a> tag was clicked
+    //   if (el) {
+    //     console.log("Global Click - Link clicked:", el.href);
+        
+    //     // If it's an external link, manually handle the click
+    //     if (el.href && !el.href.startsWith(window.location.origin)) {
+    //       console.log("This is an external link:", el.href);
+          
+    //       // Open in a new tab or same tab as per your requirements
+    //       window.open(el.href, '_blank');
+          
+    //       // Prevent Barba from handling this click if it was intercepting it
+    //       e.preventDefault();
+    //     }
+    //   }
+    // });
+    
+
+
 
       // Detect if the device is a touchscreen
       this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -306,19 +328,36 @@ restoreMedia() {
 
   initBarba() {
     barba.init({
-      views: [
-        {
-          namespace: 'home',
-          beforeLeave: this.handleHomeBeforeLeave.bind(this),
-          afterEnter: this.handleHomeAfterEnter.bind(this),
-        },
-        {
-          namespace: 'project-detail',
-          beforeLeave: this.handleProjectBeforeLeave.bind(this),
-          beforeEnter: this.handleProjectBeforeEnter.bind(this),
-          afterEnter: this.handleProjectAfterEnter.bind(this),
-        }
-      ],
+
+
+
+
+      debug: true,
+      prevent: ({ el }) => {
+        // Log the clicked element and its href
+        console.log("Clicked element:", el);
+        console.log("Element href:", el.href);
+        console.log("Same origin:", el.href.startsWith(window.location.origin));
+    
+        // Allow links that are external (not same-origin)
+        // return el.href && !el.href.startsWith(window.location.origin);
+      },
+      
+
+
+      // views: [
+      //   {
+      //     namespace: 'home',
+      //     beforeLeave: this.handleHomeBeforeLeave.bind(this),
+      //     afterEnter: this.handleHomeAfterEnter.bind(this),
+      //   },
+      //   {
+      //     namespace: 'project-detail',
+      //     beforeLeave: this.handleProjectBeforeLeave.bind(this),
+      //     beforeEnter: this.handleProjectBeforeEnter.bind(this),
+      //     afterEnter: this.handleProjectAfterEnter.bind(this),
+      //   }
+      // ],
     });
   }
 }
