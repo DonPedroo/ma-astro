@@ -21,12 +21,15 @@ const { title, description, url, media, slug,eyebrow } = Astro.props;
   <div class="project-wrapper flex flex-col justify-end cursor-pointer" data-link data-case-study>
     <div class="flex flex-col" data-animation-case-study>
       <p data-speed="1.15" class="eyebrow opacity-0" data-animation-case-eyebrow>{eyebrow}</p>
-      <a data-speed="1.12" href={url} data-project-name={slug}><h3 class="project-header opacity-0" data-animation-case-title>{title}</h3></a>
+      <!-- <a data-speed="1.12" href={url} data-project-name={slug}><h3 class="project-header opacity-0" data-animation-case-title>{title}</h3></a> -->
       <p data-speed="1.1" class="project-description opacity-0" data-animation-case-desc>{description}</p>
       <!-- <button data-speed="1.05" data-link class="sm:hidden flex mt-8 cta-button">
         <span>Explore</span>
         <img src="/images/arrow-button.svg" alt="{title}">
       </button> -->
+
+      <a data-speed="1.12" href={url} data-project-name={slug}>Test Link{title}</a>
+
     </div>
   </div>
     {media && (

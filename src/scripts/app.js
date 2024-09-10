@@ -14,6 +14,9 @@ import { getGPUInfo } from './gpuInfo';
 class App {
   constructor() {
 
+        console.log("app start")
+
+
     this.scrollManager = new Scroll(); 
     this.triggerManager = new GsapAnimations(); 
     this.width = window.innerWidth;
@@ -93,13 +96,16 @@ async initGl() {
 handleHomeBeforeLeave(data) {
   const projectName = data.trigger.dataset.projectName;
   const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
-  // console.log("handleHomeBeforeLeave media >>>>> ",projectName,media)
+  console.log("handleHomeBeforeLeave media >>>>> ")
   if (media) {
     document.querySelector('#persistent-container').appendChild(media);
   }
 }
 
 async handleHomeAfterEnter(data) {
+
+      console.log("handleHomeAfterEnter <<<<<<")
+
   this.initAnimations();
             if (!this.isMobile) {
               if (!this.cursor) {
@@ -160,17 +166,17 @@ initAnimations() {
 }
 
 initProjectLinks() {
-              setTimeout(() => {
-                document.querySelectorAll('[data-case-study]').forEach(project => {
-                  project.addEventListener('click', (event) => {
-                    const link = project.querySelector('a');
-                    if (link) {
-                      event.preventDefault();
-                      link.click(); 
-                    }
-                  });
-                });
-  }, 0);
+  //             setTimeout(() => {
+  //               document.querySelectorAll('[data-case-study]').forEach(project => {
+  //                 project.addEventListener('click', (event) => {
+  //                   const link = project.querySelector('a');
+  //                   if (link) {
+  //                     // event.preventDefault();
+  //                     link.click(); 
+  //                   }
+  //                 });
+  //               });
+  // }, 0);
 }
 
 cleanUpHorizontalScroll() {
@@ -184,7 +190,10 @@ cleanUpHorizontalScroll() {
 }
 
 finalizeHomeTransition(data) {
+
   data.current.container.remove();
+  console.log("finalizeHomeTransition ))))))")
+
   const projectName = data.trigger.dataset.projectName;
   this.scrollManager.scrollToProject(projectName);
   const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
@@ -199,11 +208,11 @@ finalizeHomeTransition(data) {
 // Detailed Page View Methods
 
 handleProjectBeforeLeave() {
+  console.log("handleProjectBeforeLeave (((((((")
 
   const sectionElement = document.querySelector("[data-detailed-media]");
   if (sectionElement) {
     const media = sectionElement.querySelector("video") || sectionElement.querySelector("img");
-    // console.log("media", media)
     if (media) {
       document.querySelector('#persistent-container').appendChild(media);
     }

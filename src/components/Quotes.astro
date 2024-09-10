@@ -26,7 +26,7 @@ function generateRotation(index: number): number {
 ---
 
 <section id={id} class="h-[200vh] flex flex-col grunge">
-  <div class="h-screen w-full flex flex-col items-center justify-center" data-stripe-wrap>
+  <div class="h-screen w-full flex flex-col items-center justify-center overflow-x-hidden" data-stripe-wrap>
 
   {quotes.map((quote, index) => {
     const bgColor = index % 3 === 0 ? 'bg-massyellow text-black' :
