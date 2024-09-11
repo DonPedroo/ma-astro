@@ -1,55 +1,216 @@
 // src/scripts/gsapAnimations.js
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { toggleVisibility } from './toggleVisibility.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export class GsapAnimations {
-  constructor() {
-    this.gsapContext = null; // Initialize the gsapContext
-    // this.initScrollTriggers();
+  constructor(context) {
+    this.ctx = null; // Initialize the gsapContext
+    this.context = context
+    console.log("background array >>>>>",this.context.backgrounds)
+    toggleVisibility("[data-arrow-down]", { show: true,delay: 2 });   
+
+
   }
 
   init() {
-    // console.log("initScrollTriggers")
 
-    // Create a GSAP context
-    this.gsapContext = gsap.context(() => {
-      document.querySelectorAll("section").forEach((section) => {
+    this.ctx = gsap.context(() => {
+      document.querySelectorAll("[data-slides]").forEach((section,index) => {
 
-        // console.log("section",section)
 
-        // console.log("section",section)
-        // Define ScrollTrigger properties for each section
-        const triggerProps = {
+        let triggerProps = {
           trigger: section,
           start: "top top",
           end: "bottom top",
-          markers: true, // You can remove this in production
+          // markers: true, // You can remove this in production
           // scrub: true, // Smoothly scrubs the animation as you scroll
-          onEnter: () => {
-            // Custom animation logic on enter
-            // console.log(`Entering section: ${section.id}`);
-          },
-          onLeave: () => {
-            // Custom animation logic on leave
-            // console.log(`Leaving section: ${section.id}`);
-          },
+          onUpdate: self => this.handleUpdate({ ...this.context, progress: self.progress, end: self.end, start: self.start,index }),
+          onLeave: () => this.handleLeave({ ...this.context, index }), 
+          onEnterBack: () => this.handleEnterBack({ ...this.context, index })
         };
 
-        // Create the ScrollTrigger for this section
+        if (index === 2) {
+
+          triggerProps = {
+            ...triggerProps,
+             end: "+=" + (this.context.height*(7)),
+           
+        };
+
+        }
+
         ScrollTrigger.create(triggerProps);
       });
-    }); // No scene/context element binding, as it's not required
+    });
   }
 
-  // Function to kill all ScrollTriggers and clear the GSAP context
   kill() {
-    if (this.gsapContext) {
-      this.gsapContext.revert(); // Kills all animations and ScrollTriggers within the context
-      this.gsapContext = null; // Clear the context reference
+    if (this.ctx) {
+      this.ctx.revert(); // Kills all animations and ScrollTriggers within the context
+      this.ctx = null; // Clear the context reference
       ScrollTrigger.getAll().forEach((st) => st.kill()); // Extra cleanup if needed
       console.log("All ScrollTriggers killed and GSAP context cleared.");
     }
   }
+
+   handleUpdate(context) {
+    const { progress, height, backgroundMaterial, end, start, isMobile,index } = context;
+
+    // if (isMobile) return;
+
+    // let p = progress;
+
+
+    // let vh = height;
+    // let sectionHeight = end - start;
+    // let heightDifference = sectionHeight - vh;
+
+    // if (heightDifference > 0) {
+    //     const offset = 0;
+    //     let normalizedHeightDiff = heightDifference / sectionHeight;
+    //     let adjustedProgress = (p - (normalizedHeightDiff + offset)) / (1 - (normalizedHeightDiff + offset));
+    //     let delayedProgress = Math.max(0, Math.min(adjustedProgress, 1));
+    //     backgroundMaterial.uniforms.u_progress.value = delayedProgress;
+    //     // console.log('index',index,'d p', delayedProgress,'p', p);
+    // } else {
+    //     backgroundMaterial.uniforms.u_progress.value = p;
+    //     // console.log('progress',index, p);
+
+    // }
+
+
+}
+
+ handleLeave(context) {
+  const { index, scrollUpLink, scrollDownLink, nav, backgrounds, backgroundMaterial, isMobile } = context;
+
+
+  if (index === 0) {
+      // leaving
+      toggleVisibility("[data-arrow-down]", { show: false });    
+      toggleVisibility("[data-arrow-up]", { show: true });    
+
+  }
+
+  if (index === 6) {
+    toggleVisibility("[data-nav]", { show: false });      
+  }
+
+  this.adjustVideoPlayback({ index, backgrounds, direction: 'down' });
+// if (!isMobile) {
+//   backgroundMaterial.uniforms.u_progress.value = 0;
+// }
+  
+
+  // updateBackground(context, index + 1, index + 2 || 0);
+
+}
+
+ handleEnterBack(context) {
+  const { index, scrollUpLink, scrollDownLink, nav, backgrounds, backgroundMaterial,isMobile } = context;
+
+  if (index === 0) {
+      // returning
+      // toggleVisibility(scrollDownLink, { show: true,delay: 1 });      
+      // toggleVisibility(scrollUpLink, { show: false });      
+      // toggleVisibility(nav, { show: true });      
+
+      toggleVisibility("[data-arrow-down]", { show: true,delay: 1 });      
+      toggleVisibility("[data-arrow-up]", { show: false });      
+
+
+      // gsap.to("[data-nav]", {opacity: 1, overwrite: true, duration: .5, ease: "power2.inOut"});
+  }
+
+  if (index === 6) {
+    toggleVisibility("[data-nav]", { show: true });      
+  }
+
+  this.adjustVideoPlayback({ index, backgrounds, direction: 'up' });
+//   if (!isMobile) {
+//   backgroundMaterial.uniforms.u_progress.value = 1;
+// }
+//   updateBackground(context, index, index + 1);
+
+}
+
+
+ adjustVideoPlayback({ index, backgrounds, direction }) {
+  // Handling when scrolling down
+  console.log("backgrounds[index]",backgrounds[index])
+  if (direction === 'down') {
+      // Pause the current video
+      if (backgrounds[index] && backgrounds[index].type === 1) {
+          this.pauseVideo(backgrounds[index].element);
+      }
+      
+      // Play the next video, if available
+      if (index + 1 < backgrounds.length &&backgrounds[index+1].type === 1) {
+          this.playVideo(backgrounds[index + 1].element);
+      }
+      
+      // Optionally, start playing the video after next as well
+      if (index + 2 < backgrounds.length && backgrounds[index+2].type === 1) {
+          this.playVideo(backgrounds[index + 2].element);
+      }
+  } 
+  // Handling when scrolling up
+  else if (direction === 'up') {
+      // Pause the video two steps ahead, if any
+      if (index + 2 < backgrounds.length && backgrounds[index+2].type === 1) {
+          this.pauseVideo(backgrounds[index + 2].element);
+      }
+      
+      // Play the current video
+      if (backgrounds[index] && backgrounds[index].type === 1) {
+          this.playVideo(backgrounds[index].element);
+      }
+  }
+}
+
+ playVideo(element) {
+
+  
+  if (!this.isVideoPlaying(element)) {
+      const playPromise = element.play();
+      if (playPromise !== undefined) {
+          playPromise.catch(error => {
+              console.error("ERROR Video play was interrupted by :", error);
+              // Handle the error or retry playing as necessary
+          });
+      }
+  }
+}
+
+//  pauseVideo(element) {
+//   if (!element.paused) {
+//     element.pause();
+//     console.log("pauseVideo element",element)
+//   }
+// }
+pauseVideo(element) {
+  if (!element.paused) {
+    element.pause();
+    // console.log("pauseVideo element", element);
+    
+    // Check again after pausing to ensure the video is paused
+    if (element.paused) {
+      console.log("The video is now paused.");
+    } else {
+      console.log("Failed to pause the video.");
+    }
+  } else {
+    console.log("The video is already paused.");
+  }
+}
+
+
+ isVideoPlaying(video) {
+  return !!(video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2);
+}
+
+
 }

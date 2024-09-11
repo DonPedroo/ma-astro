@@ -12,7 +12,7 @@ export class MenuHandler {
   }
 
   init() {
-    console.log("MenuHandler >>> init");
+    // console.log("MenuHandler >>> init");
 
     this.nav = document.querySelector('[data-nav]');
     this.navLinks = this.nav.querySelectorAll('[data-jump-link]');
@@ -32,7 +32,7 @@ export class MenuHandler {
   }
 
   kill() {
-    console.log("MenuHandler >>> kill");
+    // console.log("MenuHandler >>> kill");
 
     toggleVisibility(this.nav, { show: false });
 

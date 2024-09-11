@@ -375,18 +375,25 @@
 .what-we-do-nav>li{
   @apply 
   
-  
   leading-normal 
-  
-  
+  flex
   text-[16px] py-1
   lg:text-[20px] lg:my-4 lg:p-4
   2xl:text-[26px] 2xl:my-8
   3xl:text-[32px] 3xl:my-8
-
   text-center uppercase
   cursor-pointer
   font-groteskBold
+  items-center          
+  justify-center      
+}
+
+.what-we-do-nav>li>div{
+  @apply 
+
+  relative 
+  flex 
+  
 }
 
 

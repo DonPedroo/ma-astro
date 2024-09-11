@@ -14,7 +14,7 @@ export class WhatWeDoTrigger {
     this.startValue = null;
     this.scrollJack = null;
     this.context = context;
-    console.log("this.context whatwedo", this.context.isMobile)
+    // console.log("this.context whatwedo", this.context.isMobile)
 
   }
 

@@ -36,11 +36,11 @@ function convertBoldToSpan(content) {
 
 ---
 
-<section id={id} class="relative h-[100vh] flex flex-col items-center text-center overflow-hidden bg-massgrey">
+<section id={id} data-slides data-bg-type="3" class="relative h-[100vh] flex flex-col items-center text-center overflow-hidden bg-massgrey">
   <ul class="what-we-do-nav">
     {pages.map((page, index) => (
       <li>
-        <div class="relative flex items-center">
+        <div>
           <span class="z-10" data-link>{page.title}</span>
           <div class="absolute inset-0 flex items-center">
             <div class="w-0 h-1 bg-massblue"></div>

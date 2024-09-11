@@ -16,10 +16,10 @@ const { footerField1, footerField2, footerField3, media, id } = Astro.props;
 
 
 
-<footer data-content-section data-type="video" id={id} class="relative flex flex-col justify-center items-center w-full h-screen overflow-hidden">
+<footer data-slides id={id} class="relative flex flex-col justify-center items-center w-full h-screen overflow-hidden">
     
   {media && (
-    <Media src={media} alt="Footer Visual" cssClasses="absolute inset-0 w-full h-full object-cover  " />
+    <Media trigger="background" src={media} alt="Footer Visual" cssClasses="absolute inset-0 w-full h-full object-cover  " />
   )}
 
     <div class="flex flex-col sm:flex-row justify-between w-full sm:mt-8 mt-24 sm:px-8 md:px-16 xl:px-32 z-0">

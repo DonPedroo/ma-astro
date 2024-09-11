@@ -26,7 +26,7 @@ export class horizontalScroll {
     this.scrollTween = null
     this.logos = null
     this.handleResizeBound = this.handleResize.bind(this);
-    console.log("horizontal scroll GSAP constructor")
+    // console.log("horizontal scroll GSAP constructor")
   }
 
   calcDistance() {
@@ -238,7 +238,7 @@ textAnimation.forEach(element => {
 
   init() {
 
-    console.log("horizontal scroll GSAP created")
+    // console.log("horizontal scroll GSAP created")
 
     this.calcDistance() 
 
@@ -260,7 +260,7 @@ textAnimation.forEach(element => {
   }
 
   firstSection() {
-    console.log("horizontal scroll GSAP Animate first section")
+    // console.log("horizontal scroll GSAP Animate first section")
 
     this.logosAnimation()
     this.quoteAnimation() 
@@ -312,7 +312,7 @@ textAnimation.forEach(element => {
 
 
   kill() {
-    console.log("horizontal scroll GSAP killed")
+    // console.log("horizontal scroll GSAP killed")
 
     if (this.ctx) {
       this.ctx.revert();

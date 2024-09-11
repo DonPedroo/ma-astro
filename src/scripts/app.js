@@ -7,6 +7,7 @@ import { QuoteAnimations } from './Quotes';
 import { AnimationHome } from './AnimationManagerHome';
 // import { horizontalScroll } from './horizontalScroll.js'
 import { toggleVisibility } from './toggleVisibility.js';
+import { createBackgroundsArray } from './backgroundManager.js'; // Adjust the path as necessary
 
 
 import { getGPUInfo } from './gpuInfo'; 
@@ -15,10 +16,15 @@ class App {
   constructor() {
 
         console.log("app start")
+        this.backgrounds = createBackgroundsArray();
+        if (this.backgrounds.length > 0) {
+          console.log("app start backgrounds > 0 run")
 
+          toggleVisibility(this.backgrounds[0].element, { show: true,delay: 1,duration:5 });      
+        } 
 
     this.scrollManager = new Scroll(); 
-    this.triggerManager = new GsapAnimations(); 
+    this.triggerManager = new GsapAnimations(this); 
     this.width = window.innerWidth;
     this.height = window.innerHeight;
     this.isMobile = false;
@@ -27,6 +33,8 @@ class App {
     this.whatwedo = new WhatWeDoTrigger(this); 
     this.nav = null
     this.navTouch = null
+
+ 
 
 
     this.homeAnimation = new AnimationHome(this); 
@@ -43,17 +51,16 @@ class App {
       // Detect if the device is a touchscreen
       this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    // Only evaluate WebGL and GPU info if not a touchscreen device
-    if (!this.isMobile) {
-      const gpuInfo = getGPUInfo();
+  //   if (!this.isMobile) {
+  //     const gpuInfo = getGPUInfo();
 
-      // If GPU info is available, enable WebGL
-      if (gpuInfo) {
-        // console.log("set gl true");
-        this.gl = true;
-        this.initGl();
-      }
-  }
+  //     if (gpuInfo) {
+  //       this.gl = true;
+  //       this.initGl();
+  //     }
+  // }
+
+  this.gl = false;
 
   }
 
@@ -93,13 +100,31 @@ async initGl() {
 // Home View Methods
 
 handleHomeBeforeLeave(data) {
-  const projectName = data.trigger.dataset.projectName;
+
+
+  // const projectName = data.trigger.dataset.projectName;
+
+  // console.log("namespace: 'home', handleHomeBeforeLeave  data.trigger.dataset.projectName >>>>> ",data.trigger.dataset.projectName)
+
+
+  const trigger = data.trigger;
+
+
+  const projectName = this.projectName(trigger);
+
+
+
+  
+
+      // console.log("trigger: ",data.trigger,"previous: ",barba.history.previous,"current: ",barba.history.current,"projectName",projectName)
+
+
   const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
-  console.log("namespace: 'home', handleHomeBeforeLeave  >>>>> ")
-  console.log("namespace: 'home', handleHomeBeforeLeave  >>>>> media",data.trigger)
+  // console.log("namespace: 'home', handleHomeBeforeLeave  >>>>> ")
+  // console.log("namespace: 'home', handleHomeBeforeLeave  >>>>> media",data.trigger)
 
   if (media) {
-    console.log("namespace: 'home', handleHomeBeforeLeave media >>>>> ",media)
+    // console.log("namespace: 'home', handleHomeBeforeLeave media >>>>> ",media)
 
     document.querySelector('#persistent-container').appendChild(media);
   }
@@ -107,7 +132,7 @@ handleHomeBeforeLeave(data) {
 
 async handleHomeAfterEnter(data) {
 
-      console.log("namespace: 'home', handleHomeAfterEnter <<<<<<")
+      // console.log("namespace: 'home', handleHomeAfterEnter <<<<<<")
 
   this.initAnimations();
             if (!this.isMobile) {
@@ -156,6 +181,19 @@ async handleHomeAfterEnter(data) {
 
 // Home Utility Methods
 initAnimations() {
+
+
+  if (!this.backgrounds || this.backgrounds.length === 0) {
+    this.backgrounds = createBackgroundsArray();
+    // intro video/image immediate reveal
+
+    console.log("Backgrounds array initialized:", this.backgrounds);
+  } else {
+    console.log("Backgrounds array already populated:", this.backgrounds);
+  }
+  toggleVisibility(this.backgrounds[0].element, { show: true, duration:0 });      
+
+
   this.scrollManager.initEffects();
   this.whatwedo.initScrollTriggers();
 
@@ -165,6 +203,11 @@ initAnimations() {
   setTimeout(() => {
     this.quoteAnimations.init();
   }, 0);
+
+  setTimeout(() => {
+    this.triggerManager.init();
+  }, 500);
+
 
 }
 
@@ -198,16 +241,67 @@ cleanUpHorizontalScroll() {
     }, 0);
 }
 
+extractProjectName(url) {
+  const urlParts = url.split('/');  // Split the URL by "/"
+  return urlParts[urlParts.length - 1];  // Return the last part (project name)
+}
+
+projectName(trigger) {
+
+  // Check for forward or backward navigation
+  if (trigger === "forward" || trigger === "back") {
+    // Check if the current or previous URL exists before trying to extract project name
+    const currentUrlExists = barba.history.current && barba.history.current.url;
+    const previousUrlExists = barba.history.previous && barba.history.previous.url;
+
+    const currentProjectName = currentUrlExists ? this.extractProjectName(barba.history.current.url) : '';
+    const previousProjectName = previousUrlExists ? this.extractProjectName(barba.history.previous.url) : '';
+
+
+    // console.log(">>>>>>>>>>>>>>>> currentProjectName ", currentProjectName, "previousProjectName ",previousProjectName);
+
+    // Check which URL has the project name
+    const projectName = currentProjectName !== '' ? currentProjectName : previousProjectName;
+
+    // Log the selected project name
+    // console.log(">>>>>>>>>>>>>>>> Selected project name:", projectName, "trigger",trigger);
+
+    return projectName;  // Return the project name
+  }
+
+  // Check if trigger.dataset.projectName exists, return null if it doesn't
+  if (trigger.dataset && trigger.dataset.projectName) {
+    // console.log("Returning project name from dataset:", trigger.dataset.projectName);
+
+    return trigger.dataset.projectName;
+  }
+
+  // Return null if no dataset.projectName exists
+  // console.log("No project name found, returning null.");
+
+  return null;
+}
+
+
+
 finalizeHomeTransition(data) {
 
-  console.log("namespace: 'home', finalizeHomeTransition ))))))",data)
+
+
+  // console.log("namespace: 'home', finalizeHomeTransition >>>>>>>>>>>",barba.history.previous.url,data.trigger)
+
+  
+
 
   if (!data.current.container) return
 
 
+
   data.current.container.remove();
 
-  const projectName = data.trigger.dataset.projectName;
+  const trigger = data.trigger;
+  const projectName = this.projectName(trigger);
+
   this.scrollManager.scrollToProject(projectName);
   const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
   if (media) {
@@ -221,7 +315,7 @@ finalizeHomeTransition(data) {
 // Detailed Page View Methods
 
 handleProjectBeforeLeave() {
-  console.log("namespace: 'project-detail' handleProjectBeforeLeave ")
+  // console.log("namespace: 'project-detail' handleProjectBeforeLeave ")
 
   const sectionElement = document.querySelector("[data-detailed-media]");
   if (sectionElement) {
@@ -233,14 +327,14 @@ handleProjectBeforeLeave() {
 }
 
 handleProjectBeforeEnter() {
-  console.log("namespace: 'project-detail' handleProjectBeforeEnter ")
+  // console.log("namespace: 'project-detail' handleProjectBeforeEnter ")
 
   this.prepareForProjectDetail();
 
 }
 
 handleProjectAfterEnter(data) {
-  console.log("namespace: 'project-detail' handleProjectAfterEnter ")
+  // console.log("namespace: 'project-detail' handleProjectAfterEnter ")
   if (!data.current.container) return
 
   data.current.container.remove();
@@ -251,6 +345,8 @@ handleProjectAfterEnter(data) {
     // console.log(">>> mouse pointer ?")
     this.cursor.mousePointer();
   }
+
+  
 
   
 }
@@ -275,11 +371,8 @@ async prepareForProjectDetail() {
 
   this.homeAnimation.kill();
 
-  // setTimeout(() => {
-  //   this.triggerManager.kill();
-  // }, 0);
 
-
+    this.triggerManager.kill();
 
     this.scrollManager.smoother.scrollTop(0);
     if (!this.isMobile) {
@@ -301,6 +394,14 @@ async prepareForProjectDetail() {
     this.cursor.mousePointer();
     this.cursor.animateMouseFollow(true, false, true);
   }
+
+  toggleVisibility("[data-arrow-scroll-close]", { show: true,delay: .5,duration:3 });      
+
+
+  // setTimeout(() => {
+  //   this.triggerManager.kill();
+  // }, 0);
+
 
   // console.log(">>>>>>>>>")
   // this.detailedAnimation.init();

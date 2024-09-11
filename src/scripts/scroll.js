@@ -27,7 +27,7 @@ export class Scroll {
         });
 
 
-        console.log("smoother created")
+        // console.log("smoother created")
  
        
       });
@@ -40,7 +40,7 @@ export class Scroll {
     if (this.smoother) {
       this.smoother.effects("[data-speed]");
 
-      console.log("effects added")
+      // console.log("effects added")
 
 
     }
