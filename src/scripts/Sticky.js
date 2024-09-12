@@ -1,4 +1,8 @@
 import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+
+gsap.registerPlugin(ScrollToPlugin);
+
 
 export class StickyUi {
   constructor(context, followMouse) {
@@ -8,7 +12,7 @@ export class StickyUi {
     this.handleStickyMouseEnter = this.handleStickyMouseEnter.bind(this);
     this.handleStickyMouseLeave = this.handleStickyMouseLeave.bind(this);
     this.handleMouseMove = this.handleMouseMove.bind(this);
-    this.init();
+    // this.init();
     // console.log("Sticky!", this.context, this.followMouse);
   }
 
@@ -19,6 +23,7 @@ export class StickyUi {
   refresh() {
     this.cleanupStickyUI();
     this.initializeStickyEffects();
+
   }
 
   initializeStickyEffects() {
@@ -26,6 +31,10 @@ export class StickyUi {
     items.forEach(item => {
       this.addStickyEffect(item);
     });
+
+
+    this.jumpLink();
+
   }
 
   addStickyEffect(item) {
@@ -94,6 +103,39 @@ export class StickyUi {
       scale: 1.1,
       duration: 0.3,
       ease: "power2.Out"
+    });
+  }
+
+  jumpLink() {
+    const items = document.querySelectorAll('[data-sticky]');
+    
+    items.forEach(item => {
+      const link = item.querySelector('a'); // Assuming the link is inside the sticky item
+      if (link && link.href.includes('#')) {
+        const scrollTo = link.href.split('#')[1]; // Extract part after #
+
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          // console.log("scroll to link ",scrollTo);
+
+
+          const targetElement = document.getElementById(scrollTo);
+          if (targetElement) {
+            // console.log("scroll to link targetElement",targetElement);
+
+            gsap.to(window, {
+              duration: 0.3,
+              scrollTo: targetElement,
+              ease: "power2.out"
+            });
+
+
+          }
+        });
+      } else {
+        console.log("No anchor link found in the item.");
+      }
     });
   }
 

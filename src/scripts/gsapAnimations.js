@@ -9,7 +9,7 @@ export class GsapAnimations {
   constructor(context) {
     this.ctx = null; // Initialize the gsapContext
     this.context = context
-    console.log("background array >>>>>",this.context.backgrounds)
+    // console.log("background array >>>>>",this.context.backgrounds)
     toggleVisibility("[data-arrow-down]", { show: true,delay: 2 });   
 
 
@@ -52,7 +52,7 @@ export class GsapAnimations {
       this.ctx.revert(); // Kills all animations and ScrollTriggers within the context
       this.ctx = null; // Clear the context reference
       ScrollTrigger.getAll().forEach((st) => st.kill()); // Extra cleanup if needed
-      console.log("All ScrollTriggers killed and GSAP context cleared.");
+      // console.log("All ScrollTriggers killed and GSAP context cleared.");
     }
   }
 
@@ -140,7 +140,7 @@ export class GsapAnimations {
 
  adjustVideoPlayback({ index, backgrounds, direction }) {
   // Handling when scrolling down
-  console.log("backgrounds[index]",backgrounds[index])
+  // console.log("backgrounds[index]",backgrounds[index])
   if (direction === 'down') {
       // Pause the current video
       if (backgrounds[index] && backgrounds[index].type === 1) {
@@ -197,13 +197,13 @@ pauseVideo(element) {
     // console.log("pauseVideo element", element);
     
     // Check again after pausing to ensure the video is paused
-    if (element.paused) {
-      console.log("The video is now paused.");
-    } else {
-      console.log("Failed to pause the video.");
-    }
+    // if (element.paused) {
+    //   console.log("The video is now paused.");
+    // } else {
+    //   console.log("Failed to pause the video.");
+    // }
   } else {
-    console.log("The video is already paused.");
+    // console.log("The video is already paused.");
   }
 }
 

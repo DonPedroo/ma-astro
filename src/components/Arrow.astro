@@ -23,7 +23,7 @@ const { imgSrc, altText, dataSpeed, cssOut, cssMid, cssInner, slug, link, type }
 >
   <div class={`${cssMid} `}>
     <div class={`${cssInner} `}>
-      <a href={link} {...(slug && { 'data-project-name': slug })}> <!-- Conditional data-project-name attribute -->
+      <a href={link} {...(slug && { 'data-project-name': slug })} class="h-full w-full flex items-center justify-center"> 
         <img src={imgSrc} alt={altText} />
       </a>
     </div>

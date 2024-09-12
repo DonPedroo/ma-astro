@@ -17,11 +17,11 @@ class App {
 
         console.log("app start")
         this.backgrounds = createBackgroundsArray();
-        if (this.backgrounds.length > 0) {
-          console.log("app start backgrounds > 0 run")
+        // if (this.backgrounds.length > 0) {
+        //   console.log("app start backgrounds > 0 run")
 
-          toggleVisibility(this.backgrounds[0].element, { show: true,delay: 1,duration:5 });      
-        } 
+        //   toggleVisibility(this.backgrounds[0].element, { show: true,delay: 1,duration:5 });      
+        // } 
 
     this.scrollManager = new Scroll(); 
     this.triggerManager = new GsapAnimations(this); 
@@ -34,7 +34,8 @@ class App {
     this.nav = null
     this.navTouch = null
 
- 
+    this.lastKnownProjectName = null;
+
 
 
     this.homeAnimation = new AnimationHome(this); 
@@ -100,6 +101,7 @@ async initGl() {
 // Home View Methods
 
 handleHomeBeforeLeave(data) {
+  console.log("handleHomeBeforeLeave")
 
 
   // const projectName = data.trigger.dataset.projectName;
@@ -110,24 +112,12 @@ handleHomeBeforeLeave(data) {
   const trigger = data.trigger;
 
 
+  console.log("projectName call home to project not good >")
   const projectName = this.projectName(trigger);
 
+  this.saveHomeMedia(projectName)
 
 
-  
-
-      // console.log("trigger: ",data.trigger,"previous: ",barba.history.previous,"current: ",barba.history.current,"projectName",projectName)
-
-
-  const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
-  // console.log("namespace: 'home', handleHomeBeforeLeave  >>>>> ")
-  // console.log("namespace: 'home', handleHomeBeforeLeave  >>>>> media",data.trigger)
-
-  if (media) {
-    // console.log("namespace: 'home', handleHomeBeforeLeave media >>>>> ",media)
-
-    document.querySelector('#persistent-container').appendChild(media);
-  }
 }
 
 async handleHomeAfterEnter(data) {
@@ -179,18 +169,48 @@ async handleHomeAfterEnter(data) {
   
 }
 
+
+finalizeHomeTransition(data) {
+
+  if (!data.current.container) return
+
+
+
+  data.current.container.remove();
+
+  const trigger = data.trigger;
+
+  console.log("projectName call project to home >")
+
+  const projectName = this.projectName(trigger);
+
+  this.scrollManager.scrollToProject(projectName);
+
+
+  
+  this.restoreHomeMedia(projectName)
+
+
+}
+
+
+
 // Home Utility Methods
 initAnimations() {
 
 
-  if (!this.backgrounds || this.backgrounds.length === 0) {
-    this.backgrounds = createBackgroundsArray();
-    // intro video/image immediate reveal
+  // if (!this.backgrounds || this.backgrounds.length === 0) {
+  //   this.backgrounds = createBackgroundsArray();
+  //   // intro video/image immediate reveal
 
-    console.log("Backgrounds array initialized:", this.backgrounds);
-  } else {
-    console.log("Backgrounds array already populated:", this.backgrounds);
-  }
+  //   console.log("Backgrounds array initialized:", this.backgrounds);
+  // } else {
+  //   console.log("Backgrounds array already populated:", this.backgrounds);
+  // }
+
+  this.backgrounds = createBackgroundsArray();
+  console.log("initAnimations this.backgrounds",)
+
   toggleVisibility(this.backgrounds[0].element, { show: true, duration:0 });      
 
 
@@ -241,90 +261,20 @@ cleanUpHorizontalScroll() {
     }, 0);
 }
 
-extractProjectName(url) {
-  const urlParts = url.split('/');  // Split the URL by "/"
-  return urlParts[urlParts.length - 1];  // Return the last part (project name)
-}
-
-projectName(trigger) {
-
-  // Check for forward or backward navigation
-  if (trigger === "forward" || trigger === "back") {
-    // Check if the current or previous URL exists before trying to extract project name
-    const currentUrlExists = barba.history.current && barba.history.current.url;
-    const previousUrlExists = barba.history.previous && barba.history.previous.url;
-
-    const currentProjectName = currentUrlExists ? this.extractProjectName(barba.history.current.url) : '';
-    const previousProjectName = previousUrlExists ? this.extractProjectName(barba.history.previous.url) : '';
 
 
-    // console.log(">>>>>>>>>>>>>>>> currentProjectName ", currentProjectName, "previousProjectName ",previousProjectName);
-
-    // Check which URL has the project name
-    const projectName = currentProjectName !== '' ? currentProjectName : previousProjectName;
-
-    // Log the selected project name
-    // console.log(">>>>>>>>>>>>>>>> Selected project name:", projectName, "trigger",trigger);
-
-    return projectName;  // Return the project name
-  }
-
-  // Check if trigger.dataset.projectName exists, return null if it doesn't
-  if (trigger.dataset && trigger.dataset.projectName) {
-    // console.log("Returning project name from dataset:", trigger.dataset.projectName);
-
-    return trigger.dataset.projectName;
-  }
-
-  // Return null if no dataset.projectName exists
-  // console.log("No project name found, returning null.");
-
-  return null;
-}
-
-
-
-finalizeHomeTransition(data) {
-
-
-
-  // console.log("namespace: 'home', finalizeHomeTransition >>>>>>>>>>>",barba.history.previous.url,data.trigger)
-
-  
-
-
-  if (!data.current.container) return
-
-
-
-  data.current.container.remove();
-
-  const trigger = data.trigger;
-  const projectName = this.projectName(trigger);
-
-  this.scrollManager.scrollToProject(projectName);
-  const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
-  if (media) {
-    const sectionMedia = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
-    if (sectionMedia) {
-      sectionMedia.replaceWith(media); 
-    }
-  }
-}
 
 // Detailed Page View Methods
 
 handleProjectBeforeLeave() {
-  // console.log("namespace: 'project-detail' handleProjectBeforeLeave ")
 
-  const sectionElement = document.querySelector("[data-detailed-media]");
-  if (sectionElement) {
-    const media = sectionElement.querySelector("video") || sectionElement.querySelector("img");
-    if (media) {
-      document.querySelector('#persistent-container').appendChild(media);
-    }
-  }
+  this.saveDetailedMedia()
+
 }
+
+
+
+
 
 handleProjectBeforeEnter() {
   // console.log("namespace: 'project-detail' handleProjectBeforeEnter ")
@@ -340,7 +290,7 @@ handleProjectAfterEnter(data) {
   data.current.container.remove();
   // this.scrollManager.smoother.scrollTop(0);
 
-  this.restoreMedia();
+  this.restoreDetailedMedia();
   if (this.cursor) {
     // console.log(">>> mouse pointer ?")
     this.cursor.mousePointer();
@@ -395,7 +345,10 @@ async prepareForProjectDetail() {
     this.cursor.animateMouseFollow(true, false, true);
   }
 
-  toggleVisibility("[data-arrow-scroll-close]", { show: true,delay: .5,duration:3 });      
+  toggleVisibility("[data-arrow-scroll-close]", { show: true,delay: .5,duration:3 });     
+  
+  
+
 
 
   // setTimeout(() => {
@@ -408,7 +361,81 @@ async prepareForProjectDetail() {
 
 }
 
-restoreMedia() {
+// project name extraction utils
+
+extractProjectName(url) {
+  const urlParts = url.split('/');  // Split the URL by "/"
+  return urlParts[urlParts.length - 1];  // Return the last part (project name)
+}
+
+projectName(trigger) {
+
+
+  
+  // console.log("XXXXXXXXXXXXXXXXXXX hstory current: ",barba.history.current,"history previouse: ",barba.history.previous);
+
+
+  // Check for forward or backward navigation
+  if (trigger === "forward" || trigger === "back") {
+    // Check if the current or previous URL exists before trying to extract project name
+    const currentUrlExists = barba.history.current && barba.history.current.url;
+    const previousUrlExists = barba.history.previous && barba.history.previous.url;
+
+    const currentProjectName = currentUrlExists ? this.extractProjectName(barba.history.current.url) : '';
+    const previousProjectName = previousUrlExists ? this.extractProjectName(barba.history.previous.url) : '';
+
+    // console.log(">>>>>>>>>>>>>>>> barba.history.current ", barba.history.current, "barba.history.previous ",barba.history.previous);
+
+    // console.log(">>>>>>>>>>>>>>>> currentProjectName ", currentProjectName, "previousProjectName ",previousProjectName);
+
+    const projectName = currentProjectName !== '' ? currentProjectName : previousProjectName;
+
+    if (!projectName && this.lastKnownProjectName) {
+      // console.log("Returning last known project name:", this.lastKnownProjectName);
+      return this.lastKnownProjectName;
+    }
+
+    return projectName;  
+  }
+
+  if (trigger.dataset && trigger.dataset.projectName) {
+    console.log("Returning project name from dataset:", trigger.dataset.projectName);
+    this.lastKnownProjectName = trigger.dataset.projectName;
+
+    return trigger.dataset.projectName;
+  }
+
+
+  console.log("No project name found, returning null.");
+
+  return null;
+}
+
+
+
+// media save/restore utils
+
+saveDetailedMedia() {
+
+  console.log("saveDetailedMedia >")
+
+  // storing media from detailed page
+  const sectionElement = document.querySelector("[data-detailed-media]");
+  if (sectionElement) {
+    const media = sectionElement.querySelector("video") || sectionElement.querySelector("img");
+    if (media) {
+      document.querySelector('#persistent-container').appendChild(media);
+    }
+  }
+
+}
+
+restoreDetailedMedia() {
+
+  // Replacing media on the project detailed page
+
+  console.log("restoreDetailedMedia >")
+
   const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
   if (media) {
 
@@ -419,6 +446,34 @@ restoreMedia() {
     }
   }
 }
+
+saveHomeMedia(projectName) {
+
+  console.log("saveHomeMedia >",projectName)
+
+  const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
+
+  if (media) {
+    document.querySelector('#persistent-container').appendChild(media);
+  }
+
+}
+
+restoreHomeMedia(projectName) {
+
+  console.log("restoreHomeMedia >",projectName)
+
+  const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
+  if (media) {
+    // console.log("projectName",projectName)
+    const sectionMedia = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
+    if (sectionMedia) {
+      sectionMedia.replaceWith(media); 
+    }
+  }
+
+}
+
 
 // Barba.js
 
