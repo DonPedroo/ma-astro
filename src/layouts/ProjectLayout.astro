@@ -94,7 +94,7 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
  
  <div class="absolute top-0 left-0 w-screen h-screen" data-detailed-media>
   {frontmatter.media && (
-    <Media src={frontmatter.media} alt={frontmatter.title} cssClasses="absolute inset-0 z-[-1] w-full h-full object-cover" />
+    <Media src={frontmatter.media} alt={frontmatter.title} cssClasses="hidden opacity-0 absolute inset-0 z-[-1] w-full h-full object-cover" />
   )}
  </div>
 

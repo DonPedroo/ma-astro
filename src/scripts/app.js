@@ -1,4 +1,3 @@
-import { gsap } from 'gsap';
 import { Scroll } from './scroll';
 import { GsapAnimations } from "./gsapAnimations";
 import { WhatWeDoTrigger } from "./whatwedo";
@@ -15,20 +14,30 @@ import { getGPUInfo } from './gpuInfo';
 class App {
   constructor() {
 
-        console.log("app start")
-        this.backgrounds = createBackgroundsArray();
-        // if (this.backgrounds.length > 0) {
-        //   console.log("app start backgrounds > 0 run")
+    this.gl = false
 
-        //   toggleVisibility(this.backgrounds[0].element, { show: true,delay: 1,duration:5 });      
-        // } 
+          this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
+            if (!this.isMobile) {
+              const gpuInfo = getGPUInfo();
+        
+              if (gpuInfo) {
+                this.gl = true;
+              }
+          }
+
+          this.backgrounds = createBackgroundsArray(this.gl);
+
+          if (this.gl) {
+            this.initGl(this,this.backgrounds);
+          }
+
+    console.log("app start")
     this.scrollManager = new Scroll(); 
     this.triggerManager = new GsapAnimations(this); 
     this.width = window.innerWidth;
     this.height = window.innerHeight;
     this.isMobile = false;
-    this.gl = false
     this.cursor = null; // Initialize as null
     this.whatwedo = new WhatWeDoTrigger(this); 
     this.nav = null
@@ -43,38 +52,20 @@ class App {
 
     this.quoteAnimations = new QuoteAnimations(this);
     this.horizontalScroll = null;
-
+    this.viewOnceRan = {};
     this.initBarba(); 
     
     this.handleResize(); 
 
 
-      // Detect if the device is a touchscreen
-      this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-  //   if (!this.isMobile) {
-  //     const gpuInfo = getGPUInfo();
 
-  //     if (gpuInfo) {
-  //       this.gl = true;
-  //       this.initGl();
-  //     }
-  // }
-
-  this.gl = false;
+  // this.gl = false;
 
   }
 
 
-    setMediaOpacity(opacity) {
-return
-      if (!this.gl) return
-    const mediaElements = document.querySelectorAll('img, video');
-    mediaElements.forEach(media => {
-      media.style.opacity = opacity;
 
-    });
-  }
 
 
 
@@ -89,7 +80,7 @@ async initGl() {
   
   if (this.gl) {
 
-    // console.log("gl started")
+    console.log("gl started")
 
     const { ThreeScene } = await import('./threeScene');
     this.sceneInstance = new ThreeScene(this);
@@ -99,6 +90,27 @@ async initGl() {
 }
 
 // Home View Methods
+
+handleHomeBeforeEnter () {
+
+  console.log("handleHomeBeforeEnter")
+  // this.backgrounds = createBackgroundsArray(this.gl);
+
+  // if (this.gl) {
+  //   this.initGl(this,this.backgrounds);
+  // }
+
+  //   if (!this.backgrounds || this.backgrounds.length === 0) {
+  //   this.backgrounds = createBackgroundsArray();
+  //   // intro video/image immediate reveal
+
+  //   console.log("Backgrounds array initialized:", this.backgrounds);
+  // } else {
+  //   console.log("Backgrounds array already populated:", this.backgrounds);
+  // }
+
+
+}
 
 handleHomeBeforeLeave(data) {
   console.log("handleHomeBeforeLeave")
@@ -114,6 +126,9 @@ handleHomeBeforeLeave(data) {
 
   console.log("projectName call home to project not good >")
   const projectName = this.projectName(trigger);
+
+  this.scrollManager.scrollToProject(projectName);
+
 
   this.saveHomeMedia(projectName)
 
@@ -208,10 +223,9 @@ initAnimations() {
   //   console.log("Backgrounds array already populated:", this.backgrounds);
   // }
 
-  this.backgrounds = createBackgroundsArray();
   console.log("initAnimations this.backgrounds",)
 
-  toggleVisibility(this.backgrounds[0].element, { show: true, duration:0 });      
+  // toggleVisibility(this.backgrounds[0].element, { show: true, duration:0 });      
 
 
   this.scrollManager.initEffects();
@@ -228,7 +242,9 @@ initAnimations() {
     this.triggerManager.init();
   }, 500);
 
-
+  // setTimeout(() => {
+  //   this.triggerManager.init();
+  // }, 0);
 }
 
 initProjectLinks() {
@@ -266,6 +282,13 @@ cleanUpHorizontalScroll() {
 
 // Detailed Page View Methods
 
+handleProjectBeforeEnter() {
+  // console.log("namespace: 'project-detail' handleProjectBeforeEnter ")
+
+  this.prepareForProjectDetail();
+
+}
+
 handleProjectBeforeLeave() {
 
   this.saveDetailedMedia()
@@ -276,12 +299,7 @@ handleProjectBeforeLeave() {
 
 
 
-handleProjectBeforeEnter() {
-  // console.log("namespace: 'project-detail' handleProjectBeforeEnter ")
 
-  this.prepareForProjectDetail();
-
-}
 
 handleProjectAfterEnter(data) {
   // console.log("namespace: 'project-detail' handleProjectAfterEnter ")
@@ -305,7 +323,7 @@ handleProjectAfterEnter(data) {
 // Detailed Page Utility Methods
 
 async prepareForProjectDetail() {
-  this.setMediaOpacity(0);
+  // this.setMediaOpacity(0);
   this.scrollManager.killEffects();
   this.whatwedo.killScrollTriggers();
   this.quoteAnimations.kill();
@@ -417,6 +435,18 @@ projectName(trigger) {
 
 saveDetailedMedia() {
 
+  if (this.gl) {
+
+    const gl = document.querySelector("#gl");
+
+    if (gl) {
+      gl.classList.remove('-z-10'); 
+      gl.classList.add('z-50'); 
+    }
+
+  }
+  
+
   console.log("saveDetailedMedia >")
 
   // storing media from detailed page
@@ -433,6 +463,17 @@ saveDetailedMedia() {
 restoreDetailedMedia() {
 
   // Replacing media on the project detailed page
+
+  if (this.gl) {
+
+    const gl = document.querySelector("#gl");
+
+    if (gl) {
+      gl.classList.remove('z-50'); 
+      gl.classList.add('-z-10'); 
+    }
+
+  }
 
   console.log("restoreDetailedMedia >")
 
@@ -451,6 +492,17 @@ saveHomeMedia(projectName) {
 
   console.log("saveHomeMedia >",projectName)
 
+  if (this.gl) {
+
+    const gl = document.querySelector("#gl");
+
+    if (gl) {
+      gl.classList.remove('-z-10'); 
+      gl.classList.add('z-50'); 
+    }
+
+  }
+
   const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
 
   if (media) {
@@ -462,6 +514,17 @@ saveHomeMedia(projectName) {
 restoreHomeMedia(projectName) {
 
   console.log("restoreHomeMedia >",projectName)
+
+  if (this.gl) {
+
+    const gl = document.querySelector("#gl");
+
+    if (gl) {
+      gl.classList.remove('z-50'); 
+      gl.classList.add('-z-10'); 
+    }
+
+  }
 
   const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
   if (media) {
@@ -480,18 +543,16 @@ restoreHomeMedia(projectName) {
   initBarba() {
     barba.init({
 
-
-
-
       debug: true,
- 
-
-
+  
       views: [
         {
           namespace: 'home',
+          beforeEnter: this.handleHomeBeforeEnter.bind(this),
           beforeLeave: this.handleHomeBeforeLeave.bind(this),
           afterEnter: this.handleHomeAfterEnter.bind(this),
+          
+          
         },
         {
           namespace: 'project-detail',
@@ -500,6 +561,7 @@ restoreHomeMedia(projectName) {
           afterEnter: this.handleProjectAfterEnter.bind(this),
         }
       ],
+      
     });
   }
 }

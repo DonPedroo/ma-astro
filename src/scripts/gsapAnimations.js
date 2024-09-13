@@ -2,6 +2,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { toggleVisibility } from './toggleVisibility.js';
+import { Color } from 'three';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,7 +10,6 @@ export class GsapAnimations {
   constructor(context) {
     this.ctx = null; // Initialize the gsapContext
     this.context = context
-    // console.log("background array >>>>>",this.context.backgrounds)
     toggleVisibility("[data-arrow-down]", { show: true,delay: 2 });   
 
 
@@ -25,6 +25,7 @@ export class GsapAnimations {
           trigger: section,
           start: "top top",
           end: "bottom top",
+          fastScrollEnd: true,
           // markers: true, // You can remove this in production
           // scrub: true, // Smoothly scrubs the animation as you scroll
           onUpdate: self => this.handleUpdate({ ...this.context, progress: self.progress, end: self.end, start: self.start,index }),
@@ -48,6 +49,15 @@ export class GsapAnimations {
   }
 
   kill() {
+
+    // if (this.context.gl) {
+
+    //   this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = 1
+
+    // }
+
+    
+
     if (this.ctx) {
       this.ctx.revert(); // Kills all animations and ScrollTriggers within the context
       this.ctx = null; // Clear the context reference
@@ -57,35 +67,38 @@ export class GsapAnimations {
   }
 
    handleUpdate(context) {
-    const { progress, height, backgroundMaterial, end, start, isMobile,index } = context;
-
-    // if (isMobile) return;
-
-    // let p = progress;
+    const { progress, height, end, start } = context;
 
 
-    // let vh = height;
-    // let sectionHeight = end - start;
-    // let heightDifference = sectionHeight - vh;
+    // console.log("background array >>>>>",this.context.sceneInstance.backgroundMaterial.uniforms.u_progress)
 
-    // if (heightDifference > 0) {
-    //     const offset = 0;
-    //     let normalizedHeightDiff = heightDifference / sectionHeight;
-    //     let adjustedProgress = (p - (normalizedHeightDiff + offset)) / (1 - (normalizedHeightDiff + offset));
-    //     let delayedProgress = Math.max(0, Math.min(adjustedProgress, 1));
-    //     backgroundMaterial.uniforms.u_progress.value = delayedProgress;
-    //     // console.log('index',index,'d p', delayedProgress,'p', p);
-    // } else {
-    //     backgroundMaterial.uniforms.u_progress.value = p;
-    //     // console.log('progress',index, p);
+    if (!this.context.gl) return;
 
-    // }
+    let p = progress;
+
+
+    let vh = height;
+    let sectionHeight = end - start;
+    let heightDifference = sectionHeight - vh;
+
+    if (heightDifference > 0) {
+        const offset = 0;
+        let normalizedHeightDiff = heightDifference / sectionHeight;
+        let adjustedProgress = (p - (normalizedHeightDiff + offset)) / (1 - (normalizedHeightDiff + offset));
+        let delayedProgress = Math.max(0, Math.min(adjustedProgress, 1));
+        this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = delayedProgress;
+        // console.log('index',index,'d p', delayedProgress,'p', p);
+    } else {
+      this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = p;
+
+    }
+    // console.log('progress', p);
 
 
 }
 
  handleLeave(context) {
-  const { index, scrollUpLink, scrollDownLink, nav, backgrounds, backgroundMaterial, isMobile } = context;
+  const { index, backgrounds } = context;
 
 
   if (index === 0) {
@@ -100,17 +113,17 @@ export class GsapAnimations {
   }
 
   this.adjustVideoPlayback({ index, backgrounds, direction: 'down' });
-// if (!isMobile) {
-//   backgroundMaterial.uniforms.u_progress.value = 0;
-// }
+if (this.context.gl) {
+  this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = 0;
+}
   
 
-  // updateBackground(context, index + 1, index + 2 || 0);
+  this.updateBackground( index + 1, index + 2 || 0);
 
 }
 
  handleEnterBack(context) {
-  const { index, scrollUpLink, scrollDownLink, nav, backgrounds, backgroundMaterial,isMobile } = context;
+  const { index, backgrounds } = context;
 
   if (index === 0) {
       // returning
@@ -130,10 +143,11 @@ export class GsapAnimations {
   }
 
   this.adjustVideoPlayback({ index, backgrounds, direction: 'up' });
-//   if (!isMobile) {
-//   backgroundMaterial.uniforms.u_progress.value = 1;
-// }
-//   updateBackground(context, index, index + 1);
+
+  if (this.context.gl) {
+    this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = 1;
+}
+  this.updateBackground( index, index + 1);
 
 }
 
@@ -185,12 +199,7 @@ export class GsapAnimations {
   }
 }
 
-//  pauseVideo(element) {
-//   if (!element.paused) {
-//     element.pause();
-//     console.log("pauseVideo element",element)
-//   }
-// }
+
 pauseVideo(element) {
   if (!element.paused) {
     element.pause();
@@ -210,6 +219,62 @@ pauseVideo(element) {
 
  isVideoPlaying(video) {
   return !!(video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2);
+}
+
+ updateBackground(currentIndex, nextIndex) {
+
+  
+  if (!this.context.gl) return;
+
+  nextIndex = Math.min(nextIndex, this.context.sceneInstance.backgrounds.length - 1);
+  let currentBg = this.context.sceneInstance.backgrounds[currentIndex];
+  let nextBg = this.context.sceneInstance.backgrounds[nextIndex];
+
+
+  // console.log("currentBg",currentBg,"nextBg",nextBg);
+
+    // Verify currentBg and nextBg exist before attempting to access their properties
+    if (!currentBg || !nextBg) {
+      // console.error("Background for current or next index not found.");
+      return; // Exit the function to avoid further errors
+  }
+  
+  this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value = {
+      type: currentBg.type,
+      color: new Color(currentBg.color),
+      texture: currentBg.texture,
+  };
+
+  this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value = {
+      type: nextBg.type,
+      color: new Color(nextBg.color),
+      texture: nextBg.texture,
+  };
+
+
+  if (this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value.texture) {
+
+    console.log("u_current",this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value.texture.name);
+
+  } else {
+
+    console.log("u_current",this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value);
+
+  }
+
+  if (this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value.texture) {
+
+    console.log("u_next",this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value.texture.name);
+
+  } else {
+
+    console.log("u_next",this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value);
+
+  }
+
+
+
+
 }
 
 

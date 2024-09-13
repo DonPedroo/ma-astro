@@ -23,16 +23,16 @@ const { title, description, url, media, slug,eyebrow } = Astro.props;
       <p data-speed="1.15" class="eyebrow opacity-0" data-animation-case-eyebrow>{eyebrow}</p>
       <a data-speed="1.12" href={url} data-project-name={slug}><h3 class="project-header opacity-0" data-animation-case-title>{title}</h3></a>
       <p data-speed="1.1" class="project-description opacity-0" data-animation-case-desc>{description}</p>
-      <!-- <button data-speed="1.05" data-link class="sm:hidden flex mt-8 cta-button">
+      <a data-speed="1.05" data-animation-case-button data-link class="sm:hidden flex mt-8 cta-button opacity-0">
         <span>Explore</span>
         <img src="/images/arrow-button.svg" alt="{title}">
-      </button> -->
+      </a>
 
 
     </div>
   </div>
     {media && (
-      <Media trigger="background" src={media} alt={title} cssClasses="absolute inset-0 z-[-1] w-full h-full object-cover" />
+      <Media trigger="background" src={media} alt={title} cssClasses="opacity-0 hidden absolute inset-0 z-[-1] w-full h-full object-cover" />
     )}
 </div>
 

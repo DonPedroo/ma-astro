@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTextAnimation } from './AnimationText'; 
+import { toggleVisibility } from './toggleVisibility'; 
 
 
 export class AnimationHome {    
@@ -44,6 +45,7 @@ export class AnimationHome {
         const title = element.querySelector('[data-animation-case-title]');
         const paragraph = element.querySelector('[data-animation-case-desc]');
         const eyebrow = element.querySelector('[data-animation-case-eyebrow]');
+        const button = element.querySelector('[data-animation-case-button]');
 
       ScrollTrigger.create({
         trigger: element,
@@ -54,6 +56,8 @@ export class AnimationHome {
           useTextAnimation(eyebrow, { type: 'lines' }, { moveup: true, delay:.2 });
           useTextAnimation(title, { type: 'lines' }, { moveup: true });
           useTextAnimation(paragraph, { type: 'lines' }, { moveup: true, delay:.2 });
+          toggleVisibility(button, { show: true, delay:.6, duration: 2 });
+
         },
  
       });
