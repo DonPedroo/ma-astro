@@ -11,7 +11,7 @@ export function createBackgroundsArray(gl) {
   }
 
 
-  console.log("DOM backgrounds init", backgrounds);
+  // console.log("DOM backgrounds init", backgrounds);
 
   sections.forEach(section => {
 
@@ -99,6 +99,7 @@ export function createBackgroundsArray(gl) {
               color: null,
               scaleFactor: .5
             };
+
           }
       }
     }

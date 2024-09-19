@@ -23,7 +23,6 @@ export class ThreeScene {
 
   initUniforms() {
 
-    console.log("this.context.startPage",this.context.startPage)
 
 
     this.backgroundMaterial.uniforms.u_current.value = {
@@ -33,9 +32,9 @@ export class ThreeScene {
   };
 
   this.backgroundMaterial.uniforms.u_next.value = {
-    type: this.backgrounds[this.context.startPage].type,
-    color: new Color(this.backgrounds[this.context.startPage].color),
-    texture: this.backgrounds[this.context.startPage].gl.texture,
+    type: this.backgrounds[this.context.startPage+1].type,
+    color: new Color(this.backgrounds[this.context.startPage+1].color),
+    texture: this.backgrounds[this.context.startPage+1].gl.texture,
 };
 
   }

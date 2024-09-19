@@ -289,10 +289,16 @@ textAnimation.forEach(element => {
 
     this.logos = gsap.utils.toArray("[data-horizontal-logos]");
 
+
     gsap.fromTo(this.logos, 
       { x: "10vw", opacity: 0 }, 
-      { x: "0vw", opacity: 1, stagger: 0.1 , duration: 1.5,ease: "custom" }, "<"
+      { x: "0vw", opacity: 1, stagger: 0.1 ,delay: 0.5 , duration: 1.5,ease: "custom" }, "<"
     );
+
+    // gsap.fromTo(this.logos, 
+    //   { x: "10vw", opacity: 0 }, 
+    //   { x: "0vw", opacity: 1, stagger: 0.1 , duration: 1.5,ease: "custom" }, "<"
+    // );
 
   }
 

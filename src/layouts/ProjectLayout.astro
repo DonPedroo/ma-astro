@@ -155,7 +155,7 @@ const mediaAssets = gatherMediaFromSections(allData);
           {frontmatter.logos && (
             <div class={logoContainerClass} horizontal-slider-logos>
               {frontmatter.logos.map((logo) => (
-                <div data-horizontal-logos>
+                <div data-horizontal-logos class="opacity-0">
                   <img src={logo.detailed_logos} alt={logo.alt_text} class="logo-item" />
                 </div>
               ))}

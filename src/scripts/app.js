@@ -6,6 +6,8 @@ import { QuoteAnimations } from './Quotes';
 import { AnimationHome } from './AnimationManagerHome';
 // import { horizontalScroll } from './horizontalScroll.js'
 import { toggleVisibility } from './toggleVisibility.js';
+import { useTextAnimation } from './AnimationText'; 
+
 import { createBackgroundsArray } from './backgroundManager.js'; // Adjust the path as necessary
 import { touchBackgrounds } from './touchBackgrounds.js'; // Adjust the path as necessary
 
@@ -51,6 +53,7 @@ class App {
     // this.detailedAnimation = new AnimationDetailed(this); 
     this.quoteAnimations = new QuoteAnimations(this);
     this.horizontalScroll = null;
+    this.touchScroll = null;
     this.viewOnceRan = {};
     this.initBarba(); 
     this.handleResize(); 
@@ -84,7 +87,15 @@ handleHomeBeforeEnter () {
   this.startPage = 0
 
   if (!this.once) {
-    console.log("once")
+    console.log("once on homepage")
+
+    toggleVisibility(this.backgrounds[this.startPage].element, { show: true,delay: .5,duration:5 });     
+
+    toggleVisibility("[data-intro-mp]", { show: true,delay: .5,duration:3 });     
+    toggleVisibility("[data-globe]", { show: true,delay: .7,duration:3 });     
+    useTextAnimation("[data-intro-copy-elevated]", { type: 'lines' }, { moveup: true, delay:.8 });
+    useTextAnimation("[data-intro-copy-since]", { type: 'lines' }, { moveup: true, delay:1 });
+
 
     if (!this.gl && !this.isMobile) {
       this.backgrounds[this.startPage].section.classList.remove('hidden')
@@ -157,7 +168,6 @@ finalizeHomeTransition(data) {
   if (!data.current.container) return
   data.current.container.remove();
   const trigger = data.trigger;
-  console.log("projectName call project to home >")
   const projectName = this.projectName(trigger);
   if (this.isMobile) {
     setTimeout(() => {
@@ -170,10 +180,8 @@ finalizeHomeTransition(data) {
 
 
 
-// Home Utility Methods
 initAnimations() {
 
-  console.log("initAnimations this.backgrounds",)
   this.whatwedo.initScrollTriggers();
 
   setTimeout(() => {
@@ -217,6 +225,15 @@ initProjectLinks() {
 cleanUpHorizontalScroll() {
 
 
+  
+
+
+ setTimeout(() => {
+    if (this.touchScroll) {
+      this.touchScroll.kill();
+    }
+    }, 0);
+
   setTimeout(() => {
     if (this.horizontalScroll) {
       this.horizontalScroll.kill();
@@ -231,9 +248,6 @@ cleanUpHorizontalScroll() {
 
 handleProjectBeforeEnter(data) {
 
-  
-
-
 this.prepareForProjectDetail();
 
 
@@ -242,6 +256,8 @@ let matchedIndex = this.backgrounds.findIndex(bg => bg.slidesId && bg.slidesId.i
 this.startPage = matchedIndex !== -1 ? matchedIndex : 0;
 
 if (!this.once && !this.isMobile) {
+
+  console.log("once on detailed")
 
  
 
@@ -257,6 +273,64 @@ if (!this.once && !this.isMobile) {
 }
 
 
+
+}
+
+async prepareForProjectDetail() {
+  // this.setMediaOpacity(0);
+
+
+  this.scrollManager.killEffects();
+  this.whatwedo.killScrollTriggers();
+  this.quoteAnimations.kill();
+
+  if (this.navTouch) {
+  this.navTouch.kill();
+  this.navTouch = null
+  }
+  if (this.nav) {
+    this.nav.kill();
+    this.nav = null
+    }
+
+  this.homeAnimation.kill();
+
+
+    this.triggerManager.kill();
+
+    this.scrollManager.smoother.scrollTop(0);
+    if (!this.isMobile) {
+      if (!this.horizontalScroll) {
+        const { horizontalScroll } = await import('./horizontalScroll');
+        this.horizontalScroll = new horizontalScroll(this);
+      }
+        setTimeout(() => {
+       this.horizontalScroll.init();
+  }, 0);
+    } else {
+
+      const { TouchScroll } = await import('./touchScroll');
+
+      this.touchScroll = new TouchScroll(this);
+
+      setTimeout(() => {
+        this.touchScroll.init();
+   }, 0);
+
+    }
+
+
+  if (!this.isMobile) {
+    if (!this.cursor) {
+      const { MouseEvenets } = await import('./Cursor');
+      this.cursor = new MouseEvenets(this);
+    }
+    this.cursor.mousePointer();
+    this.cursor.animateMouseFollow(true, false, true);
+  }
+
+  toggleVisibility("[data-arrow-scroll-close]", { show: true,delay: .5,duration:3 });     
+  
 
 }
 
@@ -321,64 +395,7 @@ handleProjectAfterEnter(data) {
 
 // Detailed Page Utility Methods
 
-async prepareForProjectDetail() {
-  // this.setMediaOpacity(0);
 
-
-  this.scrollManager.killEffects();
-  this.whatwedo.killScrollTriggers();
-  this.quoteAnimations.kill();
-
-  if (this.navTouch) {
-  this.navTouch.kill();
-  this.navTouch = null
-  }
-  if (this.nav) {
-    this.nav.kill();
-    this.nav = null
-    }
-
-  this.homeAnimation.kill();
-
-
-    this.triggerManager.kill();
-
-    this.scrollManager.smoother.scrollTop(0);
-    if (!this.isMobile) {
-      if (!this.horizontalScroll) {
-        const { horizontalScroll } = await import('./horizontalScroll');
-        this.horizontalScroll = new horizontalScroll(this);
-      }
-        setTimeout(() => {
-       this.horizontalScroll.init();
-  }, 0);
-    }
-
-
-  if (!this.isMobile) {
-    if (!this.cursor) {
-      const { MouseEvenets } = await import('./Cursor');
-      this.cursor = new MouseEvenets(this);
-    }
-    this.cursor.mousePointer();
-    this.cursor.animateMouseFollow(true, false, true);
-  }
-
-  toggleVisibility("[data-arrow-scroll-close]", { show: true,delay: .5,duration:3 });     
-  
-  
-
-
-
-  // setTimeout(() => {
-  //   this.triggerManager.kill();
-  // }, 0);
-
-
-  // console.log(">>>>>>>>>")
-  // this.detailedAnimation.init();
-
-}
 
 // project name extraction utils
 

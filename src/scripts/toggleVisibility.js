@@ -9,7 +9,7 @@ export function toggleVisibility(element, { show, delay = 0, duration = 2 }) {
     element = document.querySelector(element); 
   }
   if (!element) {
-    console.warn('No element found for the selector');
+    // console.warn('No element found for the selector');
     return;
   }
 

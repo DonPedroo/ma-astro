@@ -5,17 +5,26 @@ import { CustomEase } from 'gsap/CustomEase';
 gsap.registerPlugin(SplitText, CustomEase);
 CustomEase.create('custom', 'M0,0 C0.16,0.67 0,1.01 1,1');
 
-export function useTextAnimation(selector, options = {}, settings = {}) {
+export function useTextAnimation(element, options = {}, settings = {}) {
 
-  if (!selector) return null;
+  // if (!selector) return null;
+
+
+  if (typeof element === 'string') {
+    element = document.querySelector(element); 
+  }
+  if (!element) {
+    // console.warn('No element found for the selector');
+    return;
+  }
   
-  if (selector.classList.contains('opacity-0')) {
-    selector.classList.remove('opacity-0');
+  if (element.classList.contains('opacity-0')) {
+    element.classList.remove('opacity-0');
   }
 
 //   let delay = settings.initDelay || 0;
 
-      const split = new SplitText(selector, options);
+      const split = new SplitText(element, options);
       const items = split[options.type || 'chars'];
 
     //   let speed = 1.0; // Start speed
