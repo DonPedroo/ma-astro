@@ -17,6 +17,9 @@ export class TouchScroll {
     console.log("touch animation class init");
     this.ctx = gsap.context(() => {
         this.firstSection()
+        this.animationTxtBlocks()
+        this.animationStatBlocks()
+
       });
   }
 
@@ -54,59 +57,70 @@ export class TouchScroll {
 
 
     gsap.fromTo(this.logos, 
-      { y: "10vh", opacity: 0 }, 
-      { y: "0vh", opacity: 1, stagger: 0.1 ,delay: 0.5 , duration: 1.5,ease: "custom" }, "<"
+      { y: "5vh", opacity: 0 }, 
+      { y: "0vh", opacity: 1, stagger: 0.1, delay:1, duration: 2.5,ease: "custom" }, "<"
     );
 
-    // gsap.fromTo(this.logos, 
-    //   { x: "10vw", opacity: 0 }, 
-    //   { x: "0vw", opacity: 1, stagger: 0.1 , duration: 1.5,ease: "custom" }, "<"
-    // );
-
   }
 
 
-  animationTxtLg () {
-    const txtLgEl = document.querySelectorAll('[data-animation-txt-lg]');
-    txtLgEl.forEach(element => {
-      ScrollTrigger.create({
-        trigger: element,
-        start: 'top bottom',
-        // markers:true,
-        onEnter: () => {
-           useTextAnimation(element, { type: 'lines' }, { moveup: true });
-        }
+  animationTxtBlocks() {
+
+    const textAnimation = document.querySelectorAll('[data-animation-txt-lg]');
+
+textAnimation.forEach(element => {
+  const title = element.querySelector('h4');
+  const paragraph = element.querySelector('p');
+
+  ScrollTrigger.create({
+    trigger: element,
+    start: 'left right',
+    // markers:true,
+    scrub:0,
+    containerAnimation: this.scrollTween,
+    onEnter: () => {
+     
+      useTextAnimation(title, { type: 'lines' }, { moveup: true, delay:.1 });
+      useTextAnimation(paragraph, { type: 'lines' }, { moveup: true, delay:.2 });
+    },
+  });
+});
+
+  }
+
+  animationStatBlocks() {
+
+    const statAnimation = document.querySelector('[data-animation-stats]');
+
+    const statItems = statAnimation.querySelectorAll('div');
+
+
+  ScrollTrigger.create({
+    trigger: statAnimation,
+    start: 'left right',
+    // markers:true,
+    scrub:0,
+    containerAnimation: this.scrollTween,
+    onEnter: () => {
+      statItems.forEach((element, index) => {
+        const title = element.querySelector('h5');
+        const paragraph = element.querySelector('p');
+    
+        // Calculate delays based on the index
+        const titleDelay = 0.1 + index * 0.2; // Increase delay for title by 0.2s for each element
+        const paragraphDelay = 0.3 + index * 0.2; // Increase delay for paragraph by 0.2s for each element
+    
+        useTextAnimation(title, { type: 'lines' }, { moveup: true, delay: titleDelay });
+        useTextAnimation(paragraph, { type: 'lines' }, { moveup: true, delay: paragraphDelay });
       });
-    });
+    },
+    
+  });
+
+
   }
 
-
-
-  animationProjects () {
-    const caseStudy = document.querySelectorAll('[data-animation-case-study]');
-    caseStudy.forEach(element => {
-        const title = element.querySelector('[data-animation-case-title]');
-        const paragraph = element.querySelector('[data-animation-case-desc]');
-        const eyebrow = element.querySelector('[data-animation-case-eyebrow]');
-        const button = element.querySelector('[data-animation-case-button]');
-
-      ScrollTrigger.create({
-        trigger: element,
-        start: 'top bottom',
-        // markers:true,
-        onEnter: () => {
-        //   console.log("on enter")
-          useTextAnimation(eyebrow, { type: 'lines' }, { moveup: true, delay:.2 });
-          useTextAnimation(title, { type: 'lines' }, { moveup: true });
-          useTextAnimation(paragraph, { type: 'lines' }, { moveup: true, delay:.2 });
-          toggleVisibility(button, { show: true, delay:.6, duration: 2 });
-
-        },
  
-      });
-    });
-
-  }
   
   kill() {
     console.log("touch animation animation class kill")

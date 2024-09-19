@@ -92,9 +92,9 @@ if (footer?.nav_title) {
     <Mouse />
 
     <div data-barba="wrapper">
+      <Nav navTitles={navTitles} />
 
       <Arrow imgSrc="/images/arrow-up.svg" cssOut="hidden opacity-0 fixed bottom-8 right-8 xl:bottom-12 xl:right-12 3xl:bottom-24 3xl:right-24 mix-blend-difference" cssMid="w-28 h-28 sm:w-36 sm:h-36 xl:w-44 xl:h-44 2xl:w-52 2xl:h-52 border border-white rounded-full transition-color-border duration-300 ease-in-out hover:bg-massyellow hover:border-massyellow" cssInner="w-full h-full flex flex-col justify-center items-center mix-blend-difference" altText="Scroll Up" link="#introduction" type="data-arrow-up" />
-      <Nav navTitles={navTitles} />
       <div id="smooth-wrapper">
       <div id="smooth-content">
       <div data-barba="container" data-barba-namespace={isHomePage ? "home" : "project-detail"}>

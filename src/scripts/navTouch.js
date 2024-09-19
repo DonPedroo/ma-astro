@@ -16,7 +16,6 @@ export class MenuHandlerTouch {
   }
 
   init() {
-    console.log("MenuHandlerTouch >>> init")
     this.mobileNav = document.querySelector('[data-nav-mobile]');
     this.mobileNavLinks = this.mobileNav.querySelector('[data-nav-mobile-links]');
     this.mobileNavTrigger = this.mobileNav.querySelector('[data-menu]');

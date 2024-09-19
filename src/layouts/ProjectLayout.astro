@@ -164,12 +164,12 @@ const mediaAssets = gatherMediaFromSections(allData);
         </div>
         <div class="sm:w-[50vw] px-6 py-16 lg:p-8 xl:p-16 2xl:p-32 flex flex-col justify-center bg-massgrey" data-quote-container data-slider-gl data-param="reveal" data-type="color" data-bg="#EAEAEA">
           <div class="flex flex-row items-start space-x-3 sm:space-x-6 w-full" data-animation-quote>
-            <img src="/images/quote.svg" class=" w-[20px] sm:w-[30px] xl:w-[40px] 2xl:w-[50px]" alt="Quote">
+            <img src="/images/quote.svg" class=" w-[20px] sm:w-[30px] xl:w-[40px] 2xl:w-[50px] opacity-0" alt="Quote">
             <div class="flex flex-col mt-6 w-full">
               {frontmatter.detailed_quote && (
                 <>
-                  <h4 class="horizontal-quote text-massblue" data-test-anim>{frontmatter.detailed_quote.detailed_quote_content}</h4>
-                  <p class="stripe-label text-massblue">- {frontmatter.detailed_quote.detailed_quote_content_auth}</p>
+                  <h4 class="horizontal-quote opacity-0 text-massblue" data-test-anim>{frontmatter.detailed_quote.detailed_quote_content}</h4>
+                  <p class="stripe-label opacity-0 text-massblue">- {frontmatter.detailed_quote.detailed_quote_content_auth}</p>
                 </>
               )}
             </div>
