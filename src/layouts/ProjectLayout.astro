@@ -3,6 +3,11 @@ import type { MarkdownInstance } from 'astro';
 import MainLayout from './HomepageLayout.astro';
 import Arrow from '../components/Arrow.astro';
 import Media from '../components/Media.astro';
+import { gatherMediaFromSections } from '../components/mediaUtils';
+import { gatherAllData } from '../components/gatherAllData';
+
+
+const allData = gatherAllData();
 
 interface Frontmatter {
   title: string;
@@ -48,6 +53,14 @@ const { frontmatter } = Astro.props as ProjectPageProps;
 
 
 
+interface Project {
+  title: string;
+  description: string;
+  media?: string;
+}
+
+
+
 function getLogoContainerClass(logosCount: number): string {
   let containerClass = "";
   switch (logosCount) {
@@ -81,10 +94,28 @@ function getLogoContainerClass(logosCount: number): string {
 
 const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0);
 
+
+// Load all projects as you did on the index page
+
+
+interface Project {
+  title: string;
+  description: string;
+  media?: string;
+}
+
+
+
+const mediaAssets = gatherMediaFromSections(allData);
+
+
 ---
 
 
-<MainLayout title={frontmatter.title} seo_title={frontmatter.seo_title} seo_description={frontmatter.seo_description} seo_keywords={frontmatter.seo_keywords}>
+<!-- mediaAssets={mediaAssets} -->
+
+
+<MainLayout title={frontmatter.title} seo_title={frontmatter.seo_title} seo_description={frontmatter.seo_description} seo_keywords={frontmatter.seo_keywords} mediaAssets={mediaAssets}>
 
   <!-- fixed top-[20px] right-[20px] sm:top-[30px] sm:right-[30px] 2xl:top-[50px] 2xl:right-[50px] -->
 
@@ -93,9 +124,9 @@ const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0)
  </div>
  
  <div class="absolute top-0 left-0 w-screen h-screen" data-detailed-media>
-  {frontmatter.media && (
-    <Media src={frontmatter.media} alt={frontmatter.title} cssClasses="hidden opacity-0 absolute inset-0 z-[-1] w-full h-full object-cover" />
-  )}
+  <!-- {frontmatter.media && (
+    <Media src={frontmatter.media} alt={frontmatter.title} cssClasses=" absolute inset-0 z-[-1] w-full h-full object-cover" />
+  )} -->
  </div>
 
   <div id={frontmatter.slug}>

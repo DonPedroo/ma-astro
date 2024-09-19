@@ -3,19 +3,19 @@ interface Props {
   src: string;
   alt: string;
   cssClasses?: string;
-  trigger?: string; // Optional prop to mark as background or another type
+  // trigger?: string; // Optional prop to mark as background or another type
 }
+const { src, alt, cssClasses = '' } = Astro.props;
 
-const { src, alt, cssClasses = '', trigger } = Astro.props;
-const assetType = src.endsWith('.mp4') ? '1' : '2'; // Type 1 for video, Type 2 for image
+// const { src, alt, cssClasses = '', trigger } = Astro.props;
+// const assetType = src.endsWith('.mp4') ? '1' : '2'; // Type 1 for video, Type 2 for image
 ---
 
 {src.endsWith('.mp4') ? (
-  <video autoplay muted playsinline loop class={cssClasses}
-    {...(trigger && { 'data-bg-type': assetType, 'data-trigger': trigger })}>
+  <video autoplay muted playsinline loop class={cssClasses}>
     <source src={src} type="video/mp4" />
+    
   </video>
 ) : (
-  <img src={src} alt={alt} class={cssClasses}
-    {...(trigger && { 'data-bg-type': assetType, 'data-trigger': trigger })} />
+  <img src={src} alt={alt} class={cssClasses} />
 )}

@@ -1,10 +1,11 @@
 ---
 
-const { title, seo_title,seo_description,seo_keywords, isHomePage, introduction, largeParagraph, quotes, projects, footer, whatwedo } = Astro.props; // New
+const { title, seo_title,seo_description,seo_keywords, isHomePage, introduction, largeParagraph, quotes, projects, footer, whatwedo, mediaAssets } = Astro.props; // New
 
 import '../styles/global.css';
 import Arrow from '../components/Arrow.astro';
 import Mouse from '../components/Mouse.astro';
+import Media from '../components/Media.astro';
 
 import Nav from '../components/Nav.astro';
 
@@ -103,7 +104,55 @@ if (footer?.nav_title) {
       </div>
       </div>
       <div id="gl" class="fixed top-0 left-0 right-0 bottom-0 w-screen h-screen -z-10"></div>
-      <div id="persistent-container" class="fixed left-0 top-0 z-10 "></div>
+      <div id="persistent-container" class="fixed left-0 top-0 z-10"></div>
+      <div id="media-storage" class="fixed left-0 top-0 -z-10 w-screen h-screen">
+
+        {mediaAssets.map((media, index) => (
+          <>
+            {media.src.startsWith('#') ? (
+              <div 
+                data-bg-type={media.bgType} 
+                data-bg-id={media.sectionId} 
+                class="fixed w-screen hidden max-h-screen overflow-hidden"
+              >
+                <div class="bg-massgrey w-screen h-screen"></div>
+              </div>
+            ) : media.bgType === '3' ? (
+              // Explicit construction for media.bgType === '3'
+              <div 
+                data-bg-type={media.bgType} 
+                data-bg-id={media.sectionId} 
+                class="fixed w-screen hidden max-h-screen overflow-hidden"
+              >
+                <div class="grunge w-screen h-screen">
+                  <Media 
+                    src={media.src} 
+                    alt={media.description || 'Media content'} 
+                    cssClasses="hidden" 
+                  />
+                </div>
+              </div>
+            ) : (
+              // Default construction for other media types
+              <div 
+                data-bg-type={media.bgType} 
+                data-bg-id={media.sectionId} 
+                class="fixed w-screen hidden max-h-screen overflow-hidden"
+              >
+                <Media 
+                  src={media.src} 
+                  alt={media.description || 'Media content'} 
+                  cssClasses="w-screen h-screen object-cover"
+                />
+              </div>
+            )}
+          </>
+        ))}
+        
+
+
+      </div>
+      
     </div>
 
     <script src="../scripts/app.js"></script>

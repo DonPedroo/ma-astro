@@ -2,23 +2,41 @@
 import { Scene, PerspectiveCamera, WebGLRenderer, Mesh,PlaneGeometry,ShaderMaterial,Vector4,Color,LinearSRGBColorSpace } from 'three';
 import fragment from "./shader/fragment.glsl";
 import vertex from "./shader/vertex.glsl";
-import { convertToGlBackgrounds } from './backgroundConverter';
-import { backgroundDetailed } from './backgroundDetailed';
+
 
 
 
 export class ThreeScene {
   constructor(context) {
     this.context = context
-    this.backgrounds = convertToGlBackgrounds(this.context.backgrounds);
-
-    // this.detailed = backgroundDetailed()
-
+    this.backgrounds =this.context.backgrounds;
     this.initScene();
     this.animate();
     this.resize()
+    this.initUniforms()
 
-    console.log("this.detailed",this.detailed)
+  }
+
+ 
+
+  
+
+  initUniforms() {
+
+    console.log("this.context.startPage",this.context.startPage)
+
+
+    this.backgroundMaterial.uniforms.u_current.value = {
+      type: this.backgrounds[this.context.startPage].type,
+      color: new Color(this.backgrounds[this.context.startPage].gl.color),
+      texture: this.backgrounds[this.context.startPage].gl.texture,
+  };
+
+  this.backgroundMaterial.uniforms.u_next.value = {
+    type: this.backgrounds[this.context.startPage].type,
+    color: new Color(this.backgrounds[this.context.startPage].color),
+    texture: this.backgrounds[this.context.startPage].gl.texture,
+};
 
   }
 
@@ -66,9 +84,9 @@ export class ThreeScene {
             
             u_current: { 
               value: {
-                  type: this.backgrounds[0].type,
-                  color: new Color(this.backgrounds[0].color),
-                  texture: this.backgrounds[0].texture,
+                type: 0, // Set a default type (e.g., 0 for empty)
+                color: new Color(0x000000), // Default to black color
+                texture: null,
 
                   // type: this.detailed.type,
                   // color: new Color(this.detailed.color),
@@ -78,9 +96,10 @@ export class ThreeScene {
           },
           u_next: { 
               value: {
-                  type: this.backgrounds[1].type,
-                  color: new Color(this.backgrounds[1].color),
-                  texture: this.backgrounds[1].texture,
+                type: 0, // Set a default type (e.g., 0 for empty)
+                color: new Color(0x000000), // Default to black color
+                texture: null,
+
                   // type: this.detailed.type,
                   // color: new Color(this.detailed.color),
                   // texture: this.detailed.texture,

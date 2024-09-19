@@ -7,14 +7,18 @@ import { AnimationHome } from './AnimationManagerHome';
 // import { horizontalScroll } from './horizontalScroll.js'
 import { toggleVisibility } from './toggleVisibility.js';
 import { createBackgroundsArray } from './backgroundManager.js'; // Adjust the path as necessary
+import { touchBackgrounds } from './touchBackgrounds.js'; // Adjust the path as necessary
+
 
 
 import { getGPUInfo } from './gpuInfo'; 
 
 class App {
   constructor() {
-
+    this.startPage = null
+    this.isMobile = false;
     this.gl = false
+    this.once = false
 
           this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
@@ -28,8 +32,9 @@ class App {
 
           this.backgrounds = createBackgroundsArray(this.gl);
 
+        
           if (this.gl) {
-            this.initGl(this,this.backgrounds);
+            this.initGl(this);
           }
 
     console.log("app start")
@@ -37,37 +42,20 @@ class App {
     this.triggerManager = new GsapAnimations(this); 
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-    this.isMobile = false;
     this.cursor = null; // Initialize as null
     this.whatwedo = new WhatWeDoTrigger(this); 
     this.nav = null
     this.navTouch = null
-
     this.lastKnownProjectName = null;
-
-
-
     this.homeAnimation = new AnimationHome(this); 
     // this.detailedAnimation = new AnimationDetailed(this); 
-
     this.quoteAnimations = new QuoteAnimations(this);
     this.horizontalScroll = null;
     this.viewOnceRan = {};
     this.initBarba(); 
-    
     this.handleResize(); 
 
-
-
-
-  // this.gl = false;
-
   }
-
-
-
-
-
 
   handleResize() {
     window.addEventListener('resize', () => {
@@ -79,9 +67,7 @@ class App {
 async initGl() {
   
   if (this.gl) {
-
     console.log("gl started")
-
     const { ThreeScene } = await import('./threeScene');
     this.sceneInstance = new ThreeScene(this);
   }
@@ -94,44 +80,34 @@ async initGl() {
 handleHomeBeforeEnter () {
 
   console.log("handleHomeBeforeEnter")
-  // this.backgrounds = createBackgroundsArray(this.gl);
 
-  // if (this.gl) {
-  //   this.initGl(this,this.backgrounds);
-  // }
+  this.startPage = 0
 
-  //   if (!this.backgrounds || this.backgrounds.length === 0) {
-  //   this.backgrounds = createBackgroundsArray();
-  //   // intro video/image immediate reveal
+  if (!this.once) {
+    console.log("once")
 
-  //   console.log("Backgrounds array initialized:", this.backgrounds);
-  // } else {
-  //   console.log("Backgrounds array already populated:", this.backgrounds);
-  // }
+    if (!this.gl && !this.isMobile) {
+      this.backgrounds[this.startPage].section.classList.remove('hidden')
+      this.backgrounds[this.startPage].section.classList.add('z-20')
+      this.backgrounds[this.startPage+1].section.classList.remove('hidden')
+    }
 
+    if (this.isMobile) {
+      console.log("touchBackgrounds once problem here")
+      touchBackgrounds(this.backgrounds, null)
+    }
+    this.once = true
+  }
 
 }
 
 handleHomeBeforeLeave(data) {
   console.log("handleHomeBeforeLeave")
 
-
-  // const projectName = data.trigger.dataset.projectName;
-
-  // console.log("namespace: 'home', handleHomeBeforeLeave  data.trigger.dataset.projectName >>>>> ",data.trigger.dataset.projectName)
-
-
   const trigger = data.trigger;
-
-
-  console.log("projectName call home to project not good >")
   const projectName = this.projectName(trigger);
-
   this.scrollManager.scrollToProject(projectName);
-
-
   this.saveHomeMedia(projectName)
-
 
 }
 
@@ -171,41 +147,25 @@ async handleHomeAfterEnter(data) {
 
 
   }
-
-  
-
-
   this.scrollManager.smoother.scrollTop(0);
-
-
-
   this.finalizeHomeTransition(data);
-
-  
 }
 
 
 finalizeHomeTransition(data) {
 
   if (!data.current.container) return
-
-
-
   data.current.container.remove();
-
   const trigger = data.trigger;
-
   console.log("projectName call project to home >")
-
   const projectName = this.projectName(trigger);
-
+  if (this.isMobile) {
+    setTimeout(() => {
+      touchBackgrounds(this.backgrounds,projectName)
+    }, 0);
+  }
   this.scrollManager.scrollToProject(projectName);
-
-
-  
   this.restoreHomeMedia(projectName)
-
-
 }
 
 
@@ -213,38 +173,25 @@ finalizeHomeTransition(data) {
 // Home Utility Methods
 initAnimations() {
 
-
-  // if (!this.backgrounds || this.backgrounds.length === 0) {
-  //   this.backgrounds = createBackgroundsArray();
-  //   // intro video/image immediate reveal
-
-  //   console.log("Backgrounds array initialized:", this.backgrounds);
-  // } else {
-  //   console.log("Backgrounds array already populated:", this.backgrounds);
-  // }
-
   console.log("initAnimations this.backgrounds",)
-
-  // toggleVisibility(this.backgrounds[0].element, { show: true, duration:0 });      
-
-
-  this.scrollManager.initEffects();
   this.whatwedo.initScrollTriggers();
 
   setTimeout(() => {
+    this.scrollManager.initEffects();
+  }, 0);
+
+  setTimeout(() => {
     this.homeAnimation.init();
-  });
+  }, 0);
   setTimeout(() => {
     this.quoteAnimations.init();
   }, 0);
 
   setTimeout(() => {
     this.triggerManager.init();
-  }, 500);
+  }, 1000);
 
-  // setTimeout(() => {
-  //   this.triggerManager.init();
-  // }, 0);
+  
 }
 
 initProjectLinks() {
@@ -282,14 +229,41 @@ cleanUpHorizontalScroll() {
 
 // Detailed Page View Methods
 
-handleProjectBeforeEnter() {
-  // console.log("namespace: 'project-detail' handleProjectBeforeEnter ")
+handleProjectBeforeEnter(data) {
 
-  this.prepareForProjectDetail();
+  
+
+
+this.prepareForProjectDetail();
+
+
+let pageName = this.extractProjectName(data.next.url.href)
+let matchedIndex = this.backgrounds.findIndex(bg => bg.slidesId && bg.slidesId.includes(pageName));
+this.startPage = matchedIndex !== -1 ? matchedIndex : 0;
+
+if (!this.once && !this.isMobile) {
+
+ 
+
+    
+    if (!this.gl) {
+      this.backgrounds[this.startPage].section.classList.remove('hidden')
+    this.backgrounds[this.startPage].section.classList.add('z-20')
+    this.backgrounds[this.startPage+1].section.classList.remove('hidden')
+
+  }
+
+  this.once = true
+}
+
+
 
 }
 
 handleProjectBeforeLeave() {
+
+  console.log("handleProjectBeforeLeave >>>>>>>>>")
+
 
   this.saveDetailedMedia()
 
@@ -303,15 +277,40 @@ handleProjectBeforeLeave() {
 
 handleProjectAfterEnter(data) {
   // console.log("namespace: 'project-detail' handleProjectAfterEnter ")
+
+  if (this.isMobile) {
+
+    let el = this.backgrounds[this.startPage].element
+    const sectionElement = document.querySelector("[data-detailed-media]")
+    el.classList.add('absolute', 'inset-0','z-[-1]');
+  
+    sectionElement.appendChild(el);
+
+  }
+
+
+ 
+
+
+
   if (!data.current.container) return
+
+
 
   data.current.container.remove();
   // this.scrollManager.smoother.scrollTop(0);
 
+
+
+
+
   this.restoreDetailedMedia();
   if (this.cursor) {
     // console.log(">>> mouse pointer ?")
-    this.cursor.mousePointer();
+
+    setTimeout(() => {
+      this.cursor.mousePointer();
+    }, 0);
   }
 
   
@@ -324,6 +323,8 @@ handleProjectAfterEnter(data) {
 
 async prepareForProjectDetail() {
   // this.setMediaOpacity(0);
+
+
   this.scrollManager.killEffects();
   this.whatwedo.killScrollTriggers();
   this.quoteAnimations.kill();
@@ -434,29 +435,42 @@ projectName(trigger) {
 // media save/restore utils
 
 saveDetailedMedia() {
-
-  if (this.gl) {
-
-    const gl = document.querySelector("#gl");
-
-    if (gl) {
-      gl.classList.remove('-z-10'); 
-      gl.classList.add('z-50'); 
-    }
-
-  }
-  
-
   console.log("saveDetailedMedia >")
 
+  const updateZIndex = (selector) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.classList.remove('-z-10');
+      element.classList.add('z-50');
+    }
+  };
+
+  if (this.gl) {
+    updateZIndex("#gl");
+  }
+
+  if (!this.gl && !this.isMobile) {
+    updateZIndex("#media-storage");
+  }
+
+
+
+  if (this.isMobile) {
   // storing media from detailed page
   const sectionElement = document.querySelector("[data-detailed-media]");
+
+  
   if (sectionElement) {
+
     const media = sectionElement.querySelector("video") || sectionElement.querySelector("img");
+
     if (media) {
+
       document.querySelector('#persistent-container').appendChild(media);
     }
   }
+
+}
 
 }
 
@@ -464,16 +478,25 @@ restoreDetailedMedia() {
 
   // Replacing media on the project detailed page
 
-  if (this.gl) {
 
-    const gl = document.querySelector("#gl");
-
-    if (gl) {
-      gl.classList.remove('z-50'); 
-      gl.classList.add('-z-10'); 
+  const updateZIndex = (selector) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.classList.remove('z-50');
+      element.classList.add('-z-10');
     }
+  };
 
+  if (this.gl) {
+    updateZIndex("#gl");
   }
+
+  if (!this.gl && !this.isMobile) {
+    updateZIndex("#media-storage");
+  }
+
+
+  if (this.isMobile) {
 
   console.log("restoreDetailedMedia >")
 
@@ -487,21 +510,28 @@ restoreDetailedMedia() {
     }
   }
 }
+}
 
 saveHomeMedia(projectName) {
 
-  console.log("saveHomeMedia >",projectName)
+  const updateZIndex = (selector) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.classList.remove('-z-10');
+      element.classList.add('z-50');
+    }
+  };
 
   if (this.gl) {
-
-    const gl = document.querySelector("#gl");
-
-    if (gl) {
-      gl.classList.remove('-z-10'); 
-      gl.classList.add('z-50'); 
-    }
-
+    updateZIndex("#gl");
   }
+
+  if (!this.gl && !this.isMobile) {
+    updateZIndex("#media-storage");
+  }
+
+
+  if (this.isMobile) {
 
   const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
 
@@ -511,31 +541,46 @@ saveHomeMedia(projectName) {
 
 }
 
+}
+
 restoreHomeMedia(projectName) {
 
-  console.log("restoreHomeMedia >",projectName)
+  const updateZIndex = (selector) => {
+    const element = document.querySelector(selector);
+    if (element) {
+      element.classList.remove('z-50');
+      element.classList.add('-z-10');
+    }
+  };
 
   if (this.gl) {
-
-    const gl = document.querySelector("#gl");
-
-    if (gl) {
-      gl.classList.remove('z-50'); 
-      gl.classList.add('-z-10'); 
-    }
-
+    updateZIndex("#gl");
   }
 
+  if (!this.gl && !this.isMobile) {
+    updateZIndex("#media-storage");
+  }
+
+
+
+
+  if (this.isMobile) {
+
+
   const media = document.querySelector("#persistent-container video") || document.querySelector("#persistent-container img");
+  // console.log("media>>",media)
+
   if (media) {
-    // console.log("projectName",projectName)
-    const sectionMedia = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
-    if (sectionMedia) {
-      sectionMedia.replaceWith(media); 
+    const section = document.querySelector(`#${projectName}`);
+    if (section) {
+      section.appendChild(media); 
     }
   }
 
 }
+
+}
+
 
 
 // Barba.js
@@ -551,6 +596,7 @@ restoreHomeMedia(projectName) {
           beforeEnter: this.handleHomeBeforeEnter.bind(this),
           beforeLeave: this.handleHomeBeforeLeave.bind(this),
           afterEnter: this.handleHomeAfterEnter.bind(this),
+
           
           
         },

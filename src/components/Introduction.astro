@@ -15,9 +15,9 @@ const { introField1, introField2, media, id } = Astro.props;
 ---
 
 <header id={id} class="relative w-full h-screen" data-slides>
-  {media && (
+  <!-- {media && (
     <Media trigger="background" src={media} alt="Introduction Visual" cssClasses="hidden opacity-0 absolute inset-0 w-full h-full object-cover" />
-  )}
+  )} -->
   <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[15vh] sm:-translate-y-1/2 z-0">
     <img data-speed="1.3" class="intro-mp" src="./images/mass-appeal.svg" alt="Mass Appeal">
   </div>

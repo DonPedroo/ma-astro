@@ -36,9 +36,14 @@ vec2 newUV = (vUv - vec2(0.5))*u_resolution.zw + vec2(0.5);
        vec2 readyUV = vec2(newUV.x+u_shift, newUV.y);
 
     vec4 t1;
-    if (u_current.type == 3) { 
+    if (u_current.type == 4) { 
         t1 = vec4(u_current.color, 1.0);
-    } else {
+    }
+     else if (u_current.type == 3) { 
+        t1 = texture2D(u_current.texture, mirrored(fract(readyUV*2.4)));
+    }
+    
+     else {
 
         t1 = texture2D(u_current.texture, mirrored(readyUV));
 
@@ -47,9 +52,13 @@ vec2 newUV = (vUv - vec2(0.5))*u_resolution.zw + vec2(0.5);
 
 
     vec4 t2;
-    if (u_next.type == 3) { 
+    if (u_next.type == 4) { 
         t2 = vec4(u_next.color, 1.0);
-    } else {
+    }
+    else if (u_next.type == 3) { 
+        t2 = texture2D(u_next.texture, mirrored(fract(readyUV*2.4)));
+    }
+     else {
 
         t2 = texture2D(u_next.texture, mirrored(readyUV));
     }

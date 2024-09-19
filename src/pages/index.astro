@@ -6,6 +6,13 @@ import Introduction from '../components/Introduction.astro';
 import Footer from '../components/Footer.astro';
 import LargeParagraph from '../components/LargeParagraph.astro';
 import WhatWeDo from '../components/WhatWeDo.astro';
+import { gatherMediaFromSections } from '../components/mediaUtils';
+import { gatherAllData } from '../components/gatherAllData';
+
+
+const allData = gatherAllData();
+
+
 
 interface Frontmatter {
   title: string;
@@ -62,6 +69,12 @@ interface QuotesSection {
   quotes: Quote[];
   additionalParagraph?: { content: string };
 }
+
+// interface ProjectsSection {
+//   id: string;
+//   type: 'projects';
+//   projects: Project[]; // Change this to an array of Project objects
+// }
 
 interface ProjectsSection {
   id: string;
@@ -133,6 +146,13 @@ function getCleanProjectName(url: string): string {
   return url.replace('/projects/', '');
 }
 const isHomePage = true;
+
+
+
+// Gather media from sections using the utility function
+const mediaAssets = gatherMediaFromSections(allData);
+
+
 ---
 
 <MainLayout 
@@ -141,6 +161,7 @@ const isHomePage = true;
   seo_description={data.seo_description} 
   seo_keywords={data.seo_keywords} 
   isHomePage={isHomePage}
+  mediaAssets={mediaAssets}
   
 
 >
@@ -168,6 +189,9 @@ const isHomePage = true;
   additionalParagraph={data.quotes.additionalParagraph}
   id={data.quotes.id} 
    />
+
+
+  
    <section id={data.projects.id} >
 
    {data.projects.projects.map((projectTitle) => {

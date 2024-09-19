@@ -1,117 +1,134 @@
-// backgroundManager.js
+import { TextureLoader, LinearFilter, VideoTexture, Color } from 'three';
+
 export function createBackgroundsArray(gl) {
-    const sections = document.querySelectorAll('[data-slides]');
-    const backgrounds = [];
-    // console.log("backgrounds",backgrounds)
+  const sections = document.querySelectorAll('#media-storage>div');
+  const backgrounds = [];
 
-  
-    sections.forEach(section => {
-        const slidesId = section.getAttribute('id'); // Grab the element ID
-        let background;
-  
-      // Check for types 3 and 4 directly on the section
-      const bgType = section.getAttribute('data-bg-type');
-  
-      if (bgType === '3' || bgType === '4') {
-        background = handleType3and4(section, bgType,gl);
-      } else {
-        // Look for child elements with data-bg-type for types 1 and 2
-        const video = section.querySelector('video[data-bg-type="1"]');
-        const img = section.querySelector('img[data-bg-type="2"]');
-
-        if (!gl) {
-          if (video) {
-            video.classList.remove('hidden', 'opacity-0');
-          }
-          if (img) {
-            img.classList.remove('hidden', 'opacity-0');
-          }
-        }
-
-        if (video) {
-          background = {
-            type: 1,
-            element: video,
-            src: video.querySelector('source').getAttribute('src'),
-            slidesId: slidesId // Save the section ID
-          };
-        } else if (img) {
-          background = {
-            type: 2,
-            element: img,
-            src: img.getAttribute('src'),
-            slidesId: slidesId // Save the section ID
-          };
-        }
-      }
-  
-      if (background) {
-        background.slidesId = slidesId; // Save the section ID for types 3 and 4
-        backgrounds.push(background);
-      }
-    });
-  
-    return backgrounds;
+  if (!sections) return;
+  let textureLoader = null
+  if (gl) {
+   textureLoader = new TextureLoader();
   }
-  
-  function handleType3and4(section, bgType,gl) {
-    const slidesId = section.getAttribute('data-slides'); // Grab the data-slides ID
-    if (bgType === '3') {
 
 
+  console.log("DOM backgrounds init", backgrounds);
 
-      // Extract the solid color from the computed styles
-      const color = window.getComputedStyle(section).backgroundColor;
-      if (gl) {
+  sections.forEach(section => {
 
-        section.classList.remove('bg-massgrey');
-      }
-      return {
-        type: 3,
-        color: color,
-        slidesId: slidesId // Save the section ID
-      };
-    } else if (bgType === '4') {
+    const slidesId = section.getAttribute('data-bg-id');
 
+    
+    let background;
+    const bgType = section.getAttribute('data-bg-type');
 
-      // Extract the background image from the computed styles
-      const bgImage = window.getComputedStyle(section).backgroundImage;
-      const imageUrl = extractImageUrl(bgImage);
-
-      if (gl) {
-        section.classList.remove('grunge');
-      }
-
-      const miscImage = section.querySelector('img[data-bg-misc]');
-
-      if (miscImage) { // Check if miscImage exists
-        if (!gl) {
-          miscImage.classList.remove('hidden', 'opacity-0');
+    // Logic for bgType === '1' (video)
+    if (bgType === '1') {
+      const video = section.querySelector('video');
+      if (video) {
+        background = {
+          type: 1,
+          element: video,
+          src: video.querySelector('source').getAttribute('src'),
+          slidesId: slidesId, 
+          section: section
+        };
+        if (gl) {
+        video.load();
+          video.play();
+          const videoTexture = new VideoTexture(video);
+          videoTexture.minFilter = LinearFilter;
+          videoTexture.magFilter = LinearFilter;
+          videoTexture.name = slidesId;
+          
+          background.gl = {
+            texture: videoTexture,
+            color: null,
+            scaleFactor: null
+          };
         }
-      } 
-
-      let miscImageUrl = null;
-  
-      if (miscImage) {
-        // Extract the misc image URL
-        miscImageUrl = miscImage.getAttribute('src');
-
-  
-
       }
-      return {
-        type: 4,
-        imageUrl: imageUrl,
-        miscImageUrl: miscImageUrl, // Include the misc image URL if found
-        slidesId: slidesId // Save the section ID
-      };
     }
-    return null;
-  }
-  
-  // Helper function to extract the image URL from background-image
-  function extractImageUrl(bgImage) {
-    const match = bgImage.match(/url\(["']?([^"']*)["']?\)/);
-    return match ? match[1] : null;
-  }
-  
+
+    // Logic for bgType === '2' (image)
+    if (bgType === '2') {
+      const img = section.querySelector('img');
+      if (img) {
+        background = {
+          type: 2,
+          element: img,
+          src: img.getAttribute('src'),
+          slidesId: slidesId,
+          section: section
+        };
+        if (gl) {
+          
+          const imageTexture = textureLoader.load(img.src);
+          imageTexture.minFilter = LinearFilter;
+          imageTexture.magFilter = LinearFilter;
+          imageTexture.name = slidesId
+            
+            background.gl = {
+              texture: imageTexture,
+              color: null,
+              scaleFactor: null
+            };
+          }
+      }
+    }
+
+    // Logic for bgType === '3' (another type of image, for example)
+    if (bgType === '3') {
+      const img = section.querySelector('img');
+      if (img) {
+        background = {
+          type: 3,
+          element: img,
+          src: img.getAttribute('src'),
+          slidesId: slidesId,
+          section: section
+        };
+        if (gl) {
+          
+          const imageTexture = textureLoader.load(img.src);
+          imageTexture.minFilter = LinearFilter;
+          imageTexture.magFilter = LinearFilter;
+          imageTexture.name = slidesId
+            
+            background.gl = {
+              texture: imageTexture,
+              color: null,
+              scaleFactor: .5
+            };
+          }
+      }
+    }
+
+    // Logic for bgType === '4' (color background)
+    if (bgType === '4') {
+      const color = section.getAttribute('data-color') || '#EAEAEA'; // Default color if not found
+      background = {
+        type: 4,
+        color: color,
+        slidesId: slidesId,
+        section: section
+      };
+      if (gl) {
+          
+       
+          
+          background.gl = {
+            texture: null,
+            color:new Color(color),
+            scaleFactor: null
+          };
+        }
+    }
+
+    // Add the background object to the array if it exists
+    if (background) {
+      backgrounds.push(background);
+    }
+  });
+
+  return backgrounds;
+}

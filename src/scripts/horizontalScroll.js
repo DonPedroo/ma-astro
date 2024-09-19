@@ -312,29 +312,41 @@ textAnimation.forEach(element => {
 
 
   kill() {
-    // console.log("horizontal scroll GSAP killed")
 
-    if (this.ctx) {
-      this.ctx.revert();
-      this.ctx = null;
-    }
-
-    window.removeEventListener('resize', this.handleResizeBound);
+    
 
 
-       // Remove progress bar from the DOM
-       if (this.progressBarContainer && this.progressBarContainer.parentNode) {
-        this.progressBarContainer.parentNode.removeChild(this.progressBarContainer);
-        this.progressBarContainer = null;
-        this.progressBar = null;
-      }
 
-      this.target = null;
-      this.closePin = null;
-      this.mediaPin = null;
-      this.sections = null;
-      this.scrollTween = null;
-      this.logos = null;
+           if (this.progressBarContainer && this.progressBarContainer.parentNode) {
+            this.progressBarContainer.parentNode.removeChild(this.progressBarContainer);
+            this.progressBarContainer = null;
+            this.progressBar = null;
+          }
+
+          setTimeout(() => {
+            if (this.ctx) {
+              this.ctx.revert();
+              this.ctx = null;
+            }
+           }, 0);
+
+  
+           setTimeout(() => {
+            window.removeEventListener('resize', this.handleResizeBound);
+
+           }, 0);
+
+
+
+           setTimeout(() => {
+            this.target = null;
+            this.closePin = null;
+            this.mediaPin = null;
+            this.sections = null;
+            this.scrollTween = null;
+            this.logos = null;
+           }, 0);
+    
   }
 
 

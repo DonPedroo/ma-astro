@@ -67,12 +67,17 @@ export class GsapAnimations {
   }
 
    handleUpdate(context) {
-    const { progress, height, end, start } = context;
+    const { progress, height, end, start, index } = context;
 
+
+ 
+    
 
     // console.log("background array >>>>>",this.context.sceneInstance.backgroundMaterial.uniforms.u_progress)
 
-    if (!this.context.gl) return;
+    // if (!this.context.gl) return;
+
+    let currentBgdom = this.context.backgrounds[index].section;
 
     let p = progress;
 
@@ -86,13 +91,35 @@ export class GsapAnimations {
         let normalizedHeightDiff = heightDifference / sectionHeight;
         let adjustedProgress = (p - (normalizedHeightDiff + offset)) / (1 - (normalizedHeightDiff + offset));
         let delayedProgress = Math.max(0, Math.min(adjustedProgress, 1));
-        this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = delayedProgress;
+        if (this.context.gl) {
+          this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = delayedProgress;
+        }
+        if (!this.context.isMobile) {
+     
+          if (currentBgdom) {
+          const maxHeightValue = (1 - delayedProgress) * 100; // Decrease max-height from 100vh to 0vh
+          currentBgdom.style.maxHeight = `${maxHeightValue}vh`;
+        }
+        }
         // console.log('index',index,'d p', delayedProgress,'p', p);
     } else {
+      if (this.context.gl) {
       this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = p;
-
+    }
+    if (!this.context.isMobile) {
+      if (currentBgdom) {
+      const maxHeightValue = (1 - p) * 100; // Decrease max-height from 100vh to 0vh
+      currentBgdom.style.maxHeight = `${maxHeightValue}vh`;
+      }
+  }
     }
     // console.log('progress', p);
+
+
+
+
+
+  
 
 
 }
@@ -221,14 +248,47 @@ pauseVideo(element) {
   return !!(video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2);
 }
 
+
+
  updateBackground(currentIndex, nextIndex) {
+
+
+
+  if (!this.context.gl && !this.context.isMobile) {
+
+
+    let currentBgdom = this.context.backgrounds[currentIndex];
+    let nextBgdom = this.context.backgrounds[nextIndex];
+
+    this.context.backgrounds.forEach((bgdom) => {
+      if (bgdom?.section) {
+        bgdom.section.classList.add('hidden'); // Ensure all other sections are hidden
+        bgdom.section.classList.remove('z-20');
+
+      }
+    });
+  
+    if (currentBgdom?.section) {
+      currentBgdom.section.classList.remove('hidden');
+      currentBgdom.section.classList.add('z-20');
+    }
+  
+    if (nextBgdom?.section) {
+      nextBgdom.section.classList.remove('hidden');
+    }
+
+
+ 
+  
+  }
+
 
   
   if (!this.context.gl) return;
 
   nextIndex = Math.min(nextIndex, this.context.sceneInstance.backgrounds.length - 1);
-  let currentBg = this.context.sceneInstance.backgrounds[currentIndex];
-  let nextBg = this.context.sceneInstance.backgrounds[nextIndex];
+  let currentBg = this.context.backgrounds[currentIndex];
+  let nextBg = this.context.backgrounds[nextIndex];
 
 
   // console.log("currentBg",currentBg,"nextBg",nextBg);
@@ -241,36 +301,36 @@ pauseVideo(element) {
   
   this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value = {
       type: currentBg.type,
-      color: new Color(currentBg.color),
-      texture: currentBg.texture,
+      color: new Color(currentBg.gl.color),
+      texture: currentBg.gl.texture,
   };
 
   this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value = {
       type: nextBg.type,
-      color: new Color(nextBg.color),
-      texture: nextBg.texture,
+      color: new Color(nextBg.gl.color),
+      texture: nextBg.gl.texture,
   };
 
 
-  if (this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value.texture) {
+  // if (this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value.texture) {
 
-    console.log("u_current",this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value.texture.name);
+  //   // console.log("u_current",this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value.texture.name);
 
-  } else {
+  // } else {
 
-    console.log("u_current",this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value);
+  //   // console.log("u_current",this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value);
 
-  }
+  // }
 
-  if (this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value.texture) {
+  // if (this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value.texture) {
 
-    console.log("u_next",this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value.texture.name);
+  //   // console.log("u_next",this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value.texture.name);
 
-  } else {
+  // } else {
 
-    console.log("u_next",this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value);
+  //   // console.log("u_next",this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value);
 
-  }
+  // }
 
 
 
