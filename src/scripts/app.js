@@ -7,6 +7,7 @@ import { AnimationHome } from './AnimationManagerHome';
 // import { horizontalScroll } from './horizontalScroll.js'
 import { toggleVisibility } from './toggleVisibility.js';
 import { useTextAnimation } from './AnimationText'; 
+import { preloadMedia } from './preloader';
 
 import { createBackgroundsArray } from './backgroundManager.js'; // Adjust the path as necessary
 import { touchBackgrounds } from './touchBackgrounds.js'; // Adjust the path as necessary
@@ -33,6 +34,8 @@ class App {
           }
 
           this.backgrounds = createBackgroundsArray(this.gl);
+          console.log("backgrounds",this.backgrounds)
+          preloadMedia(this.backgrounds);
 
         
           if (this.gl) {
@@ -89,12 +92,13 @@ handleHomeBeforeEnter () {
   if (!this.once) {
     console.log("once on homepage")
 
-    toggleVisibility(this.backgrounds[this.startPage].element, { show: true,delay: .5,duration:5 });     
+    // this.backgrounds[this.startPage].element.classList.add('opacity-0')
 
-    toggleVisibility("[data-intro-mp]", { show: true,delay: .5,duration:3 });     
-    toggleVisibility("[data-globe]", { show: true,delay: .7,duration:3 });     
-    useTextAnimation("[data-intro-copy-elevated]", { type: 'lines' }, { moveup: true, delay:.8 });
-    useTextAnimation("[data-intro-copy-since]", { type: 'lines' }, { moveup: true, delay:1 });
+
+    // toggleVisibility("[data-intro-mp]", { show: true,delay: .5,duration:3 });     
+    // toggleVisibility("[data-globe]", { show: true,delay: .7,duration:3 });     
+    // useTextAnimation("[data-intro-copy-elevated]", { type: 'lines' }, { moveup: true, delay:.8 });
+    // useTextAnimation("[data-intro-copy-since]", { type: 'lines' }, { moveup: true, delay:1 });
 
 
     if (!this.gl && !this.isMobile) {
