@@ -23,12 +23,16 @@ export class MouseEvenets {
 
     this.sticky = new StickyUi(this.context,this.followMouse)
 
+    // console.log("this.context",this.context.sceneInstance.grungePass)
+
   }
 
   mouseMove(){
     window.addEventListener('mousemove', (event) => {
         this.mouse.x = event.clientX / window.innerWidth;
         this.mouse.y = event.clientY / window.innerHeight;
+
+        
     });
   }
 
@@ -51,6 +55,21 @@ this.getSpeed()
 if (this.cursor) {
     this.cursor.style.transform = `translate(${(this.followMouse.x*this.context.width)-10}px, ${(this.followMouse.y*this.context.height)-10}px)`
 }    
+
+if (this.context.gl) {
+
+  if (this.context.sceneInstance) {
+    if (this.context.sceneInstance.gpgpu.variable.material) {
+    const mat = this.context.sceneInstance.gpgpu.variable.material
+    mat.uniforms.uMouse.value = this.mouse;
+    mat.uniforms.uDeltaMouse.value =this.followMouse;
+    mat.uniforms.uVelo.value =this.targetSpeed;
+  }
+
+  }
+
+
+}
 
 };
 

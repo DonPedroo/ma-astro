@@ -11,7 +11,7 @@ export function createBackgroundsArray(gl) {
   }
 
 
-  // console.log("DOM backgrounds init", backgrounds);
+  console.log("DOM backgrounds init", backgrounds);
 
   sections.forEach(section => {
 
@@ -33,8 +33,8 @@ export function createBackgroundsArray(gl) {
           section: section
         };
         if (gl) {
-        video.load();
-          video.play();
+        // video.load();
+          // video.play();
           const videoTexture = new VideoTexture(video);
           videoTexture.minFilter = LinearFilter;
           videoTexture.magFilter = LinearFilter;
@@ -60,7 +60,10 @@ export function createBackgroundsArray(gl) {
           slidesId: slidesId,
           section: section
         };
+      
         if (gl) {
+
+
           
           const imageTexture = textureLoader.load(img.src);
           imageTexture.minFilter = LinearFilter;
@@ -87,6 +90,9 @@ export function createBackgroundsArray(gl) {
           slidesId: slidesId,
           section: section
         };
+
+
+     
         if (gl) {
           
           const imageTexture = textureLoader.load(img.src);
@@ -99,6 +105,9 @@ export function createBackgroundsArray(gl) {
               color: null,
               scaleFactor: .5
             };
+
+
+            
 
           }
       }

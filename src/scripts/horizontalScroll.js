@@ -16,6 +16,8 @@ gsap.registerPlugin(ScrollTrigger,CustomEase);
 export class horizontalScroll {
   constructor(context) {
 
+    this.context = context;
+
     this.ctx = null;  
     this.target = null;
     this.closePin = null
@@ -110,6 +112,20 @@ export class horizontalScroll {
               gsap.set(this.progressBar, {
               width: `${scrollProgress}%`,
             });
+
+
+            if (this.context.gl) {
+              if(this.context.sceneInstance) {
+                  for (const item of this.context.sceneInstance.items.items) {
+                  item.mesh.position.x =  (((item.left - self.progress* this.scrollDistance) + (item.width / 2)) / window.innerWidth - 0.5) * (window.innerWidth/window.innerHeight)
+
+              }
+
+              }
+            
+          }
+
+
           }
       }
   });
@@ -257,6 +273,12 @@ textAnimation.forEach(element => {
 
         window.addEventListener('resize', this.handleResizeBound);
 
+     
+
+        
+
+
+
   }
 
   firstSection() {
@@ -270,6 +292,8 @@ textAnimation.forEach(element => {
 
   quoteAnimation() {
 
+  
+
     const quoteAnimation = document.querySelector('[data-animation-quote]');
 
 
@@ -278,10 +302,10 @@ textAnimation.forEach(element => {
     const tick = quoteAnimation.querySelector('img');
 
     
-    toggleVisibility(tick, { show: true, delay:.5 });
+    toggleVisibility(tick, { show: true, delay:.7 });
 
-    useTextAnimation(title, { type: 'lines' }, { moveup: true, delay:0 });
-    useTextAnimation(paragraph, { type: 'lines' }, { moveup: true, delay:.2 });
+    useTextAnimation(title, { type: 'lines' }, { moveup: true, delay:.5 });
+    useTextAnimation(paragraph, { type: 'lines' }, { moveup: true, delay:.7 });
 
   }
 
@@ -321,6 +345,12 @@ textAnimation.forEach(element => {
 
     
 
+    // if (this.context.gl) {
+
+    //   this.context.sceneInstance.killDetailed() 
+
+    // }
+
 
 
            if (this.progressBarContainer && this.progressBarContainer.parentNode) {
@@ -352,6 +382,9 @@ textAnimation.forEach(element => {
             this.scrollTween = null;
             this.logos = null;
            }, 0);
+
+
+
     
   }
 

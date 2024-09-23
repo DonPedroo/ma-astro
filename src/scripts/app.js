@@ -89,16 +89,17 @@ handleHomeBeforeEnter () {
 
   this.startPage = 0
 
+  if (this.gl) {
+
+    const chain = document.querySelector("[data-chain]");
+    chain.classList.add('opacity-0')
+      
+  }
+
+
   if (!this.once) {
     console.log("once on homepage")
 
-    // this.backgrounds[this.startPage].element.classList.add('opacity-0')
-
-
-    // toggleVisibility("[data-intro-mp]", { show: true,delay: .5,duration:3 });     
-    // toggleVisibility("[data-globe]", { show: true,delay: .7,duration:3 });     
-    // useTextAnimation("[data-intro-copy-elevated]", { type: 'lines' }, { moveup: true, delay:.8 });
-    // useTextAnimation("[data-intro-copy-since]", { type: 'lines' }, { moveup: true, delay:1 });
 
 
     if (!this.gl && !this.isMobile) {
@@ -201,7 +202,7 @@ initAnimations() {
 
   setTimeout(() => {
     this.triggerManager.init();
-  }, 1000);
+  }, 0);
 
   
 }
@@ -243,6 +244,21 @@ cleanUpHorizontalScroll() {
       this.horizontalScroll.kill();
     }
     }, 0);
+
+
+    if (this.gl) {
+
+      if ( this.sceneInstance) {
+
+        this.sceneInstance.killDetailed() 
+
+      }
+
+         
+
+        }
+
+
 }
 
 
@@ -307,6 +323,8 @@ async prepareForProjectDetail() {
       if (!this.horizontalScroll) {
         const { horizontalScroll } = await import('./horizontalScroll');
         this.horizontalScroll = new horizontalScroll(this);
+        console.log("horizontalScroll created")
+
       }
         setTimeout(() => {
        this.horizontalScroll.init();
@@ -333,7 +351,20 @@ async prepareForProjectDetail() {
     this.cursor.animateMouseFollow(true, false, true);
   }
 
-  toggleVisibility("[data-arrow-scroll-close]", { show: true,delay: .5,duration:3 });     
+  toggleVisibility("[data-arrow-scroll-close]", { show: true,delay: .5,duration:3 });   
+  
+  
+     if (this.gl) {
+
+      if ( this.sceneInstance) {
+
+        this.sceneInstance.initDetailed() 
+
+      }
+
+         
+
+        }
   
 
 }
@@ -357,6 +388,8 @@ handleProjectAfterEnter(data) {
   // console.log("namespace: 'project-detail' handleProjectAfterEnter ")
 
   if (this.isMobile) {
+
+    // append media on detailed page for mobile
 
     let el = this.backgrounds[this.startPage].element
     const sectionElement = document.querySelector("[data-detailed-media]")

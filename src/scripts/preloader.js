@@ -47,11 +47,13 @@ export function preloadMedia(backgrounds) {
       // Preload video
       const video = background.element; // Reuse the video element from the array
       if (video) {
-        video.preload = 'auto';
+        // Stop the video if it was already playing
         video.src = background.src;
+        video.load(); // Force a reload of the video element
         video.onloadeddata = () => {
-        //   console.log(`Video loaded: ${background.src}`);
+          // console.log(`Video loaded: ${background.src}`);
           handleMediaLoaded();
+          video.play();
         };
         video.onerror = () => {
           console.error(`Failed to load video: ${background.src}`);

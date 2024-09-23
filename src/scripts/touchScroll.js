@@ -58,7 +58,7 @@ export class TouchScroll {
 
     gsap.fromTo(this.logos, 
       { y: "5vh", opacity: 0 }, 
-      { y: "0vh", opacity: 1, stagger: 0.1, delay:1, duration: 2.5,ease: "custom" }, "<"
+      { y: "0vh", opacity: 1, stagger: 0.1, duration: 2.5,ease: "custom" }, "<"
     );
 
   }

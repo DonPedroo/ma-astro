@@ -33,7 +33,7 @@ export class GsapAnimations {
           onEnterBack: () => this.handleEnterBack({ ...this.context, index })
         };
 
-        if (index === 2) {
+        if (section.id === "what-we-do") {
 
           triggerProps = {
             ...triggerProps,
@@ -43,9 +43,35 @@ export class GsapAnimations {
 
         }
 
+        if (this.context.gl) {
+          if (section.id === "how-we-get-down") {
+            ScrollTrigger.create({
+              trigger: "#how-we-get-down",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+              fastScrollEnd: true,
+              onUpdate: self => {
+                this.context.sceneInstance.backgroundMaterial.uniforms.u_chainProgress.value = self.progress;
+
+              },
+            
+            });
+
+          }
+
+
+
+        }
+
         ScrollTrigger.create(triggerProps);
       });
     });
+
+      
+
+
+
   }
 
   kill() {
@@ -181,7 +207,7 @@ if (this.context.gl) {
 
  adjustVideoPlayback({ index, backgrounds, direction }) {
   // Handling when scrolling down
-  // console.log("backgrounds[index]",backgrounds[index])
+
   if (direction === 'down') {
       // Pause the current video
       if (backgrounds[index] && backgrounds[index].type === 1) {
