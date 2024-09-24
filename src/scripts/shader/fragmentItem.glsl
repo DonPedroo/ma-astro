@@ -19,7 +19,7 @@ void main()	{
  
     }
       else if (u_type == 2) { 
-        color = texture2D(u_texture,fract(vUv*2.4));
+        color = texture2D(u_texture,fract(vUv*2.0));
  
     }
      else {

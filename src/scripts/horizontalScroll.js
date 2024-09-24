@@ -278,6 +278,20 @@ textAnimation.forEach(element => {
           }
         }
       });
+
+      const element = document.querySelector("[data-quote-container]");
+
+
+      if (!this.context.isMobile) {
+
+
+        gsap.fromTo(element, 
+          { x: 1000, opacity: 0 }, 
+          { x: 0, opacity: 1, duration: 1, ease: "custom" },
+        );
+
+
+      } 
     }
     
 
@@ -370,11 +384,7 @@ textAnimation.forEach(element => {
 
     
 
-    // if (this.context.gl) {
 
-    //   this.context.sceneInstance.killDetailed() 
-
-    // }
 
 
 
@@ -407,6 +417,14 @@ textAnimation.forEach(element => {
             this.scrollTween = null;
             this.logos = null;
            }, 0);
+
+               if (this.context.gl) {
+
+                if(this.context.sceneInstance) {
+                  this.context.sceneInstance.backgroundMaterial.uniforms.u_shift.value = 0
+                 }
+    }
+
 
 
 

@@ -96,24 +96,21 @@ export class ThreeScene {
  
 initDetailed() {
 
-  console.log("init Detailed GL")
+  console.log(">>>>>>>>>>>>>>>> init Detailed GL")
 
 
 
   this.items.init()
 
-    if(this.context.sceneInstance) {
+  // console.log("this.items.items",this.items.items)
 
+    // if(this.context.sceneInstance) {
         for (const item of this.items.items) {
         gsap.to(item.mesh.material.uniforms.u_progress, {value: 1, duration: 1, ease: "custom"}, "<")
 
-    }
+    // }
 
-  
-
-
-
-
+    gsap.to(this.context.sceneInstance.backgroundMaterial.uniforms.u_shift, {value: .5, duration: 1, ease: "custom"}, "<")
 
 }
 

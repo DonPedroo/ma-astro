@@ -52,7 +52,11 @@ export class GsapAnimations {
               scrub: true,
               fastScrollEnd: true,
               onUpdate: self => {
-                this.context.sceneInstance.backgroundMaterial.uniforms.u_chainProgress.value = self.progress;
+                if (this.context.sceneInstance.backgroundMaterial) {
+
+                  this.context.sceneInstance.backgroundMaterial.uniforms.u_chainProgress.value = self.progress;
+
+                }
 
               },
             

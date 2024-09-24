@@ -33,7 +33,7 @@ void main() {
 vec2 newUV = (vUv - vec2(0.5))*u_resolution.zw + vec2(0.5);
 
 
-       vec2 readyUV = vec2(newUV.x, newUV.y);
+       vec2 readyUV = vec2(newUV.x+u_shift, newUV.y);
 vec4 grungeMask;
     vec4 t1;
     if (u_current.type == 4) { 
@@ -53,6 +53,8 @@ vec4 grungeMask;
 
         t1 = texture2D(u_current.texture, mirrored(readyUV));
 
+        t1 = mix(t1,darkOverlayColor,.25);
+
 
     }
 
@@ -70,6 +72,8 @@ vec4 grungeMask;
      else {
 
         t2 = texture2D(u_next.texture, mirrored(readyUV));
+                t2 = mix(t2,darkOverlayColor,.25);
+
     }
 
     gl_FragColor = mix(t1, t2,  step( vUv.y,u_progress));
@@ -80,7 +84,7 @@ vec4 grungeMask;
 
 
 
-   vec2 chainUV = vec2(newUV.x,newUV.y- mix(-1.0, 1., u_chainProgress*.99));
+   vec2 chainUV = vec2(newUV.x,newUV.y- mix(-1.0, 1., u_chainProgress*.85));
     vec2 chainColorUV = vec2(chainUV.x * 0.5, chainUV.y);
     vec4 chainColor = texture2D(u_chain, chainColorUV);
 

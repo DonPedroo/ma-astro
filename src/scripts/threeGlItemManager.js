@@ -119,7 +119,7 @@ export class ThreeGlItemManager {
         this.items.push(new Item(item, this));
       });
 
-      console.log("ThreeItems this.items",this.items)
+      // console.log("ThreeItems this.items",this.items)
 
     
     }

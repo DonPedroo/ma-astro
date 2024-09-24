@@ -26,7 +26,7 @@ class Item {
         background: this.background,
         flag: this.flag
       });
-      console.log("this.context",this.context.scene.scene)
+      // console.log("this.context",this.context.scene.scene)
       this.context.scene.scene.add(this.mesh);
 
       this.mesh.position.x = (((this.left) + (this.width / 2)) / this.windowWidth - 0.5) * (this.windowWidth / this.windowHeight);

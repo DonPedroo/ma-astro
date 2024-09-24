@@ -71,14 +71,11 @@ class App {
   }
 
 async initGl() {
-  
   if (this.gl) {
     console.log("gl started")
     const { ThreeScene } = await import('./threeScene');
     this.sceneInstance = new ThreeScene(this);
   }
-
-
 }
 
 // Home View Methods
@@ -279,7 +276,7 @@ if (!this.once && !this.isMobile) {
 
   console.log("once on detailed")
 
- 
+
 
     
     if (!this.gl) {
@@ -328,6 +325,7 @@ async prepareForProjectDetail() {
       }
         setTimeout(() => {
        this.horizontalScroll.init();
+
   }, 0);
     } else {
 
@@ -342,6 +340,17 @@ async prepareForProjectDetail() {
     }
 
 
+    if (this.gl) {
+      await this.waitForSceneInstance(); // Wait for sceneInstance to be ready
+      if (this.sceneInstance) {
+        this.sceneInstance.initDetailed(); // Run initDetailed only if sceneInstance is initialized
+      }
+    }
+  
+  
+
+
+
   if (!this.isMobile) {
     if (!this.cursor) {
       const { MouseEvenets } = await import('./Cursor');
@@ -354,20 +363,25 @@ async prepareForProjectDetail() {
   toggleVisibility("[data-arrow-scroll-close]", { show: true,delay: .5,duration:3 });   
   
   
-     if (this.gl) {
 
-      if ( this.sceneInstance) {
-
-        this.sceneInstance.initDetailed() 
-
-      }
-
-         
-
-        }
   
 
 }
+
+
+waitForSceneInstance() {
+  return new Promise((resolve) => {
+    const checkSceneInstance = () => {
+      if (this.sceneInstance) {
+        resolve();
+      } else {
+        requestAnimationFrame(checkSceneInstance); // Keep checking on each frame
+      }
+    };
+    checkSceneInstance();
+  });
+}
+
 
 handleProjectBeforeLeave() {
 
