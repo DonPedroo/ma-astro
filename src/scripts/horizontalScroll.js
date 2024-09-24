@@ -256,6 +256,31 @@ textAnimation.forEach(element => {
 
     // console.log("horizontal scroll GSAP created")
 
+    if (!this.context.gl) {
+
+      const elements = document.querySelectorAll("[data-bg]");
+      
+      elements.forEach(element => {
+        const bgValue = element.getAttribute('data-type');
+        
+        if (bgValue === 'color') {
+          element.classList.add('bg-massgrey');
+        }
+        
+        if (bgValue === 'bg-image') {
+          element.classList.add('grunge');
+        }
+        
+        if (bgValue === 'image') {
+          const img = element.querySelector("img");
+          if (img) {
+            img.classList.remove('opacity-0');
+          }
+        }
+      });
+    }
+    
+
     this.calcDistance() 
 
     this.initProgressUI()

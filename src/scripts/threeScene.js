@@ -193,35 +193,19 @@ killDetailed() {
   }
 
 
-  addGrunge() {
 
-
-    const textureLoader = new TextureLoader();
-    textureLoader.load('/public/images/grunge.webp', (grungeTexture) => {
-      grungeTexture.minFilter = LinearFilter;
-      grungeTexture.magFilter = LinearFilter;
-
-
-      // this.grungePass.uniforms.get('u_tex').value = grungeTexture;
-      this.backgroundMaterial.uniforms.u_grunge.value = grungeTexture;
-
-    });
-
-    
-  }
 
   addObjects() {
 
 
     const textureLoader = new TextureLoader();
-    textureLoader.load('/public/images/chain-gl.webp', (chainTexture) => {
+    textureLoader.load('/images/chain-gl.webp', (chainTexture) => {
       chainTexture.minFilter = LinearFilter;
       chainTexture.magFilter = LinearFilter;
     
       this.backgroundMaterial.uniforms.u_chain.value = chainTexture;
     });
   
-      // this.addGrunge()
 
     this.backgroundMaterial = new ShaderMaterial({
         extensions: { derivatives: "#extension GL_OES_standard_derivatives : enable" },
@@ -234,7 +218,6 @@ killDetailed() {
             u_transition_type: { value: 1 },
             u_chain: { value: null }, // Placeholder for chain texture
             u_chainProgress: { value: 0 }, 
-            // u_grunge: { value: null }, // Placeholder for chain texture
             
             
             u_current: { 
@@ -338,18 +321,7 @@ this.backgroundPlane.scale.y = 1;
 
 addCustomEffect() {
 
-  
-  // this.offscreenComposer = new EffectComposer(this.renderer);
-  // this.offscreenComposer.autoRenderToScreen = false;
-  // this.grungePass = new GrungeEffect();
-  // const noisePass = new NoiseEffect({
-  //   premultiply: true, // Optionally, you can adjust the noise intensity and settings here
-
-  // });
-  // const offscreenEff = new EffectPass(this.camera, this.grungePass);
-  // this.offscreenComposer.addPass(offscreenEff);
-  // this.backgroundMaterial.uniforms.u_grunge.value = this.offscreenComposer.outputBuffer.textures[0]
-
+ 
   this.composer = new EffectComposer(this.renderer);
   const renderPass = new RenderPass(this.scene, this.camera);
   this.composer.addPass(renderPass);
@@ -358,17 +330,12 @@ addCustomEffect() {
   this.customEff = new EffectPass(this.camera, this.customPass);
   this.composer.addPass(this.customEff);
 
-
-
-  // this.addGrunge()
 }
 
 animate() {
   requestAnimationFrame(this.animate.bind(this));
-  // this.time += this.clock.getDelta();
   this.time = this.clock.getElapsedTime(); // Continuous increasing time
-  // this.grungePass.uniforms.get('u_time').value = this.time;
-  // this.offscreenComposer.render(this.time);
+
   this.composer.render(this.time);
 
   if (this.gpgpu) {

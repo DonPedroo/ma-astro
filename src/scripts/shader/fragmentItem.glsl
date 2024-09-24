@@ -17,7 +17,12 @@ void main()	{
      if (u_type == 1) { 
         color = texture2D(u_texture,vUv);
  
-    } else {
+    }
+      else if (u_type == 2) { 
+        color = texture2D(u_texture,fract(vUv*2.4));
+ 
+    }
+     else {
         color = vec4(u_color, 1.0);
     }
 

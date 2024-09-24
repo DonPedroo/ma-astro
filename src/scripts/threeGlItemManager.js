@@ -53,9 +53,10 @@ export class ThreeGlItemManager {
       // console.log("createMesh >>", o);
       let material = this.material.clone();
 
-      material.uniforms.u_type.value = (o.type === 'image' || o.type === 'video') ? 1 : 0;
+      material.uniforms.u_type.value = (o.type === 'image' || o.type === 'video') ? 1 : (o.type === 'bg-image' ? 2 : 0);
 
-      if (o.type === 'image') {
+
+      if (o.type === 'image' || o.type === 'bg-image') {
         let loader = new TextureLoader();
         loader.load(o.background, function(texture) {
           material.uniforms.u_texture.value = texture;
