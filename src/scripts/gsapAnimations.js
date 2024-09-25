@@ -55,7 +55,7 @@ export class GsapAnimations {
               scrub: true,
               fastScrollEnd: true,
               onUpdate: self => {
-                if (this.context.sceneInstance.backgroundMaterial) {
+                if (this.context.sceneInstance) {
 
                   this.context.sceneInstance.backgroundMaterial.uniforms.u_chainProgress.value = self.progress;
 
@@ -64,7 +64,7 @@ export class GsapAnimations {
               },
 
               onEnter: self =>{
-                if (this.context.sceneInstance.backgroundMaterial) {
+                if (this.context.sceneInstance) {
 
                 this.context.sceneInstance.backgroundMaterial.uniforms.u_chainTrigger.value = 1
 
@@ -74,7 +74,7 @@ export class GsapAnimations {
 
               onLeave: self =>{
 
-                if (this.context.sceneInstance.backgroundMaterial) {
+                if (this.context.sceneInstance) {
 
                 this.context.sceneInstance.backgroundMaterial.uniforms.u_chainTrigger.value = 0
                 }
@@ -83,7 +83,7 @@ export class GsapAnimations {
               },
 
               onEnterBack: self =>{
-                if (this.context.sceneInstance.backgroundMaterial) {
+                if (this.context.sceneInstance) {
 
 
                 this.context.sceneInstance.backgroundMaterial.uniforms.u_chainTrigger.value = 1
