@@ -156,7 +156,7 @@ export class GsapAnimations {
         let normalizedHeightDiff = heightDifference / sectionHeight;
         let adjustedProgress = (p - (normalizedHeightDiff + offset)) / (1 - (normalizedHeightDiff + offset));
         let delayedProgress = Math.max(0, Math.min(adjustedProgress, 1));
-        if (this.context.gl) {
+        if (this.context.gl && this.context.sceneInstance) {
           this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = delayedProgress;
         }
         if (!this.context.isMobile) {
@@ -168,7 +168,7 @@ export class GsapAnimations {
         }
         // console.log('index',index,'d p', delayedProgress,'p', p);
     } else {
-      if (this.context.gl) {
+      if (this.context.gl && this.context.sceneInstance) {
       this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = p;
     }
     if (!this.context.isMobile) {
