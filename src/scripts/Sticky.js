@@ -134,7 +134,7 @@ export class StickyUi {
           }
         });
       } else {
-        console.log("No anchor link found in the item.");
+        // console.log("No anchor link found in the item.");
       }
     });
   }

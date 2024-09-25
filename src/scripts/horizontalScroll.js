@@ -18,6 +18,8 @@ export class horizontalScroll {
 
     this.context = context;
 
+    console.log("horizontal ",this.context)
+
     this.ctx = null;  
     this.target = null;
     this.closePin = null
@@ -116,8 +118,12 @@ export class horizontalScroll {
 
             if (this.context.gl) {
               if(this.context.sceneInstance) {
+
+                let p = self.progress* this.scrollDistance
+
+                this.context.horizontalScrollPos = p
                   for (const item of this.context.sceneInstance.items.items) {
-                  item.mesh.position.x =  (((item.left - self.progress* this.scrollDistance) + (item.width / 2)) / window.innerWidth - 0.5) * (window.innerWidth/window.innerHeight)
+                  item.mesh.position.x =  (((item.left - p) + (item.width / 2)) / window.innerWidth - 0.5) * (window.innerWidth/window.innerHeight)
 
               }
 

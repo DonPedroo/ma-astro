@@ -101,6 +101,7 @@ class Item {
     }
 
     cleanup() {
+
         // Dispose of the material
         if (this.mesh.material) {
           this.mesh.material.dispose();
@@ -109,17 +110,14 @@ class Item {
         // Dispose of the geometry
         if (this.mesh.geometry) {
           this.mesh.geometry.dispose();
-        }
-      
-        // Dispose of textures if any
-        if (this.mesh.material.map) {
-          this.mesh.material.map.dispose();
+
         }
       
         // Remove mesh from the scene
-        if (this.context && this.context.context.scene) {
-          this.context.context.scene.remove(this.mesh);
+        if (this.context.context.sceneInstance.scene) {
+          this.context.context.sceneInstance.scene.remove(this.mesh);
         }
+
       }
       
 

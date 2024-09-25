@@ -35,9 +35,12 @@ export class GsapAnimations {
 
         if (section.id === "what-we-do") {
 
+
+          const sections = section.querySelectorAll("aside")
+
           triggerProps = {
             ...triggerProps,
-             end: "+=" + (this.context.height*(7)),
+             end: "+=" + (this.context.height*(sections.length+1)),
            
         };
 
@@ -59,6 +62,33 @@ export class GsapAnimations {
                 }
 
               },
+
+              onEnter: self =>{
+
+                this.context.sceneInstance.backgroundMaterial.uniforms.u_chainTrigger.value = 1
+
+                
+
+              },
+
+              onLeave: self =>{
+
+                this.context.sceneInstance.backgroundMaterial.uniforms.u_chainTrigger.value = 0
+
+                
+
+              },
+
+              onEnterBack: self =>{
+
+                this.context.sceneInstance.backgroundMaterial.uniforms.u_chainTrigger.value = 1
+
+
+              },
+
+
+
+
             
             });
 

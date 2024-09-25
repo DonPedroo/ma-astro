@@ -1,6 +1,7 @@
 uniform float u_time;
 uniform float u_progress;
 uniform float u_chainProgress;
+uniform float u_chainTrigger;
 
 uniform vec4 u_resolution;
 uniform float u_shift;
@@ -92,6 +93,7 @@ vec4 grungeMask;
     vec2 chainMaskUV = vec2(0.5 + chainUV.x * 0.5, chainUV.y);
     vec4 chainMask = texture2D(u_chain, chainMaskUV);
 
+    grungeMask*=u_chainTrigger;
     chainMask*=grungeMask;
 
     // Apply the chain mask to the chain color (using red channel of the mask)
@@ -99,6 +101,7 @@ vec4 grungeMask;
 
     // Output the final color
     gl_FragColor = chainFinalColor;
+
 
 
     // vec4 tedt = texture2D(u_grunge, newUV);

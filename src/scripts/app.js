@@ -58,6 +58,7 @@ class App {
     this.horizontalScroll = null;
     this.touchScroll = null;
     this.viewOnceRan = {};
+    this.horizontalScrollPos = 0
     this.initBarba(); 
     this.handleResize(); 
 
@@ -67,6 +68,12 @@ class App {
     window.addEventListener('resize', () => {
       this.width = window.innerWidth;
       this.height = window.innerHeight;
+
+      if (this.gl) {
+      this.sceneInstance.resize()
+      this.sceneInstance.items.resize(this.horizontalScrollPos)
+      }
+
     });
   }
 

@@ -11,6 +11,9 @@ export class MouseEvenets {
     this.mouse = new Vector2()
     this.followMouse = new Vector2()
     this.prevMouse = new Vector2()
+    this.mouseDir = new Vector2(1,0) // Default direction
+    this.prevFollowMouse = new Vector2(this.mouse); // Initialize previous smoothed mouse position
+
     this.speed = 0;
     this.targetSpeed = 0;
     this.cursor = document.querySelector('[data-mouse-follow]');
@@ -43,7 +46,41 @@ export class MouseEvenets {
     this.followMouse.y -= 0.2*(this.followMouse.y - this.mouse.y);    
     this.prevMouse.x = this.mouse.x;
     this.prevMouse.y = this.mouse.y;
+
+    const deltaX = this.followMouse.x - this.prevFollowMouse.x;
+    const deltaY = this.followMouse.y - this.prevFollowMouse.y;
+
+
+
+    if (this.speed > 0.0001) {
+      // Normalize the delta to get direction
+      const length = this.speed;
+      const dirX = deltaX / length;
+      const dirY = deltaY / length;
+
+      // Smooth the direction change to prevent abrupt changes
+      const smoothingFactor = 0.1; // Adjust this value as needed
+      this.mouseDir.x = (1 - smoothingFactor) * this.mouseDir.x + smoothingFactor * dirX;
+      this.mouseDir.y = (1 - smoothingFactor) * this.mouseDir.y + smoothingFactor * dirY;
+
+
+
+      // Normalize the mouseDir vector
+      const dirLength = Math.sqrt(this.mouseDir.x * this.mouseDir.x + this.mouseDir.y * this.mouseDir.y);
+      // console.log("dirLength", dirLength)
+
+      if (dirLength > 0.0001) {
+          this.mouseDir.x /= dirLength;
+          this.mouseDir.y /= dirLength;
+      }
   }
+
+  this.prevFollowMouse.x = this.followMouse.x;
+  this.prevFollowMouse.y = this.followMouse.y;
+
+
+  }
+
 
 onTick = () => {
 this.getSpeed()
@@ -61,10 +98,12 @@ if (this.context.gl) {
   if (this.context.sceneInstance) {
     if (this.context.sceneInstance.gpgpu.variable.material) {
     const mat = this.context.sceneInstance.gpgpu.variable.material
-    mat.uniforms.uMouse.value = this.mouse;
+    mat.uniforms.uMouse.value = this.prevFollowMouse;
     mat.uniforms.uDeltaMouse.value =this.followMouse;
     mat.uniforms.uVelo.value =this.targetSpeed;
   }
+  this.context.sceneInstance.customPass.uniforms.get('u_mouseDir').value = this.mouseDir;
+
 
   }
 

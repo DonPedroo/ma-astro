@@ -23,20 +23,8 @@ export class CustomEffect extends Effect {
 
 			blendFunction: BlendFunction.Normal,
 			uniforms: new Map([
-        ["u_mouse", new Uniform(new Vector2(-10,-10) )],
-        ["uvRate", new Uniform(new Vector2(1,1) )],
-        ["u_velo", new Uniform()],
-        ["rval", new Uniform(.4)],
-        ["gval", new Uniform(.6)],
-        ["bval", new Uniform(.9)],
-        ["disc_radius", new Uniform(.09)],
-        ["border_size", new Uniform(.19)],
-
-        ["dist_m", new Uniform(.002)],
-        ["buvelo_ms", new Uniform(3.525)],
+        ["u_mouseDir", new Uniform(new Vector2(0,0) )],
         ["u_tex", new Uniform(0.0)],
-
-        
 			])
 
 		});
@@ -56,7 +44,6 @@ export class GrungeEffect extends Effect {
         ["u_time", new Uniform(0.0)],
         ["u_progress", new Uniform(0.0)],
         ["u_tex", new Uniform(0.0)],
-        ["u_resolution", new Uniform(new Vector4(0.0))]
 
 
 			])
@@ -215,6 +202,8 @@ killDetailed() {
             u_transition_type: { value: 1 },
             u_chain: { value: null }, // Placeholder for chain texture
             u_chainProgress: { value: 0 }, 
+            u_chainTrigger: { value: 0 }, 
+
             
             
             u_current: { 
@@ -301,11 +290,6 @@ this.backgroundPlane.scale.y = 1;
   this.backgroundMaterial.uniforms.u_resolution.value.z = a1;
   this.backgroundMaterial.uniforms.u_resolution.value.w = a2;
 
-
-  // this.grungePass.uniforms.get('u_resolution').value.x = this.context.width;
-  // this.grungePass.uniforms.get('u_resolution').value.y = this.context.height;
-  // this.grungePass.uniforms.get('u_resolution').value.z = a1;
-  // this.grungePass.uniforms.get('u_resolution').value.w = a2;
 
 
 

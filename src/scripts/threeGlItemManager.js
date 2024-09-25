@@ -9,7 +9,7 @@ export class ThreeGlItemManager {
       this.context = context
       this.scene = scene
       this.items = [];
-      // console.log("ThreeGlItemManager init",this.context,this.scene)
+      console.log("ThreeGlItemManager init",this.context)
      
     }
 
@@ -96,11 +96,23 @@ export class ThreeGlItemManager {
       mesh.scale.y = 1
 
 
-      mesh.position.x = (((o.left - this.currentScroll) + (o.width / 2)) / this.w - 0.5) * (this.asp)
+      mesh.position.x = (((o.left ) + (o.width / 2)) / this.w - 0.5) * (this.asp)
 
 
       // console.log("scale x", mesh.scale.x, "scale y", mesh.scale.y);
       return mesh;
+
+    }
+
+    resize(p) {
+
+      for (const item of this.items) {
+        item.getSize(p);
+        // item.mesh.position.x = (((item.left - this.currentScroll) + (item.width / 2)) / this.w - 0.5) * (this.asp)
+        item.mesh.scale.x = (item.width/window.innerWidth)*(window.innerWidth/window.innerHeight);  
+ 
+      }
+
 
     }
 
@@ -119,7 +131,7 @@ export class ThreeGlItemManager {
         this.items.push(new Item(item, this));
       });
 
-      // console.log("ThreeItems this.items",this.items)
+      // console.log("ThreeItems created ! this.items",this.items)
 
     
     }

@@ -1,51 +1,54 @@
-uniform vec2 u_mouse;
-// uniform vec2 uvRate;
-// uniform float u_velo;
-// uniform float rval;
-// uniform float gval;
-// uniform float bval;
-// uniform float disc_radius; 
-// uniform float border_size;
-uniform sampler2D u_tex;
-
-// this uniforms are for mouse cursor circle if enabled
-// uniform float dist_m; 
-// uniform float buvelo_ms;
+uniform vec2 u_mouseDir;
+uniform sampler2D u_tex; 
 
 void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
+    // Get displacement from texture
+    vec4 displacement = texture2D(u_tex, uv);
+    float dispMag = length(displacement.rg);
 
-// // first we need to calculate correct proportions
-// // we need to reasign uv coordinates to a new value
-// // since it is not possible to modify preset uv
-// vec2 _uv = uv;
-// // calculating proportions here:
-// _uv = ((uv - 0.5)*uvRate)+0.5;
-// // we need another uv for the rgb shift effect, we do not
-// // need it to be proportional, but we still have to
-// // asign new uv uniform
-// vec2 newUV = uv;	
-// // mosue
-// float dist = distance(vec2(u_mouse.x, ((1. -u_mouse.y) -0.5)*uvRate.y +0.5), _uv);
-// // active area
-// float c = smoothstep(disc_radius+border_size, disc_radius-border_size, dist);
-// // 3 colors separated
-// float r = texture2D(inputBuffer, newUV.xy += c * (u_velo * rval)).x;
-// float g = texture2D(inputBuffer, newUV.xy += c * (u_velo * gval)).y;
-// float b = texture2D(inputBuffer, newUV.xy += c * (u_velo * bval)).z;
-// // colors combined back
-// vec4 color = vec4(r, g, b, 1.);
+    // Invert the x component of the mouse direction to align with texture coordinates
+    vec2 adjustedMouseDir = vec2(-u_mouseDir.x, u_mouseDir.y);
 
-// // //this is mouse cursor
-// // if (dist<dist_m+(uVelo / buvelo_ms)) {
-// // 	color = vec4(1.000,0.833,0.224,1.);
-// // }
+    // Adjust displacement to align with mouse direction
+    vec2 finalDisplacement = adjustedMouseDir * dispMag;
+    vec2 finalUvs = uv + finalDisplacement * 0.3;
 
-// outputColor = vec4(color);
+    // --- RGB Shift Effect Implementation ---
 
-    vec4 displacement = texture2D(u_tex,uv);
-    vec2 finalUvs = uv + displacement.rg*0.1;
-    vec4 finalImage = texture2D(inputBuffer,finalUvs);
-outputColor = finalImage+vec4(displacement.r*.1);
+    // Separate UVs for each color channel
+    vec2 redUvs = finalUvs;
+    vec2 greenUvs = finalUvs;
+    vec2 blueUvs = finalUvs;    
 
+    // The shift follows the displacement direction but with reduced intensity
+    vec2 shift = displacement.rg * 0.01;
+
+    // Displacement strength based on the magnitude of displacement
+    float displacementStrength = length(displacement.rg);
+    displacementStrength = clamp(displacementStrength, 0.0, 2.0);
+
+    // Apply different strengths to each color channel
+    float redStrength = 1.0 + displacementStrength * 30.25;
+    redUvs += shift * redStrength;    
+
+    float greenStrength = 1.0 + displacementStrength * 20.0;
+    greenUvs += shift * greenStrength;
+
+    float blueStrength = 1.0 + displacementStrength * 10.5;
+    blueUvs += shift * blueStrength;
+
+    // Sample the input texture at shifted UVs for each color channel
+    float red = texture2D(inputBuffer, redUvs).r;
+    float green = texture2D(inputBuffer, greenUvs).g;
+    float blue = texture2D(inputBuffer, blueUvs).b;
+
+    // Compose the final color
+    vec4 finalImage = vec4(red, green, blue, 1.0);
+
+    // Optionally, add a subtle brightness effect based on the displacement
+    // outputColor = finalImage + vec4(displacement.r * 0.1);
+
+        outputColor = finalImage;
+        // outputColor = displacement;
 
 }
