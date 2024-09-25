@@ -64,25 +64,30 @@ export class GsapAnimations {
               },
 
               onEnter: self =>{
+                if (this.context.sceneInstance.backgroundMaterial) {
 
                 this.context.sceneInstance.backgroundMaterial.uniforms.u_chainTrigger.value = 1
 
-                
+                }
 
               },
 
               onLeave: self =>{
 
-                this.context.sceneInstance.backgroundMaterial.uniforms.u_chainTrigger.value = 0
+                if (this.context.sceneInstance.backgroundMaterial) {
 
+                this.context.sceneInstance.backgroundMaterial.uniforms.u_chainTrigger.value = 0
+                }
                 
 
               },
 
               onEnterBack: self =>{
+                if (this.context.sceneInstance.backgroundMaterial) {
+
 
                 this.context.sceneInstance.backgroundMaterial.uniforms.u_chainTrigger.value = 1
-
+                }
 
               },
 
