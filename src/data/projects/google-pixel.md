@@ -23,15 +23,13 @@ square_image:
   square_image_media: /images/uploads/google-pixel-1x1.webp
   alt_text: null
 stats_module:
-  section_1:
-    header: social post engagements
-    content: 18.9M
-  section_2:
-    header: music streams
-    content: 5m+
-  section_3:
-    header: video views
-    content: 89M+
+  stats:
+    - header: social post engagements
+      content: 18.9M
+    - header: music streams
+      content: 5m+
+    - header: video views
+      content: 89M+
   stats_hero_image:
     image: /images/uploads/google-pixel-image4.webp
     alt_text: null

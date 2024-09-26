@@ -20,15 +20,13 @@ square_image:
   square_image_media: /images/uploads/mixed-and-mastered-1x1.webp
   alt_text: null
 stats_module:
-  section_1:
-    header: ORGANIC REACH
-    content: 17M+
-  section_2:
-    header: MUSIC STREAMS
-    content: 10M+
-  section_3:
-    header: SOCIAL POST ENGAGEMENT
-    content: 5.30%
+  stats:
+    - header: ORGANIC REACH
+      content: 17M+
+    - header: MUSIC STREAMS
+      content: 10M+
+    - header: SOCIAL POST ENGAGEMENT
+      content: 5.30%
   stats_hero_image:
     image: /images/uploads/mixed-and-mastered-image4.webp
     alt_text: qdwdewdwed

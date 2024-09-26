@@ -30,11 +30,9 @@ interface Frontmatter {
     detailed_quote_content_auth: string;
   };
   stats_module?: {
-    section_1: { header: string; content: string };
-    section_2: { header: string; content: string };
-    section_3: { header: string; content: string };
-    stats_hero_image: { image: string; alt_text: string;image_css: string; };
-    additional_section: { header: string; content: string; image: string; alt_text: string;image_css: string; };
+    stats: Array<{ header: string; content: string }>; // Dynamic stats sections as an array
+    stats_hero_image: { image: string; alt_text: string; image_css: string };
+    additional_section: { header: string; content: string; image: string; alt_text: string; image_css: string };
   };
   details_module?: {
     main_section: { header: string; content: string; image: string; alt_text: string;image_css: string; };
@@ -304,13 +302,14 @@ sm:flex
           </div>
         </div>
         <div class="sm:w-[35vw] flex flex-col justify-center p-8 pb-32 sm:p-0 sm:pb-0" data-animation-stats>
-          <!-- {['section_1', 'section_2', 'section_3'].map(section => (
+          {frontmatter.stats_module?.stats?.map((section, index) => (
             <div class="sm:pl-12">
-              <p class="stripe-label text-massblue">{frontmatter.stats_module?.[section].header}</p>
-              <h5 class="project-header text-massblue">{frontmatter.stats_module?.[section].content}</h5>
+              <p class="stripe-label text-massblue">{section.header}</p>
+              <h5 class="project-header text-massblue">{section.content}</h5>
             </div>
-          ))} -->
+          ))}
         </div>
+        
       </section>
     </div>
   </div>

@@ -9,7 +9,7 @@ interface MediaAsset {
 }
 
 interface Project {
-  id: string;
+  slug: string;
   media?: string;
 }
 
@@ -40,7 +40,7 @@ export function gatherMediaFromSections(allData: any[]): MediaAsset[] {
 
             
             if (project.media) {
-              mediaAssets.push({src: project.media, cssClass: 'default-class', bgType:'1', sectionId: project.id  });
+              mediaAssets.push({src: project.media, cssClass: 'default-class', bgType:'1', sectionId: project.slug  });
             } 
           });
         }

@@ -34,15 +34,13 @@ square_image:
   square_image_media: /images/uploads/hip-hop-50-live-1x1.webp
   alt_text: test
 stats_module:
-  section_1:
-    header: Total Attendees
-    content: 42K+
-  section_2:
-    header: press
-    content: 7.2B
-  section_3:
-    header: Livestream
-    content: 1.9M
+  stats:
+    - header: Total Attendees
+      content: 42K+
+    - header: press
+      content: 7.2B
+    - header: Livestream
+      content: 1.9M
   stats_hero_image:
     image: /images/uploads/hip-hop-50-live-image4.webp
     alt_text: test

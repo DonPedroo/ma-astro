@@ -24,15 +24,11 @@ square_image:
   square_image_media: /images/uploads/fotografiska-1x1.webp
   alt_text: de33d3
 stats_module:
-  section_1:
-    header: Photographers
-    content: 200+
-  section_2:
-    header: Attendees
-    content: 60K
-  section_3:
-    header: ""
-    content: ""
+  stats:
+    - header: Photographers
+      content: 200+
+    - header: Attendees
+      content: 60K
   stats_hero_image:
     image: /images/uploads/fotografiska-image4.webp
     alt_text: wewer
