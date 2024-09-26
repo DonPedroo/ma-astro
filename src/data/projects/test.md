@@ -2,7 +2,7 @@
 id: "{{slug}}"
 title: New Test Project
 seo_title: test project
-slug: test-page
+slug: page-test
 description: this is a test project added in cms
 seo_description: test project
 seo_keywords: test project
@@ -14,7 +14,7 @@ detailed_quote:
   detailed_quote_content: quote
   detailed_quote_content_auth: auth
 square_image:
-  square_image_media: /images/uploads/fotografiska-1x1.webp
+  square_image_media: /images/uploads/globe.mp4
 details_module:
   main_section:
     header: test
