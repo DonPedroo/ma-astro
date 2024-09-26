@@ -37,6 +37,8 @@ export function gatherMediaFromSections(allData: any[]): MediaAsset[] {
         
           section.projects.forEach((project: Project) => {
 
+            console.log(project)
+
             
             if (project.media) {
               mediaAssets.push({src: project.media, cssClass: 'default-class', bgType:'1', sectionId: project.id  });

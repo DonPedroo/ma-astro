@@ -107,7 +107,7 @@ collections:
     # slug: "{{slug}}"
     slug: "{{fields.slug}}"  
     fields:
-      - { label: "ID", name: "id", widget: "hidden", default: "{{slug}}" }
+      - { label: "ID", name: "id", widget: "hidden", default: "{{fields.slug}}" }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "SEO Title", name: "seo_title", widget: "string" }
       - { label: "Slug", name: "slug", widget: "string", hint: "This will be used for the URL filename." }  
@@ -177,21 +177,10 @@ collections:
         name: "stats_module"
         widget: "object"
         fields:
-          - label: "Section 1"
-            name: "section_1"
-            widget: "object"
-            fields:
-              - { label: "Header", name: "header", widget: "string", required: false }
-              - { label: "Content", name: "content", widget: "string", required: false }
-          - label: "Section 2"
-            name: "section_2"
-            widget: "object"
-            fields:
-              - { label: "Header", name: "header", widget: "string", required: false }
-              - { label: "Content", name: "content", widget: "string", required: false }
-          - label: "Section 3"
-            name: "section_3"
-            widget: "object"
+          - label: "Stats"
+            name: "stats"
+            widget: "list"
+            hint: "Up to 3 Stats"
             fields:
               - { label: "Header", name: "header", widget: "string", required: false }
               - { label: "Content", name: "content", widget: "string", required: false }

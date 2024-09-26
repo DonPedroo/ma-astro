@@ -23,12 +23,6 @@ details_module:
     - image: /images/uploads/fotografiska-image-paralax-1.webp
     - image: /images/uploads/mixed-and-mastered-image-paralax-1.webp
 stats_module:
-  section_1:
-    header: clicks
-    content: "10"
-  section_2:
-    header: views
-    content: "1"
   stats_hero_image:
     image: /images/uploads/marlboro-gallery-12.webp
   additional_section:
