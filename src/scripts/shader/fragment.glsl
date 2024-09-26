@@ -44,16 +44,13 @@ vec4 grungeMask;
 
         
         t1 = texture2D(u_current.texture, mirrored(fract(readyUV*2.4)));
-                // t1 = texture2D(u_grunge, mirrored(readyUV));
-
-                grungeMask = mix(vec4(1.0),vec4(0.,0.,0.,1.), step( vUv.y,u_progress));
+        grungeMask = mix(vec4(1.0),vec4(0.,0.,0.,1.), step( vUv.y,u_progress));
 
     }
     
      else {
 
         t1 = texture2D(u_current.texture, mirrored(readyUV));
-
         t1 = mix(t1,darkOverlayColor,.25);
 
 
@@ -66,14 +63,13 @@ vec4 grungeMask;
     }
     else if (u_next.type == 3) { 
         t2 = texture2D(u_next.texture, mirrored(fract(readyUV*2.4)));
-                // t2 = texture2D(u_grunge, mirrored(readyUV));
-                grungeMask = mix(vec4(0.,0.,0.,1.),vec4(1.0), step( vUv.y,u_progress));
+        grungeMask = mix(vec4(0.,0.,0.,1.),vec4(1.0), step( vUv.y,u_progress));
 
     }
      else {
 
         t2 = texture2D(u_next.texture, mirrored(readyUV));
-                t2 = mix(t2,darkOverlayColor,.25);
+        t2 = mix(t2,darkOverlayColor,.25);
 
     }
 

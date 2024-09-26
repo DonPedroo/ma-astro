@@ -34,16 +34,21 @@ export function gatherMediaFromSections(allData: any[]): MediaAsset[] {
 
         // Special case: Handle projects section which contains multiple projects
         if (section.id === 'work' && section.projects) {
-        
           section.projects.forEach((project: Project) => {
-
-
-            
             if (project.media) {
-              mediaAssets.push({src: project.media, cssClass: 'default-class', bgType:'1', sectionId: project.slug  });
-            } 
+              const isMp4 = project.media.toLowerCase().endsWith('.mp4');
+              const bgType = isMp4 ? '1' : '2'; // Set bgType to '1' for mp4, '2' for others
+        
+              mediaAssets.push({
+                src: project.media,
+                cssClass: 'default-class',
+                bgType: bgType,
+                sectionId: project.slug
+              });
+            }
           });
         }
+        
     
   });
 

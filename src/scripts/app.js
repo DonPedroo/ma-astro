@@ -25,13 +25,13 @@ class App {
 
           this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-          //   if (!this.isMobile) {
-          //     const gpuInfo = getGPUInfo();
+            if (!this.isMobile) {
+              const gpuInfo = getGPUInfo();
         
-          //     if (gpuInfo) {
-          //       this.gl = true;
-          //     }
-          // }
+              if (gpuInfo) {
+                this.gl = true;
+              }
+          }
 
           this.backgrounds = createBackgroundsArray(this.gl);
           console.log("backgrounds",this.backgrounds)
