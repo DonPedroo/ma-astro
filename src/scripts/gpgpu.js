@@ -6,7 +6,7 @@ export class ThreeGPGPU {
     constructor(context, renderer) {
       this.context = context
       this.renderer = renderer
-      this.size = Math.ceil(this.context.width)
+      this.size = Math.ceil(this.context.width/8)
 
       this.createGPGPURenderer()
       this.createDataTexture()
