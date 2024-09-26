@@ -23,6 +23,7 @@ export class CustomEffect extends Effect {
 
 			blendFunction: BlendFunction.Normal,
 			uniforms: new Map([
+
         ["u_mouseDir", new Uniform(new Vector2(0,0) )],
         ["u_tex", new Uniform(0.0)],
 			])
@@ -234,6 +235,8 @@ killDetailed() {
     this.backgroundGeometry = new PlaneGeometry(1, 1, 1, 1);
     this.backgroundPlane = new Mesh(this.backgroundGeometry, this.backgroundMaterial);
     this.scene.add(this.backgroundPlane);
+
+    
 
     
 }

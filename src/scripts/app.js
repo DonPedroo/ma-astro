@@ -12,27 +12,37 @@ import { touchBackgrounds } from './touchBackgrounds.js'; // Adjust the path as 
 
 
 
-import { getGPUInfo } from './gpuInfo'; 
+import { isGPUSupported } from './gpuInfo'; 
 
 class App {
   constructor() {
     this.startPage = null
     this.isMobile = false;
+    this.isIpad = false;
     this.gl = false
     this.once = false
 
           this.isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-            if (!this.isMobile) {
-              const gpuInfo = getGPUInfo();
-        
-              if (gpuInfo) {
-                this.gl = true;
-              }
+          this.isIpad = /iPad|Macintosh/.test(navigator.userAgent) && 'ontouchend' in document;
+          
+          const gpuKeywords = ['NVIDIA', 'AMD', 'M1', 'M2', 'M3'];
+          
+          if (!this.isMobile) {
+            // Only check GPU support if not on a mobile device
+            if (isGPUSupported(gpuKeywords)) {
+              console.log('Supported GPU detected.');
+              this.gl = true;
+            } else {
+              console.log('No supported GPU found.');
+              this.gl = false;
+            }
+          } else {
+            // Skip GPU support check on mobile devices
+            console.log('Mobile device detected. Skipping GPU support check.');
+            this.gl = false; // Or set this.gl based on your application's needs
           }
 
           this.backgrounds = createBackgroundsArray(this.gl);
-          console.log("backgrounds",this.backgrounds)
           preloadMedia(this.backgrounds);
 
         
@@ -147,24 +157,21 @@ async handleHomeAfterEnter(data) {
   this.cleanUpHorizontalScroll();
 
 
-  if (this.isMobile) {
+  if (this.isMobile && !this.isIpad) {
     if (!this.navTouch) {
       const { MenuHandlerTouch } = await import('./navTouch');
       this.navTouch = new MenuHandlerTouch(); 
       this.navTouch.init();
     }
-  } else {
-    // console.log("<<<<<<")
+  } else if (!this.isMobile || this.isIpad) {
     if (!this.nav) {
-      // console.log("<<<<<<")
-
       const { MenuHandler } = await import('./nav');
       this.nav = new MenuHandler(); 
       this.nav.init();
     }
-
-
   }
+
+  
   this.scrollManager.smoother.scrollTop(0);
   this.finalizeHomeTransition(data);
 }

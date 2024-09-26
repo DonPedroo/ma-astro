@@ -1,4 +1,3 @@
-// src/scripts/gsapAnimations.js
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { toggleVisibility } from './toggleVisibility.js';
@@ -8,11 +7,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 export class GsapAnimations {
   constructor(context) {
-    this.ctx = null; // Initialize the gsapContext
+    this.ctx = null; 
     this.context = context
     toggleVisibility("[data-arrow-down]", { show: true,delay: 2 });   
-
-
   }
 
   init() {
@@ -26,8 +23,6 @@ export class GsapAnimations {
           start: "top top",
           end: "bottom top",
           fastScrollEnd: true,
-          // markers: true, // You can remove this in production
-          // scrub: true, // Smoothly scrubs the animation as you scroll
           onUpdate: self => this.handleUpdate({ ...this.context, progress: self.progress, end: self.end, start: self.start,index }),
           onLeave: () => this.handleLeave({ ...this.context, index }), 
           onEnterBack: () => this.handleEnterBack({ ...this.context, index })
@@ -135,12 +130,6 @@ export class GsapAnimations {
     const { progress, height, end, start, index } = context;
 
 
- 
-    
-
-    // console.log("background array >>>>>",this.context.sceneInstance.backgroundMaterial.uniforms.u_progress)
-
-    // if (!this.context.gl) return;
 
     let currentBgdom = this.context.backgrounds[index].section;
 
@@ -178,8 +167,8 @@ export class GsapAnimations {
       }
   }
     }
-    // console.log('progress', p);
 
+    
 
 
 
@@ -205,7 +194,7 @@ export class GsapAnimations {
   }
 
   this.adjustVideoPlayback({ index, backgrounds, direction: 'down' });
-if (this.context.gl) {
+if (this.context.gl && this.context.sceneInstance) {
   this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = 0;
 }
   
@@ -236,7 +225,7 @@ if (this.context.gl) {
 
   this.adjustVideoPlayback({ index, backgrounds, direction: 'up' });
 
-  if (this.context.gl) {
+  if (this.context.gl &&  this.context.sceneInstance) {
     this.context.sceneInstance.backgroundMaterial.uniforms.u_progress.value = 1;
 }
   this.updateBackground( index, index + 1);
@@ -295,14 +284,6 @@ if (this.context.gl) {
 pauseVideo(element) {
   if (!element.paused) {
     element.pause();
-    // console.log("pauseVideo element", element);
-    
-    // Check again after pausing to ensure the video is paused
-    // if (element.paused) {
-    //   console.log("The video is now paused.");
-    // } else {
-    //   console.log("Failed to pause the video.");
-    // }
   } else {
     // console.log("The video is already paused.");
   }
@@ -350,17 +331,14 @@ pauseVideo(element) {
 
   
   if (!this.context.gl) return;
+  if (!this.context.sceneInstance) return;
 
   nextIndex = Math.min(nextIndex, this.context.sceneInstance.backgrounds.length - 1);
   let currentBg = this.context.backgrounds[currentIndex];
   let nextBg = this.context.backgrounds[nextIndex];
 
-
-  // console.log("currentBg",currentBg,"nextBg",nextBg);
-
-    // Verify currentBg and nextBg exist before attempting to access their properties
     if (!currentBg || !nextBg) {
-      // console.error("Background for current or next index not found.");
+
       return; // Exit the function to avoid further errors
   }
   
@@ -376,26 +354,6 @@ pauseVideo(element) {
       texture: nextBg.gl.texture,
   };
 
-
-  // if (this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value.texture) {
-
-  //   // console.log("u_current",this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value.texture.name);
-
-  // } else {
-
-  //   // console.log("u_current",this.context.sceneInstance.backgroundMaterial.uniforms.u_current.value);
-
-  // }
-
-  // if (this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value.texture) {
-
-  //   // console.log("u_next",this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value.texture.name);
-
-  // } else {
-
-  //   // console.log("u_next",this.context.sceneInstance.backgroundMaterial.uniforms.u_next.value);
-
-  // }
 
 
 
