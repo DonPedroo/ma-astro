@@ -1,8 +1,14 @@
 ---
 title: Home Page
 seo_title: Mass Appeal Media, Inc.
-seo_description: Mass Appeal Media is a creative agency and digital platform producing hip hop culture, music, and urban stories through documentaries, music, and unique partnerships.
-seo_keywords: Hip Hop Culture, Urban Alternative Media, Music Label, Creative Agency, Nas Music Label, Documentary Series, Music Production, Digital Media Marketing, Hip Hop Artists, Street Culture, Creative Partnerships, Youth Culture, Premium Programming, Skateboarding Culture, Artist Collaborations, Indie Music Label
+seo_description: Mass Appeal Media is a creative agency and digital platform
+  producing hip hop culture, music, and urban stories through documentaries,
+  music, and unique partnerships.
+seo_keywords: Hip Hop Culture, Urban Alternative Media, Music Label, Creative
+  Agency, Nas Music Label, Documentary Series, Music Production, Digital Media
+  Marketing, Hip Hop Artists, Street Culture, Creative Partnerships, Youth
+  Culture, Premium Programming, Skateboarding Culture, Artist Collaborations,
+  Indie Music Label
 introduction:
   id: introduction
   introField1: THE ELEVATED VOICE OF HIP HOP
@@ -203,6 +209,7 @@ projects:
     - Mixed & mastered
     - represents
     - "HIP HOP: CONSCIOUS / UNCONSCIOUS"
+    - New Test Project
 footer:
   id: connect
   media: /images/uploads/footer.mp4
