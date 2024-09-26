@@ -33,4 +33,8 @@ stats_module:
       content: "10"
     - header: views
       content: "80"
+    - header: views
+      content: "80"
+    - header: views
+      content: "80"
 ---

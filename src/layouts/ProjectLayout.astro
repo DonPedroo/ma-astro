@@ -73,13 +73,13 @@ function getLogoContainerClass(logosCount: number): string {
       containerClass = "horizontal-slider-logos grid grid-cols-2 gap-0 mx-6 horizontal-slider-logos-4";
       break;
     case 5:
-      containerClass = "horizontal-slider-logos grid grid-cols-3 gap-4 mx-6 horizontal-slider-logos-5";
+      containerClass = "horizontal-slider-logos grid grid-cols-2 gap-0 mx-6 horizontal-slider-logos-8";
       break;
     case 6:
-      containerClass = "horizontal-slider-logos grid grid-cols-3 gap-4 mx-6 horizontal-slider-logos-6";
+      containerClass = "horizontal-slider-logos grid grid-cols-2 gap-0 mx-6 horizontal-slider-logos-8";
       break;
     case 7:
-      containerClass = "horizontal-slider-logos grid grid-cols-4 gap-4 mx-6 horizontal-slider-logos-7";
+      containerClass = "horizontal-slider-logos grid grid-cols-2 gap-0 mx-6 horizontal-slider-logos-8";
       break;
     case 8:
       containerClass = "horizontal-slider-logos grid grid-cols-2 gap-0 mx-6 horizontal-slider-logos-8";
@@ -90,7 +90,7 @@ function getLogoContainerClass(logosCount: number): string {
   return containerClass;
 }
 
-const logoContainerClass = getLogoContainerClass(frontmatter.logos?.length || 0);
+const logoContainerClass = getLogoContainerClass(Math.min(frontmatter.logos?.length || 0, 8));
 
 
 // Load all projects as you did on the index page
@@ -152,14 +152,15 @@ const mediaAssets = gatherMediaFromSections(allData);
         <div class="sm:w-[50vw] h-[55vh] sm:h-auto flex flex-col justify-center">
           {frontmatter.logos && (
             <div class={logoContainerClass} horizontal-slider-logos>
-              {frontmatter.logos.map((logo) => (
+              {frontmatter.logos.slice(0, 8).map((logo) => (
                 <div data-horizontal-logos class="opacity-0">
-                  <img src={logo.detailed_logos} alt={logo.alt_text} class="logo-item" />
+                  <img src={logo.detailed_logos} alt={logo.alt_text} class="logo-item aspect-square" />
                 </div>
               ))}
             </div>
           )}
         </div>
+        
         <div class="sm:w-[50vw] px-6 py-16 lg:p-8 xl:p-16 2xl:p-32 flex flex-col justify-center" data-quote-container data-slider-gl data-param="reveal" data-type="color" data-bg="#EAEAEA">
           <div class="flex flex-row items-start space-x-3 sm:space-x-6 w-full" data-animation-quote>
             <img src="/images/quote.svg" class=" w-[20px] sm:w-[30px] xl:w-[40px] 2xl:w-[50px] opacity-0" alt="Quote">
@@ -241,6 +242,7 @@ const mediaAssets = gatherMediaFromSections(allData);
           <div class="
             flex 
   flex-col 
+  w-full
   sm:h-[100vh] 
   p-8
   lg:p-8 

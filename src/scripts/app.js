@@ -4,9 +4,7 @@ import { WhatWeDoTrigger } from "./whatwedo";
 import barba from '@barba/core';
 import { QuoteAnimations } from './Quotes'; 
 import { AnimationHome } from './AnimationManagerHome';
-// import { horizontalScroll } from './horizontalScroll.js'
 import { toggleVisibility } from './toggleVisibility.js';
-import { useTextAnimation } from './AnimationText'; 
 import { preloadMedia } from './preloader';
 
 import { createBackgroundsArray } from './backgroundManager.js'; // Adjust the path as necessary
@@ -608,7 +606,7 @@ saveHomeMedia(projectName) {
 
   if (this.isMobile) {
 
-  const media = document.querySelector(`#${projectName} video`) || document.querySelector(`#${projectName} img`);
+  const media = document.querySelector(`#${projectName}>video`) || document.querySelector(`#${projectName}>img`);
 
   if (media) {
     document.querySelector('#persistent-container').appendChild(media);
