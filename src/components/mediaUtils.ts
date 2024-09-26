@@ -37,7 +37,6 @@ export function gatherMediaFromSections(allData: any[]): MediaAsset[] {
         
           section.projects.forEach((project: Project) => {
 
-            console.log(project)
 
             
             if (project.media) {
