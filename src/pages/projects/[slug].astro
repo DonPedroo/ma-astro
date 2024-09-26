@@ -2,24 +2,38 @@
 import type { MarkdownInstance } from 'astro';
 import ProjectLayout from '../../layouts/ProjectLayout.astro';
 
+// Define the structure of your frontmatter
+interface ProjectFrontmatter {
+  title: string;
+  date: string;
+  description: string;
+  slug: string;
+  // Add any other fields that are part of your frontmatter
+}
+
+// Define the Markdown instance with frontmatter
+type ProjectInstance = MarkdownInstance<ProjectFrontmatter>;
+
 // Function to generate paths for all projects
 export async function getStaticPaths() {
   // Load all markdown files from the projects directory
-  const allProjects = import.meta.glob('../../data/projects/*.md', { eager: true });
+  const allProjects = import.meta.glob<ProjectInstance>('../../data/projects/*.md', { eager: true });
 
-  const paths = Object.keys(allProjects).map((path) => {
-    const slug = path.split('/').pop()?.replace('.md', '');
-    return { params: { slug } };
+  // Create an array of paths based on the slugs from frontmatter
+  const paths = Object.values(allProjects).map((project: ProjectInstance) => {
+    return { params: { slug: project.frontmatter.slug } };
   });
 
-  return paths;
+  // Return the paths array directly
+  return paths; // Ensure it's an array
 }
 
 // Extract the slug from the URL
 const { slug } = Astro.params;
-const projectPath = `../../data/projects/${slug}.md`;
-const allProjects = import.meta.glob('../../data/projects/*.md', { eager: true });
-const project = allProjects[projectPath] as MarkdownInstance<{ title: string; date: string; description: string; }> | undefined;
+const allProjects = import.meta.glob<ProjectInstance>('../../data/projects/*.md', { eager: true });
+
+// Find the project that matches the slug in frontmatter
+const project = Object.values(allProjects).find((project: ProjectInstance) => project.frontmatter.slug === slug);
 
 if (!project) {
   throw new Error(`Project not found: ${slug}`);
@@ -27,7 +41,7 @@ if (!project) {
 
 const { frontmatter, default: Content } = project;
 
-const isHomePage = false; 
+const isHomePage = false;
 ---
 
 <ProjectLayout frontmatter={frontmatter} Content={Content} isHomePage={isHomePage} />
