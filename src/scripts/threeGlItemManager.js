@@ -1,5 +1,5 @@
 // src/scripts/threeScene.js
-import { Scene, PerspectiveCamera, WebGLRenderer, Mesh,PlaneGeometry,ShaderMaterial,Vector4,Color,LinearSRGBColorSpace,TextureLoader,LinearFilter,Uniform,Clock,Vector2,Vector3 } from 'three';
+import { Mesh,PlaneGeometry,ShaderMaterial,Color,TextureLoader,Vector2,Vector3,VideoTexture } from 'three';
 import fragment from "./shader/fragmentItem.glsl";
 import vertex from "./shader/vertexItem.glsl";
 import Item from './threeGlItem.js'; 
@@ -55,40 +55,78 @@ export class ThreeGlItemManager {
 
       material.uniforms.u_type.value = (o.type === 'image' || o.type === 'video') ? 1 : (o.type === 'bg-image' ? 2 : 0);
 
-
       if (o.type === 'image' || o.type === 'bg-image') {
-        let loader = new TextureLoader();
-        loader.load(o.background, function(texture) {
-          material.uniforms.u_texture.value = texture;
-          material.needsUpdate = true;
-          material.uniforms.u_textureResolution.value = new Vector2(texture.image.width, texture.image.height);
-          material.uniforms.u_resolution.value = new Vector2(o.width, o.height);
-      }.bind(this));
-      } else if (o.type === 'video') {
-        let video = document.createElement('video');
-        video.src = o.background;
-        video.loop = true;
-        video.muted = true;
-        video.load(); 
-        video.setAttribute('playsinline', '');
-        video.setAttribute('muted', '');
-        video.setAttribute('preload', 'auto');
-        video.pause();
-        video.classList.add('hidden');
-        document.body.appendChild(video);
-    
-        let videoTexture = new VideoTexture(video);
-        material.uniforms.u_texture.value = videoTexture;
+        // Check if the background is a video by checking the file extension
+        if (o.background.endsWith('.mp4')) {
+          // Load as video texture
+          let video = document.createElement('video');
+          video.src = o.background;
+          video.loop = true;
+          video.muted = true;
+          video.load(); 
+          video.setAttribute('playsinline', '');
+          video.setAttribute('muted', '');
+          video.setAttribute('preload', 'auto');
+          video.play();
+          video.classList.add('hidden');
+          document.body.appendChild(video);
+        
+          let videoTexture = new VideoTexture(video);
+          material.uniforms.u_texture.value = videoTexture;
+        } else {
+          // Load as image texture
+          let loader = new TextureLoader();
+          loader.load(o.background, function(texture) {
+            material.uniforms.u_texture.value = texture;
+            material.needsUpdate = true;
+            material.uniforms.u_textureResolution.value = new Vector2(texture.image.width, texture.image.height);
+            material.uniforms.u_resolution.value = new Vector2(o.width, o.height);
+          }.bind(this));
+        }
       } else if (o.type === 'color') {
         // If type is color, set color value
         let color = new Color(o.background);
         material.uniforms.u_color.value = new Vector3(color.r, color.g, color.b);
         if (o.flag === 'reveal') {
-
-          material.uniforms.u_reveal.value = 1
+          material.uniforms.u_reveal.value = 1;
           material.transparent = true;
         }
       }
+
+      
+      // if (o.type === 'image' || o.type === 'bg-image') {
+      //   let loader = new TextureLoader();
+      //   loader.load(o.background, function(texture) {
+      //     material.uniforms.u_texture.value = texture;
+      //     material.needsUpdate = true;
+      //     material.uniforms.u_textureResolution.value = new Vector2(texture.image.width, texture.image.height);
+      //     material.uniforms.u_resolution.value = new Vector2(o.width, o.height);
+      // }.bind(this));
+      // } else if (o.type === 'video') {
+      //   let video = document.createElement('video');
+      //   video.src = o.background;
+      //   video.loop = true;
+      //   video.muted = true;
+      //   video.load(); 
+      //   video.setAttribute('playsinline', '');
+      //   video.setAttribute('muted', '');
+      //   video.setAttribute('preload', 'auto');
+      //   video.pause();
+      //   video.classList.add('hidden');
+      //   document.body.appendChild(video);
+    
+      //   let videoTexture = new VideoTexture(video);
+      //   material.uniforms.u_texture.value = videoTexture;
+      // } else if (o.type === 'color') {
+      //   // If type is color, set color value
+      //   let color = new Color(o.background);
+      //   material.uniforms.u_color.value = new Vector3(color.r, color.g, color.b);
+      //   if (o.flag === 'reveal') {
+
+      //     material.uniforms.u_reveal.value = 1
+      //     material.transparent = true;
+      //   }
+      // }
   
       let mesh = new Mesh(this.geometry, material);
       mesh.scale.x = (o.width/window.innerWidth)*(window.innerWidth/window.innerHeight);

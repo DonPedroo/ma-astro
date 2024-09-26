@@ -82,8 +82,14 @@ export class TouchScroll {
       
       if (bgValue === 'image') {
         const img = element.querySelector("img");
+        const video = element.querySelector("video");
+    
         if (img) {
           img.classList.remove('opacity-0');
+        }
+    
+        if (video) {
+          video.classList.remove('opacity-0');
         }
       }
     });

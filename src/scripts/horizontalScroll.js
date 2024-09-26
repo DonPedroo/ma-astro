@@ -52,20 +52,7 @@ export class horizontalScroll {
 
     this.scrollDistance = totalWidth - this.target.clientWidth;
 
-    // const section = this.sections[2]; // Assuming 'this.sections' is a NodeList or array
-
-    // if (section) {
-    //   // Get the direct child elements of section 3
-    //   const childElements = Array.from(section.children);
-  
-    //   // Log the width of each child element in section 3
-    //   childElements.forEach((child, i) => {
-    //     const childWidth = child.offsetWidth;
-    //     console.log(`Section 3, Child ${i + 1} width:`, childWidth, child);
-    //   });
-    // } else {
-    //   console.warn('Section 3 not found');
-    // }
+ 
 
   }
 
@@ -279,8 +266,14 @@ textAnimation.forEach(element => {
         
         if (bgValue === 'image') {
           const img = element.querySelector("img");
+          const video = element.querySelector("video");
+      
           if (img) {
             img.classList.remove('opacity-0');
+          }
+      
+          if (video) {
+            video.classList.remove('opacity-0');
           }
         }
       });
