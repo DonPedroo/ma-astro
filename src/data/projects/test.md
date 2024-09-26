@@ -2,7 +2,7 @@
 id: "{{slug}}"
 title: New Test Project
 seo_title: test project
-slug: test
+slug: test-page
 description: this is a test project added in cms
 seo_description: test project
 seo_keywords: test project
@@ -28,4 +28,9 @@ stats_module:
   additional_section:
     header: trrt
     content: ferfre
+  stats:
+    - header: clicks
+      content: "10"
+    - header: views
+      content: "80"
 ---
